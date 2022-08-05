@@ -1,5 +1,6 @@
-import React from 'react'
-import { FaCalendarDay } from 'react-icons/fa'
+import React from 'react';
+import { FaCalendarDay } from 'react-icons/fa';
+
 const AppSteps = () => {
     return (
         <div className='min-h-screen bg-white px-8 lg:px-[8em]'>
@@ -32,4 +33,4 @@ const AppSteps = () => {
     )
 }
 
-export default AppSteps
+export default AppSteps;

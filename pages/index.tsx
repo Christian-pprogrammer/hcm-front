@@ -1,7 +1,16 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
+import type { NextPage } from 'next';
+import Head from 'next/head';
 
-import HomePage from '../components/LandingPage/HomePage'
+import AccountSection from '../components/landingpage/AccountSection';
+import Hero from '../components/landingpage/Hero';
+import About from '../components/landingpage/About';
+import AppSteps from '../components/landingpage/AppSteps';
+import Services from '../components/landingpage/Services';
+import Reviews from '../components/landingpage/Reviews';
+import NewsSection from '../components/landingpage/NewsSection';
+import Footer from '../components/landingpage/Footer';
+import Header from '../components/landingpage/Header';
+
 const Home: NextPage = () => {
   return (
     <>
@@ -11,9 +20,21 @@ const Home: NextPage = () => {
         <link rel="icon" href="https://www.mod.gov.rw/index.php?eID=dumpFile&t=f&f=1679&token=c456432515e20118795fbbd0cce379ac2bcd0a14" />
       </Head>
 
+      <header>
+        <Header/>
+    </header>
       <main>
-        <HomePage/>
+      <Hero/>
+        <AccountSection/>
+        <About/>
+        <AppSteps/>
+        <Services/>
+        <Reviews/>
+        <NewsSection/>
       </main>
+      <footer>
+        <Footer/>
+    </footer>
 
     </>
   )
