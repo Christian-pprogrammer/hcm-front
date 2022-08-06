@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Newssection = () => {
+const NewsSection = () => {
     return (
         <div className="min-h-[60vh]  flex place-items-center bg-white  py-10 px-0 lg:px-[8em]">
             <div className='bg-backG py-20 px-20 lg:p-20 text-center gap-8 min-w-full text-white min-h-[50vh] lg:min-w-[50vw] flex flex-col'>
@@ -20,4 +20,4 @@ const Newssection = () => {
     )
 }
 
-export default Newssection
+export default NewsSection
