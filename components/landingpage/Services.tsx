@@ -16,7 +16,7 @@ const Services=()=> {
                     <p>Text message-based health interventions provide patients with reminders, education, or self-management assistance for a broad spectrum of health conditions. Interventions are most frequently used as a part of broader health promotion efforts or to help individuals manage chronic diseases1. Text messages may be standardized or tailored to specific patients and sent at varied frequencies based on the intervention2. Text messaging can be combined with other</p>
             </div>
                     <div className="grid  gap-2 lg:grid-cols-2 place-items-center  py-10 ">
-                <div className="bg-white shadow-inner drop-shadow-lg duration-500 hover:text-white hover:bg-backG group text-black p-5 min-h-[60vh] min-w-[30vw] rounded-xl hover:cursor-pointer">
+                <div className="bg-white shadow-inner drop-shadow-lg hover:scale-110 duration-300 hover:text-white hover:bg-backG group text-black p-5 min-h-[60vh] min-w-[30vw] rounded-xl hover:cursor-pointer">
                     <div className='bg-[#F3F8FF]    text-backG h-24 w-24 rounded-lg flex justify-center place-items-center'>
                         <FaDatabase/>
                     </div>
