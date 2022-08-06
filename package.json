@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve:dev": "next dev",
+    "dev": "next dev",
     "start": "next build && next start",
     "build": "next build",
     "export": "next build && next export",

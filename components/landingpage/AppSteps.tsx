@@ -21,8 +21,7 @@ const AppSteps = () => {
                         <li className='flex gap-2  md:gap-6 '><img src="/assets/star.svg" /><span className='py-3 text-[12px] md:text-[14px]'>Text message-based health interventions provide patients with reminders, education, or self-management assistance for a bbraids.</span></li>
                     </ul>
                     <div>
-                        <button className='hover:bg-white hover:border-backG hover:border-2 hover:shadow-none bg-backG hover:text-backG duration-700 text-white font-semibold p-6 flex justify-center gap-6 place-items-center shadow-backG shadow-lg px-10 rounded-full'><FaCalendarDay/> Book appointment</button>
-
+                    <button className='hover:bg-white hover:border-backG hover:border-2 hover:shadow-none bg-backG hover:text-backG duration-700 text-white font-semibold p-4 px-5 text-[12px] md:text-[16px] md:p-6 flex justify-center gap-6 place-items-center shadow-backG shadow-lg md:px-10 rounded-full'><FaCalendarDay/> Book appointment</button>
                     </div>
                 </div>
                 <div className='flex  justify-center place-items-center'>

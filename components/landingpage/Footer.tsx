@@ -6,14 +6,14 @@ const Footer = () => {
   return (
     <footer className='bg-backG  text-white py-10 min-h-[30vh] md:px-[2em]' >
         <div className='flex flex-col justify-center   text-center md:text-left md:flex-row mx-auto px-10 lg:px-0 gap-6'>
-          <div className='text-white font-bold flex gap-8 flex-col  text-[10px] lg:text-[16px]'>
+          <div className='text-white font-bold flex gap-8 flex-col text-center  text-[14px] lg:text-[16px]'>
               <h1>HCM Corp</h1>
               <ul className=' text-[#ffffffb9] font-normal flex flex-col gap-4 list-none '>
-                  <li className='flex  place-items-center gap-6'><FaIntercom/> www.hcmappointmentsystem.com</li>
-                  <li className='flex  place-items-center gap-6'><FaQuestion/> help/support</li>
+                  <li className='flex place-items-center justify-center md:justify-start gap-6'><FaIntercom/> www.hcmappointmentsystem.com</li>
+                  <li className='flex place-items-center justify-center md:justify-start gap-6'><FaQuestion/> help/support</li>
               </ul>
           </div>
-          <div className='text-white flex-1 font-bold flex gap-8 flex-col  text-[10px] lg:text-[16px]'>
+          <div className='text-white flex-1 font-bold flex gap-8 flex-col text-[14px] lg:text-[16px]'>
               <h1>Projects</h1>
               <ul className=' text-[#ffffffb9]  font-normal flex flex-col gap-4 list-none '>
                   <li className='hover:text-white duration-300'><Link href='/'>Appointment Live</Link></li>
@@ -25,7 +25,7 @@ const Footer = () => {
                   <li className='hover:text-white duration-300'><Link href='/'>Recent Projects</Link></li>
               </ul>
           </div>
-          <div className='text-white flex-1 font-bold flex gap-8 flex-col  text-[10px] lg:text-[16px]'>
+          <div className='text-white flex-1 font-bold flex gap-8 flex-col  text-[14px] lg:text-[16px]'>
               <h1>About</h1>
               <ul className=' text-[#ffffffb9]  font-normal flex flex-col gap-4 list-none '>
                   <li className='hover:text-white duration-300'><Link href='/'>About Us</Link></li>
@@ -36,7 +36,7 @@ const Footer = () => {
                   <li className='hover:text-white duration-300'><Link href='/'>Updates</Link></li>
               </ul>
           </div>
-          <div className='text-white flex-1 font-bold flex gap-8 flex-col text-[10px] lg:  lg:text-[16px]'>
+          <div className='text-white flex-1 font-bold flex gap-8 flex-col text-[14px] lg:text-[16px]'>
               <h1>Terms & Policies</h1>
               <ul className=' text-[#ffffffb9]  font-normal flex flex-col gap-4 list-none '>
                   <li className='hover:text-white duration-300'><Link href='/'>Privacy Policy </Link></li>
@@ -47,7 +47,7 @@ const Footer = () => {
                   <li className='hover:text-white duration-300'><Link href='/'>Audit Session</Link></li>
               </ul>
           </div>
-          <div className='text-white flex-1 font-bold flex gap-8 flex-col  text-[10px] lg:text-[16px]'>
+          <div className='text-white flex-1 font-bold flex gap-8 flex-col  text-[14px] lg:text-[16px]'>
               <h1>Partners</h1>
               <ul className=' text-[#ffffffb9]  font-normal flex flex-col gap-4 list-none '>
                   <li className='hover:text-white duration-300'><Link href='/'>Medical Services</Link></li>
@@ -56,7 +56,7 @@ const Footer = () => {
                   <li className='hover:text-white duration-300'><Link href='/'>Hospitals & Polyclinics</Link></li>
               </ul>
           </div>
-          <div className='text-white flex-1 font-bold flex gap-8 flex-col  text-[10px] lg:text-[16px]'>
+          <div className='text-white flex-1 font-bold flex gap-8 flex-col  text-[14px] lg:text-[16px]'>
               <h1>Apps</h1>
               <div className='flex flex-col gap-4' >
                 <button className='py-4 px-6 rounded-xl flex justify-center place-items-center gap-8  border-2 border-white'><FaAppStore/><div className='flex flex-col '><small className='text-[12px] text-[#ffffff88]'>Available On</small><span>App Store</span></div></button>
@@ -64,7 +64,7 @@ const Footer = () => {
               </div>
           </div>
           </div>
-          <div className='border-t-2 flex-col  md:flex-row  border-[#ffffffb9] my-10 flex py-2 place-items-center '>
+          <div className='border-t-2 flex-col gap-6 md:flex-row  border-[#ffffffb9] my-10 flex py-2 place-items-center '>
               <h1 className='font-bold text-white text-sm'>HCM Corp</h1>
               <p className='text-[#ffffffb9] px-20'>Appointment.rw ® is a registered Trademark of HCM Technology Limited (ACN 142 189 759)
 Copyright © 2022 HCM Technology Pty Limited (ACN 142 189 759)</p> 

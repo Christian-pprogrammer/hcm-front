@@ -2,7 +2,7 @@ import React from 'react'
 
 const  About = () => {
     return (
-        <div className="min-h-screen pt-[14em] lg:pt-[8em] bg-white px-8 lg:px-[8em]">
+        <div className="min-h-screen pt-[14em] lg:pt-[8em] bg-white px-8 lg:px-[8em]" id="about">
             <div>
                 <div className="text-backG py-10 lg:py-0 flex gap-6 ">
                     <img src="/assets/arrow.svg"  alt="" /><span>About HCM System</span>
@@ -18,7 +18,7 @@ const  About = () => {
                     Text message-based health interventions provide patients with reminders, education, or self-management assistance for a broad spectrum of health conditions. Interventions are most frequently used as a part of broader health promotion efforts or to help individuals manage chronic diseases1. Text messages may be standardized or tailored to specific patients and sent at varied frequencies based on the intervention2. Text messaging can be combined with other approaches or delivered as part of a stepped care or progressive intervention that is tailored to patients’ needs, beginning with the least intensive treatment and moving to more intensive, and often expensive, treatments as needed1. Text message software and smartphone apps can be integrated into electronic health records (EHRs) to send alerts and reminders to patients
                     </p>
                     <div>
-                    <button className='btn my-5 bg-backG text-white p-5 px-10 rounded-lg'>Learn More</button>
+                    <button className='btn my-5 bg-backG text-white p-3 px-5 text-[12px] md:text-[16px] duration-700 md:p-5 md:px-10 hover:text-backG hover:bg-white hover:border-2 hover:border-backG rounded-lg'>Learn More</button>
                     </div>
                 </div>
             </div>

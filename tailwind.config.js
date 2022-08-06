@@ -7,6 +7,9 @@ module.exports = {
     extend: {
       colors: {
         backG: "#1A73E8",
+      },
+      animation: {
+        wiggle: 'wiggle 1s ease-in-out 1',
       }
     },
   },
