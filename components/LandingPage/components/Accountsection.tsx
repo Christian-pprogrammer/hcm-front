@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import { AccountDisplayName } from '../../../PageData.types'
+import { AccountDisplayName } from '../../../utils/PageData.types'
 const Accountsection = () => {
     return (
         <div className='md:mx-auto w-full lg:w-4/5 min-h-[20vh] absolute lg:left-40 font-semibold p-5 -translate-y-[6em] lg:rounded-lg bg-white '>
