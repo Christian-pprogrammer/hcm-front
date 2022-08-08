@@ -1,11 +1,7 @@
-export const TwitterIcon = () => {
-    console.log("Twitter Icon");
-};
-
 export const MenuIcon = () => {
     return (
-        <svg className="hover:cursor-pointer" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-<rect width="45" height="45" fill="url(#pattern0)"/>
+        <svg className="hover:cursor-pointer" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+<rect width="30" height="30" fill="url(#pattern0)"/>
 <defs>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlinkHref="#image0_470_208" transform="scale(0.0111111)"/>
@@ -18,9 +14,16 @@ export const MenuIcon = () => {
 }
 export const CloseToggle = () =>{
     return (
-        <svg width="32" height="36" viewBox="0 0 32 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1 1.5L31 34.5M31 1.5L16 18L1 34.5" stroke="#1A73E8" strokeWidth="2"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+<rect width="24" height="24" fill="url(#pattern0)"/>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlinkHref="#image0_513_5" transform="scale(0.0416667)"/>
+</pattern>
+<image id="image0_513_5" width="24" height="24" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABNklEQVRIie2SMU8CQRCFv9lDJfTAYWNrAY3+ACJoo4W/hMQY/oWYmPhLbLSRQnsqKWhtvANaG2GXsZGYkOVuLWwIr9rsTN57M/Ngi42H+D73r5NXxJSc6Pm4F0+yCKrdtBIt5Anh8+O22lytG6+qSBH0uKD0q920kkVeUPqIHila9PV4BdxML4A3hXqkvBxcTWurPXEnKUfKs0IdGFljLr1m17mLO0nZ7EofaACjHRe13u/Kia82N+ZkelNJ/ySwTuTLWRtKnisAv3tWqAsMAZZvK7TzQpAr4JmEEOdLeI8cgtJcgsz9+4oyJ1iN4syYMzfTFjkRDpogK4pZEQ4SCMl5qIh3RWZPHoGGwNAJTV9a0vva1AmnP3c5tJF78HL5PlEsyCDviONePLFCG2Sg4Nb1bbHh+Aagm6Y5wKlAPAAAAABJRU5ErkJggg=="/>
+</defs>
 </svg>
+
 
     )
 }
