@@ -34,7 +34,7 @@ const Header = () => {
             <button className="btn border-solid hover:bg-backG hover:text-white duration-600 border-backG border-2 rounded-md flex justify-center  text-backG py-2 px-10 font-semibold">Login</button>
         </div>
         
-        <div className={`flex absolute right-5 top-4 md:hidden`}>
+        <div className={`flex absolute right-4 top-2 md:hidden`}>
             <button className="btn duration-600" onClick={() => setShowLinks((prevLink) => !prevLink)}>{ShowLinks ? <CloseToggle /> : <MenuIcon/> }</button>
         </div>
         </div>
