@@ -17,5 +17,14 @@ body {
   background-position: center;
   background-size: cover;
   background-blend-mode: darken;
-
+}
+.auth-image{
+  width: 100vw;
+  background: #1a73e895 url("https://media.istockphoto.com/photos/doctor-clicking-on-a-laptop-before-her-picture-id1292777576?b=1&k=20&m=1292777576&s=170667a&w=0&h=Tg1ASn3aw19DgyqjGaaWqJmPeXiDRaU1LW8c83Y5tbw=");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: darken;
+  overflow: hidden;
+  color: white;
 }
