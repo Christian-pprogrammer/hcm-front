@@ -1,10 +1,16 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { KeyIcon, LineSvg, LockIcon, PersonaIcon } from '../../icons'
+import React, { useEffect, useState } from 'react'
+import { KeyIcon, LockIcon, PersonaIcon } from '../../icons'
+import { FormLoginStructure, LoginFormData } from '../../utils/FormData'
 
 const LoginForm = () => {
     const [showPassword, setShowPasswords] = useState<Boolean>(false)
-
+    const [FormData, setFormData] = useState<FormLoginStructure>(LoginFormData)
+    const [isValid,setValid] = useState<Boolean>(true)
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        FormData.email === '' || FormData.password === '' ? setValid(false): setValid(true)    
+    }
     return (
         <div className="bg-white h-screen flex ">
             <div className="relative md:flex hidden  auth-image">
@@ -34,7 +40,7 @@ const LoginForm = () => {
                         <h1>The HCM Appointment System</h1>
                     </div>
                 </div>
-                <form className={`px-2 md:px-10 py-5`} method="post">
+                <form className={`px-2 md:px-10 py-5`} method="post" onSubmit={handleOnSubmit}>
                     <h1 className='font-bold text-xl'>Login</h1>
 
                     <div className='pt-8'>
@@ -45,9 +51,9 @@ const LoginForm = () => {
                                 <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                                     <PersonaIcon />
                                 </div>
-                                <input className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="email" placeholder="Enter your email" />
+                                <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="email" placeholder="Enter your email" />
                             </div>
-                            <small className='text-[12px]'></small>
+                            <small className={`text-[12px] ${!isValid && 'text-red-500'}`}>{!isValid ? "Please enter a valid email" : ""}</small>
                         </div>
                     </div>
                     <div>
@@ -57,12 +63,12 @@ const LoginForm = () => {
                                 <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                                     <KeyIcon />
                                 </div>
-                                <input className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder=" ***************** " />
+                                <input value={FormData.password} onChange={(e)=>setFormData({...FormData, password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder=" ***************** " />
                                 <div className='flex rounded-r-md place-items-center justify-center bg-inputG p-2'>
                                     <button type='button' onClick={() => setShowPasswords((prev) => !prev)}><LockIcon /></button>
                                 </div>
                             </div>
-                                <small className='text-[12px]'></small>
+                                <small className={`text-[12px] ${!isValid && 'text-red-500'}`}>{!isValid ? "Please enter a valid password" : ""}</small>
                         </div>
                         <div className='flex -translate-y-2 gap-4'>
                             <input type="checkbox" /><span className='text-[10px] '>Remember Password</span>
