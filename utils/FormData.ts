@@ -20,3 +20,11 @@ export const FormDummy : FormStructure = {
     district : '',
     username : ''
 }
+export interface FormLoginStructure{
+    email: string;
+    password: string;
+}
+export const LoginFormData : FormLoginStructure = {
+    email: '',
+    password : ''
+}
