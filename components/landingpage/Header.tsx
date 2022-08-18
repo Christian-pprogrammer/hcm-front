@@ -1,15 +1,14 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { CloseToggle, MenuIcon } from '../../icons'
 
 const Header = () => {
     const [ShowLinks,setShowLinks] = useState<Boolean>(false)
     const ChangeHeader = (path:string) => {
-        if(typeof window !== 'undefined'){
-            if(window.location.pathname == path){
-                console.log(window.location.pathname)
+        const router = useRouter()
+            if(router.asPath == path){
                 return "text-backG"
-            }  
         }
     }
   return (
@@ -30,9 +29,9 @@ const Header = () => {
             <li><Link className={`${ChangeHeader('/#services')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="#services">SERVICES</Link></li>
             <li><Link className={`${ChangeHeader('/appointments')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/appointments">APPOINTMENT</Link></li>
         </ul>
-        <div className={` ${ShowLinks ? 'flex flex-col gap-6 py-10 justify-center' : 'hidden'}  md:flex`}>
+        <Link href='/auth/Login' className={` ${ShowLinks ? 'flex flex-col gap-6 py-10 justify-center' : 'hidden'}  md:flex`}>
             <button className="btn border-solid hover:bg-backG hover:text-white duration-600 border-backG border-2 rounded-md flex justify-center  text-backG py-2 px-10 font-semibold">Login</button>
-        </div>
+        </Link>
         
         <div className={`flex absolute right-2 top-4 md:hidden`}>
             <button className="btn duration-600" onClick={() => setShowLinks((prevLink) => !prevLink)}>{ShowLinks ? <CloseToggle /> : <MenuIcon/> }</button>
