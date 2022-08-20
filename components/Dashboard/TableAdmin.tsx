@@ -3,14 +3,15 @@ import { FaCheck } from 'react-icons/fa'
 
 const TableAdmin = () => {
     const STATUS = 'Active'
-
     return (
         <table className='w-full table-auto '>
             <thead className=''>
+                <tr>
                 <th className='py-5 text-[#0000006c] text-sm'>Accounts</th>
                 <th className='py-5 text-[#0000006c] text-sm'>Status</th>
                 <th className='py-5 text-[#0000006c] text-sm'>Hospitals Registered</th>
                 <th className='py-5 text-[#0000006c] text-sm'>License Date</th>
+                </tr>
             </thead>
             <tbody className=''>
                 <tr className='bg-inputG hover:scale-110 hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
