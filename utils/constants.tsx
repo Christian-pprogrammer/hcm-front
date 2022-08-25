@@ -22,25 +22,25 @@ const SideBarAdmins : SideBarInterface[] = [
     id: 1,
     IconName: <FaChartPie/>,
     LinkName: "Dashboard",
-    Linkurl: "/Dash/Dashboard"
+    Linkurl: "/SuperAdmin/Dashboard"
 },
 {
     id: 2,
     IconName: <FaConnectdevelop/>,
     LinkName: "Manage Accounts",
-    Linkurl: "/Dash/ManageAccounts"
+    Linkurl: "/SuperAdmin/ManageAccounts"
 },
 {
     id: 3,
     IconName: <FaNotesMedical />,
     LinkName: "Audit Logs",
-    Linkurl: "/Dash/AuditLogs"
+    Linkurl: "/SuperAdmin/AuditLogs"
 },
 {
     id: 4,
     IconName: <FaReacteurope/>,
     LinkName: "Settings",
-    Linkurl: "/Dash/Settings"
+    Linkurl: "/SuperAdmin/Settings"
 }
 ]
 export default SideBarAdmins;
