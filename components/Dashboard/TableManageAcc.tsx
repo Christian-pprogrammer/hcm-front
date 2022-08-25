@@ -23,7 +23,7 @@ const TableManageAcc = () => {
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/Dash/Dashboard'>Manage Accounts / </Link> 
+                <FaHome /><Link href='/HCM/Dashboard'>Manage Accounts / </Link> 
         </div>
         <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
             <div className="flex px-5 place-items-center justify-between gap-6 py-5">
