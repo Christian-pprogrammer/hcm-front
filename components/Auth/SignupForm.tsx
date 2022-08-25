@@ -47,7 +47,7 @@ const SignupForm = () => {
                     <p>Copyright @ 2022 - International UN </p>
                 </div>
             </div>
-            <div className="bg-white pt-10 md:pt-5 min-w-full md:px-0 px-[4em] md:min-w-[50vw] lg:min-w-[30vw] text-black p-5">
+            <div className="bg-white pt-10 md:pt-5 min-w-full md:px-0 px-[4em] md:min-w-[50vw] lg:min-w-1/2 lg:px-20 text-black p-5">
                 <div className='flex py-5 md:py-2 flex-col justify-center gap-4 place-items-center'>
                     <div className=' flex justify-center place-items-center rounded-full bg-white'>
                         <img className='h-12 w-12  object-contain' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />

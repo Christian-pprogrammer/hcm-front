@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { KeyIcon, LockIcon, PersonaIcon } from '../../icons'
 import { FormLoginStructure, LoginFormData } from '../../utils/FormData'
 
@@ -9,10 +9,12 @@ const LoginForm = () => {
     const [FormData, setFormData] = useState<FormLoginStructure>(LoginFormData)
     const [isValid,setValid] = useState<Boolean>(true)
     const navigate = useRouter()
+    useEffect(()=>{
+        FormData.email === '' || FormData.password === '' ? setValid(false): setValid(true)    
+    },[FormData])
     const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        FormData.email === '' || FormData.password === '' ? setValid(false): setValid(true)    
-        navigate.push('/Dash/Dashboard')
+        navigate.push('/SuperAdmin/Dashboard')
     }
     return (
         <div className="bg-white h-screen flex ">
