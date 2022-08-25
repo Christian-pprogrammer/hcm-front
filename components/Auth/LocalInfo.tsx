@@ -15,7 +15,7 @@ const LocalInfo = ({FormData,setFormData } : {FormData:FormStructure , setFormDa
                         </div>
                         <input value ={FormData.province} onChange={(event)=>setFormData({...FormData,province:event.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your Tel" />
                     </div>
-                    <small className='text-[12px] text-green-600'>Optional </small>
+                    <small className='text-[12px] text-green-600'> </small>
                 </div>
             </div>
             <div className=''>
@@ -27,7 +27,7 @@ const LocalInfo = ({FormData,setFormData } : {FormData:FormStructure , setFormDa
                         </div>
                         <input value={FormData.district} onChange={(e)=>setFormData({FormData,district:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your nationality" />
                     </div>
-                    <small className='text-[12px] text-green-600'>Optional </small>
+                    <small className='text-[12px] text-green-600'> </small>
                 </div>
             </div>
             <div className=''>
@@ -40,7 +40,7 @@ const LocalInfo = ({FormData,setFormData } : {FormData:FormStructure , setFormDa
                         </div>
                         <input value={FormData.sector} onChange={(e)=>setFormData({...FormData, sector: e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your nationality" />
                     </div>
-                    <small className='text-[12px] text-green-600'>Optional </small>
+                    <small className='text-[12px] text-green-600'> </small>
                 </div>
             </div>
 

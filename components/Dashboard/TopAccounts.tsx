@@ -8,7 +8,7 @@ const TopAccounts = () => {
                         <p>The Statistics of the system are as follows including different logged in account feel free to check their recent activities </p>
                     </div>
                     <div className=' px-2'>
-                    <div className='text-center  hover:bg-backG group duration-300 hover:text-white hover:cursor-pointer w-full bg-white  rounded-lg flex py-10 md:py-8 flex-row justify-center gap-6 place-items-center'>
+                    <div className='text-center  hover:bg-inputG group duration-300  hover:cursor-pointer w-full bg-white  rounded-lg flex py-10 md:py-8 flex-row justify-center gap-6 place-items-center'>
                         <div className=' flex justify-center place-items-center rounded-full bg-white'>
                             <img className='h-12 w-12  object-contain' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
                         </div>

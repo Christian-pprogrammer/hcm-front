@@ -2,7 +2,7 @@ import React from 'react'
 
 const TopReviews = () => {
     return (
-        <div className='min-w-[20vw] relative rounded-lg border-2 h-[50vh] border-[#000000082] border-solid'>
+        <div className='min-w-[20vw] bg-white relative rounded-lg border-2 h-[50vh] border-[#000000082] border-solid'>
             <div className='p-5'>
                 <span>Reviews</span>
             </div>

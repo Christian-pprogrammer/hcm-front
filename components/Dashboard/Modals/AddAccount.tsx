@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 
-const AddAccount = ({ addAccount, onClose } : {addAccount: Boolean, onClose: any}) => {
+const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any}) => {
   const [isBrowser, setBrowser] = useState<Boolean>(false)
+  const [username,setUsername] = useState<string>('')
   useEffect(() => {
     setBrowser(true)
   }, [])
   const handleClose = () => {
-    onClose() 
+    // onClose() 
   }
   const handleSubmit = (e :any) => {
     e.preventDefault();
   }
   const ModalContent = addAccount ? (
     <div className="modal-portal bg-[#0000007d] h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
-    <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow  w-[30vw]">
+    <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow  ">
       <div className="modal-content">
         <div className="modal-header py-2 flex justify-between">
           <h5 className="modal-title font-bold text-backG">Add Account</h5>
@@ -28,7 +29,7 @@ const AddAccount = ({ addAccount, onClose } : {addAccount: Boolean, onClose: any
             <label className="block text-gray-700 text-sm font-bold">
                 Username
             </label>
-            <input className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
+            <input value={username} onChange={(e)=>setUsername(e.target.value)}  className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
             <small className='text-[12px] text-red-500'>Enter Valid info</small>
           </div>
           <div className="py-1">
@@ -60,9 +61,9 @@ const AddAccount = ({ addAccount, onClose } : {addAccount: Boolean, onClose: any
             <small className='text-[12px] text-red-500'>Enter Valid info</small>
           </div>
         </div>
-        <div className="modal-footer flex py-2  justify-between">
-          <button type="button" className="btn bg-slate-500 text-white px-10 py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>
-          <button type="button" className="btn bg-backG text-white px-10 py-3 btn-secondary" data-dismiss="modal" onClick={handleSubmit}>Save</button>
+        <div className="modal-footer flex py-2 gap-2  justify-between">
+          <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>
+          <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleSubmit}>Save</button>
         </div>
         </form>
       </div>

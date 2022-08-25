@@ -37,7 +37,7 @@ const SignupInfo = ({FormData,setFormData} : {FormData:FormStructure , setFormDa
                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                         <KeyIcon />
                     </div>
-                    <input value={FormData.password} onChange={(e) => setFormData({...FormData,email:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder=" ***************** " />
+                    <input value={FormData.password} onChange={(e) => setFormData({...FormData,password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder=" ***************** " />
                     <div className='flex rounded-r-md place-items-center justify-center bg-inputG p-2'>
                         <button type='button' onClick={() => setShowPasswords((prev) => !prev)}><LockIcon /></button>
                     </div>

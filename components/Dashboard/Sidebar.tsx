@@ -3,9 +3,16 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { FaChartPie, FaCheckSquare, FaConnectdevelop, FaReacteurope, FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
-import  SideBarAdmins from '../../utils/constants'
+import  SideBarAdmins, { DoctorAdminArr, system_users } from '../../utils/constants'
 
 const Sidebar = () => {
+    const VerifyUser= () => {
+        const userRole = 'SUPER_ADMIN'
+        if(userRole === system_users.SUPER_ADMIN){
+            return SideBarAdmins
+        }
+        return SideBarAdmins
+    }
     const ChangeHeader = (path:string) => {
         const router= useRouter()
         if(router.asPath == path){
@@ -16,7 +23,7 @@ const Sidebar = () => {
     <div className='bg-backG  bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] '>
         <DashBoardLogo/>
         <div className='flex py-5 flex-col px-2 gap-4'>
-            {SideBarAdmins.map((sidebar) => (
+            {VerifyUser().map((sidebar) => (
             <div key={sidebar.id} className={`flex text-[1.5em] rounded-lg hover:bg-[#d9d9d93a] px-10 py-5 justify-start place-items-center gap-[2em]  ${ChangeHeader(`${sidebar.Linkurl}`)}`}>
                 {sidebar.IconName}
                 <Link href={sidebar.Linkurl}><span className='cursor-pointer text-white text-[16px]'>{sidebar.LinkName}</span></Link>
