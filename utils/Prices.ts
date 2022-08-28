@@ -24,3 +24,23 @@ export const PriceArr :PriceStructure[] = [{
     serviceName: "Daily Checkup",
     servicePrice: 50.00
 }]
+export interface ServiceStructure {
+    id: number;
+    ServiceName: string;
+}
+export const ServicesArr :ServiceStructure[]=[{
+    id: 1,
+    ServiceName:"Genecologist"
+},{
+    id:2,
+    ServiceName:"Pediatry"
+},
+{
+    id:3,
+    ServiceName: "Cardiology"
+},
+{
+    id:4,
+    ServiceName: "Dermatology"
+}
+]

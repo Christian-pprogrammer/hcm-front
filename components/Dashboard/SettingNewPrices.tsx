@@ -14,7 +14,6 @@ const SettingsNewPrice = ({ showModal , onClose}: { showModal: Boolean ,onClose:
         onClose() 
     }
     const handleSubmit = (e: any) => {
-        console.log(Fee)
         e.preventDefault();
     }
     const ModalContent = showModal ? (

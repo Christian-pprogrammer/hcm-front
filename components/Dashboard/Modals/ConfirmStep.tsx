@@ -13,7 +13,7 @@ const ConfirmStep = ({ showConfirm, onClose , children } : {showConfirm: Boolean
     e.preventDefault();
   }
   const ModalContent = showConfirm ? (
-    <div className="modal-portal bg-[#0000007d] h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
+    <div className="modal-portal bg-modalG h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
     <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow  w-[30vw]">
       <div className="modal-content">
         <div className="modal-header py-10 flex justify-between">

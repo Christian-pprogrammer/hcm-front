@@ -51,31 +51,31 @@ export const GroupAdminArr : SideBarInterface[] = [
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Dashboard",
-    Linkurl:"/Dash/Dashboard"
+    Linkurl:"/GroupAdmin/Dashboard"
 },
 {
     id:2,
     IconName: <FaChartPie/>,
     LinkName: "Manage Hospitals",
-    Linkurl:"/Dash/ManageHospitals"
+    Linkurl:"/GroupAdmin/ManageHospitals"
 },
 {
     id:3,
     IconName: <FaChartPie/>,
     LinkName: "Manage Services",
-    Linkurl:"/Dash/ManageServices"
+    Linkurl:"/GroupAdmin/ManageService"
 },
 {
     id:4,
     IconName: <FaChartPie/>,
     LinkName: "Audit Logs",
-    Linkurl:"/Dash/AuditStaus"
+    Linkurl:"/GroupAdmin/AuditLogGA"
 },
 {
     id:5,
     IconName: <FaLanguage/>,
     LinkName: "Languages",
-    Linkurl:"/Dash/Languages"
+    Linkurl:"/GroupAdmin/Languages"
 }
 ]
 
@@ -85,31 +85,31 @@ export const HospitalAdminArr : SideBarInterface[] = [
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Dashboard",
-    Linkurl:"/Dash/Dashboard"
+    Linkurl:"/HospitalAdmin/Dashboard"
 },
 {
     id:2,
     IconName: <FaChartPie/>,
     LinkName: "Manage Users",
-    Linkurl:"/Dash/ManageUsers"
+    Linkurl:"/HospitalAdmin/ManageUsersHA"
 },
 {
     id:3,
     IconName: <FaChartPie/>,
     LinkName: "Manage Services",
-    Linkurl:"/Dash/ManageServices"
+    Linkurl:"/HospitalAdmin/ManageServicesHA"
 },
 {
     id:4,
     IconName: <FaChartPie/>,
     LinkName: "Audit Logs",
-    Linkurl:"/Dash/AuditStaus"
+    Linkurl:"/HospitalAdmin/AuditLogsHA"
 },
 {
     id:5,
     IconName: <FaLanguage/>,
     LinkName: "Settings",
-    Linkurl:"/Dash/Settings"
+    Linkurl:"/HospitalAdmin/Settings"
 }
 ]
 

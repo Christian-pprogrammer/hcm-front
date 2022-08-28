@@ -14,7 +14,7 @@ const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any})
     e.preventDefault();
   }
   const ModalContent = addAccount ? (
-    <div className="modal-portal bg-[#0000007d] h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
+    <div className="modal-portal bg-modalG h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
     <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow  ">
       <div className="modal-content">
         <div className="modal-header py-2 flex justify-between">

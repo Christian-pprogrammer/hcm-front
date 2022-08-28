@@ -3,15 +3,17 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { FaChartPie, FaCheckSquare, FaConnectdevelop, FaReacteurope, FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
-import  SideBarAdmins, { DoctorAdminArr, system_users } from '../../utils/constants'
+import  SideBarAdmins, { GroupAdminArr, HospitalAdminArr, system_users } from '../../utils/constants'
 
 const Sidebar = () => {
     const VerifyUser= () => {
-        const userRole = 'SUPER_ADMIN'
-        if(userRole === system_users.SUPER_ADMIN){
+        const userRole = 'HOSPITAL_ADMIN';
+        if(userRole === system_users.HOSPITAL_ADMIN){
+            return HospitalAdminArr;
+        }
+        else{
             return SideBarAdmins
         }
-        return SideBarAdmins
     }
     const ChangeHeader = (path:string) => {
         const router= useRouter()

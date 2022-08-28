@@ -17,7 +17,7 @@ const LoginForm = () => {
         navigate.push('/SuperAdmin/Dashboard')
     }
     return (
-        <div className="bg-white h-screen flex ">
+        <div className="bg-white h-screen flex-row-reverse flex ">
             <div className="relative md:flex hidden  auth-image">
                 <div className="absolute text-[12px] flex gap-4 top-0 p-5">
                     <div className=' flex justify-center place-items-center rounded-full '>
