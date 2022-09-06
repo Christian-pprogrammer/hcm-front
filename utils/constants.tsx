@@ -109,7 +109,7 @@ export const HospitalAdminArr : SideBarInterface[] = [
     id:5,
     IconName: <FaLanguage/>,
     LinkName: "Settings",
-    Linkurl:"/HospitalAdmin/Settings"
+    Linkurl:"/HospitalAdmin/SettingsPageHA"
 }
 ]
 
@@ -119,19 +119,19 @@ export const DoctorAdminArr : SideBarInterface[] = [
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Dashboard",
-    Linkurl:"/Dash/Dashboard"
+    Linkurl:"/Doctor/Dashboard"
 },
 {
     id:2,
     IconName: <FaChartPie/>,
     LinkName: "Appointments",
-    Linkurl:"/Dash/ManageUsers"
+    Linkurl: "/Doctor/ManageAppointment"
 },
 {
     id:3,
     IconName: <FaChartPie/>,
     LinkName: "Request Updates",
-    Linkurl:"/Dash/RequestUpdates"
+    Linkurl:"/Doctor/RequestUpdates"
 }
 ]
 
@@ -148,19 +148,19 @@ export const AppointmentManagerArr : SideBarInterface[] = [
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Dashboard",
-    Linkurl:"/Dash/Dashboard"
+    Linkurl:"/AppointmentManager/Dashboard"
 },
 {
     id:2,
     IconName: <FaChartPie/>,
     LinkName: "Appointments",
-    Linkurl:"/Dash/ManageUsers"
+    Linkurl:"/AppointmentManager/ManageAppointmentsFile"
 },
 {
     id:3,
     IconName: <FaChartPie/>,
     LinkName: "Request Updates",
-    Linkurl:"/Dash/RequestUpdates"
+    Linkurl:"/AppointmentManager/RequestUpdatesManager"
 }
 ]
 
@@ -170,13 +170,13 @@ export const ScheduleManagerArr : SideBarInterface[] = [
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Dashboard",
-    Linkurl:"/Dash/Dashboard"
+    Linkurl:"/ScheduleManager/Dashboard"
 },
 {
     id:2,
     IconName: <FaChartPie/>,
     LinkName: "Schedules",
-    Linkurl:"/Dash/Schedules"
+    Linkurl:"/ScheduleManager/ManageSchedules"
 }
 ]
 
@@ -185,25 +185,25 @@ export const GroupDirectorArr : SideBarInterface[] = [
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Dashboard",
-    Linkurl:"/Dash/Dashboard"
+    Linkurl:"/GroupDirector/Dashboard"
 },
 {
     id:2,
     IconName: <FaChartPie/>,
     LinkName: "Manage Hospitals",
-    Linkurl:"/Dash/ManageUsers"
+    Linkurl:"/GroupDirector/ManageHospitals"
 },
 {
     id:3,
     IconName: <FaChartPie/>,
     LinkName: "Report Overview",
-    Linkurl:"/Dash/Reportoverview"
+    Linkurl:"/GroupDirector/ReportOverview"
 },
 {
     id:4,
     IconName: <FaChartPie/>,
     LinkName: "Audit Logs",
-    Linkurl:"/Dash/AuditStaus"
+    Linkurl:"/GroupDirector/AuditLogGA"
 }]
 
 export const HospitalDirectorArr : SideBarInterface[] = [
@@ -211,23 +211,23 @@ export const HospitalDirectorArr : SideBarInterface[] = [
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Dashboard",
-    Linkurl:"/Dash/Dashboard"
+    Linkurl:"/HospitalDirector/Dashboard"
 },
 {
     id:2,
     IconName: <FaChartPie/>,
     LinkName: "Manage Users",
-    Linkurl:"/Dash/ManageUsers"
+    Linkurl:"/HospitalDirector/ManageUsersHA"
 },
 {
     id:3,
     IconName: <FaChartPie/>,
     LinkName: "Report Overview",
-    Linkurl:"/Dash/Reportoverview"
+    Linkurl:"/HospitalDirector/ReportOverviewHD"
 },
 {
     id:4,
     IconName: <FaChartPie/>,
     LinkName: "Audit Logs",
-    Linkurl:"/Dash/AuditStaus"
+    Linkurl:"/HospitalDirector/AuditLogsHA"
 }]

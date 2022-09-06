@@ -18,7 +18,7 @@ const LoginForm = () => {
     }
     return (
         <div className="bg-white h-screen flex-row-reverse flex ">
-            <div className="relative md:flex hidden  auth-image">
+            <div className="relative md:flex hidden auth-image">
                 <div className="absolute text-[12px] flex gap-4 top-0 p-5">
                     <div className=' flex justify-center place-items-center rounded-full '>
                         <img className='h-14 w-14 bg-white rounded-full p-2  object-contain' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
@@ -36,7 +36,7 @@ const LoginForm = () => {
                     <p>Copyright @ 2022 - International UN </p>
                 </div>
             </div>
-            <div className="bg-white overflow-y-auto sm:mx-auto md:min-w-[50vw] lg:min-w-1/2 lg:px-20 text-black p-5">
+            <div className="bg-white mx-auto md:min-w-[50vw] lg:min-w-1/2 lg:px-20 text-black p-5">
                 <div className='flex py-5 flex-col justify-center gap-4 place-items-center'>
                     <div className=' flex justify-center place-items-center rounded-full bg-white'>
                         <img className='h-12 w-12  object-contain' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />

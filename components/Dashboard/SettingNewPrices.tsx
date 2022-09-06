@@ -17,7 +17,7 @@ const SettingsNewPrice = ({ showModal , onClose}: { showModal: Boolean ,onClose:
         e.preventDefault();
     }
     const ModalContent = showModal ? (
-        <div className="modal-portal bg-[#0000007d] h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
+        <div className="modal-portal bg-[#0000007d] min-h-full w-full flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
             <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow  ">
                 <div className="modal-content">
 

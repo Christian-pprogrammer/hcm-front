@@ -20,7 +20,7 @@ const AuditStatus = () => {
     const STATUS = 'Active'
   return (
     <div className="px-2 bg-[#F7F7F7] ">
-        <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
+        <div className="content-link py-2 text-backG text-[12px] flex gap-4">
                 <FaHome /><Link href='/SuperAdmin/Dashboard'>Audit Status / </Link> 
         </div>
         <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">

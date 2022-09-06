@@ -1,13 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
-import { FaArrowUp, FaCheck, FaHome } from 'react-icons/fa'
-import { CheckIcon } from '../../icons'
+import { FaHome } from 'react-icons/fa'
 import Chart from './Chart'
 import RecentAppointment from './RecentAppointment'
-import TableAdmin from './TableAdmin'
 import TableGA from './TableGA'
 import TopAccounts from './TopAccounts'
-import TopReviews from './TopReviews'
 
 const ContentGroupAdmin = () => {
     return (

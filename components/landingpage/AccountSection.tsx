@@ -3,7 +3,7 @@ import React from 'react'
 import { AccountDisplayName } from '../../utils/PageData.types'
 const AccountSection = () => {
     return (
-        <div className='md:mx-auto w-full lg:w-4/5 min-h-[20vh] absolute lg:left-40 font-semibold p-5 -translate-y-[6em] lg:rounded-lg bg-white '>
+        <div className='md:mx-auto w-full lg:w-[85vw] min-h-[20vh] absolute lg:left-32 font-semibold p-5 -translate-y-[6em] lg:rounded-lg bg-white '>
             <h1>Our Trusted Partner</h1>
             <div className='md:grid-cols-2 gap-10 lg:grid-cols-4 sm:grid-cols-2 grid grid-cols-1 place-items-center py-10 sm:py-4 '>
                 {AccountDisplayName.map((account)=>(
