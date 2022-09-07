@@ -1,7 +1,9 @@
 import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import { LineSvg } from '../../../icons';
 import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
+import ConfirmRequestModal from './ConfirmRequestModal';
 import PersonalInfo from './PersonalInfo'
 import TransactionModeInfo from './TransactionModeInfo'
 
@@ -15,8 +17,11 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
     const PageDisplayForm = () => {
         if(FormPageNumber == 0){
             return <PersonalInfo />
-        }else{
-            return <TransactionModeInfo/>
+        }else if(FormPageNumber == 1){
+            return <TransactionModeInfo />
+        }
+        else{
+            return <ConfirmRequestModal/>
         }
     }
     const handleClose = () => {
@@ -37,18 +42,40 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <div className='flex py-2 justify-center place-items-center gap-6'>
+                    <div className='fixed flex justify-center  place-items-center'>
+                        <LineSvg />
+                    </div>
+                    <div className="z-20">
+                        <button className='btn hover:scale-110 duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-backG text-white font-bold' onClick={()=>setFormPageNumber(0)}>1</button>
+                    </div>
+                    <div className="z-20">
+                        <button className={`btn ${FormPageNumber >= 1 && 'bg-backG text-white'} hover:scale-110 hover:bg-backG hover:text-white duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-inputG text-backG font-bold`} onClick={()=>setFormPageNumber(1)}>2</button>
+                    </div>
+                    <div className="z-20">
+                        <button className={`btn hover:scale-110 hover:bg-backG hover:text-white duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-inputG text-backG font-bold1 ${FormPageNumber == 2 && 'bg-backG text-white'}`} onClick={()=>setFormPageNumber(2)}>3</button>
+                    </div>
+                </div>
                     <form onSubmit={handleSubmit}>
                         <div className="modal-body">
                             {PageDisplayForm()}
                         </div>
                         <div className="modal-footer flex py-2 gap-2 justify-between">
-                            {FormPageNumber == 0 ? <>
+                            {FormPageNumber == 0 && <>
                                 <button  type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
                                 <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
-                            </>:
+                            </>
+                            }
+                            {FormPageNumber === 1 &&
                             <>
                             <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
-                            <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleSubmit}>Save</button>
+                            <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
+                            </>
+                            }
+                            {FormPageNumber ==2 && 
+                            <>
+                            <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev-1)}>Previous</button>
+                            <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleSubmit}>Confirm</button>
                             </>
                             }
                         </div>

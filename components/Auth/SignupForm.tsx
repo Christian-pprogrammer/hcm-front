@@ -69,7 +69,6 @@ const SignupForm = () => {
                     <div className="z-20">
                         <button className={`btn hover:scale-110 hover:bg-backG hover:text-white duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-inputG text-backG font-bold1 ${FormPage == 2 && 'bg-backG text-white'}`} onClick={()=>setFormPage(2)}>3</button>
                     </div>
-
                 </div>
                 <div className='md:px-10 px-2 py-2 md:py-0'>
                     <h1 className='font-bold text-xl'>Sign Up</h1>

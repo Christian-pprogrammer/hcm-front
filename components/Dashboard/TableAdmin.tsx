@@ -4,7 +4,7 @@ import { FaCheck } from 'react-icons/fa'
 const TableAdmin = () => {
     const STATUS = 'Active'
     return (
-        <table className=' table-auto  '>
+        <table className='w-full table-auto'>
         <thead className=''>
             <tr>
             <th className='py-5 text-[#000000c8] text-sm'>Accounts</th>
@@ -92,6 +92,7 @@ const TableAdmin = () => {
             
         </tbody>
     </table>
+
     )
 }
 

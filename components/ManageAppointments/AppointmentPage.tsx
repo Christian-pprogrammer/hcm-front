@@ -1,21 +1,14 @@
-import Link from 'next/link'
 import React, { useState } from 'react'
-import { FaBan, FaCheck, FaHome, FaPaperPlane, FaPencilAlt, FaPlus, FaTrash, FaUserAlt } from 'react-icons/fa'
+import { FaCheck } from 'react-icons/fa';
 import RequestAppointment from './Modals/RequestAppointment';
 
+//Landing Page Appointment 
 
-
-const DashboardPatient = (): JSX.Element => {
+const AppointmentPage = () => {
     const [searchtext, setSearchText] = useState<string>('');
     const [showModal, setShowModal] = useState<Boolean>(false)
-    const [showAction, setShowActions] = useState<Boolean>(false)
     const STATUS = 'Active'
-
     return (
-        <div className="px-2 bg-[#F7F7F7]">
-            <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/HCM/Dashboard'>Manage Appointments /</Link>
-            </div>
             <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
                 <div className="flex px-5 place-items-center justify-between gap-6 py-5">
                     <div className='flex gap-10'>
@@ -48,9 +41,9 @@ const DashboardPatient = (): JSX.Element => {
                         </thead>
                         <tbody>
                             <tr className='bg-inputG hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
-                                <td className='py-2  text-center flex place-items-center  whitespace-nowrap  lg:px-5 '>
+                                <td className='py-2  text-center flex place-items-center  whitespace-nowrap justify-center lg:px-5 '>
                                     <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowModal(true)} />
-                                    <span className='text-[#00000043] pl-2 font-bold'>08.00am - 08.30am</span>
+                                    <span className='text-[#00000043] pl-2  font-bold'>08.00am - 08.30am</span>
                                 </td>
                                 <RequestAppointment showModal={showModal} onClose={() => setShowModal(false)} />
                                 <td className='py-2  whitespace-nowrap lg:px-5 text-center'>
@@ -70,8 +63,7 @@ const DashboardPatient = (): JSX.Element => {
                     </table>
                 </div>
             </div>
-        </div>
     )
 }
 
-export default DashboardPatient
+export default AppointmentPage

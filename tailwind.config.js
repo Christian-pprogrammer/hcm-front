@@ -1,6 +1,7 @@
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
+    './layouts/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
@@ -10,7 +11,7 @@ module.exports = {
         inputG : "#F3F8FF",
         linear : "#1A73E821",
         modalG : "#00000033",
-        redlinearG : "#D7434321"
+        redlinearG : "#D743432133"
       },
       animation: {
         wiggle: 'wiggle 1s ease-in-out 1',

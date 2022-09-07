@@ -139,7 +139,7 @@ export const PatientAdminArr : SideBarInterface[] = [{
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Appointments",
-    Linkurl:"/Dash/Appointments"
+    Linkurl:"/Patient/AppointmentDashboard"
 }]
 
 

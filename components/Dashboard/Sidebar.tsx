@@ -3,13 +3,13 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { FaChartPie, FaCheckSquare, FaConnectdevelop, FaReacteurope, FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
-import  SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, GroupDirectorArr, HospitalAdminArr, HospitalDirectorArr, ScheduleManagerArr, system_users } from '../../utils/constants'
+import  SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, GroupDirectorArr, HospitalAdminArr, HospitalDirectorArr, PatientAdminArr, ScheduleManagerArr, system_users } from '../../utils/constants'
 
 const Sidebar = () => {
     const VerifyUser= () => {
-    const userRole = "HOSPITAL_DIRECTOR";
-        if(userRole === system_users.HOSPITAL_DIRECTOR){
-            return HospitalDirectorArr;
+    const userRole = "PATIENT";
+        if(userRole === system_users.PATIENT){
+            return PatientAdminArr;
         }
         else{
             return SideBarAdmins

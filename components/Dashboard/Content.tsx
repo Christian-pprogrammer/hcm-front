@@ -14,7 +14,7 @@ const Content = () => {
                 <FaHome /><Link href='/HCM/Dashboard' > Dasboard/ </Link> 
             </div>
             <div className="flex  gap-2">
-                <div className="chart-data min-w-[55vw] max-h-[85vh] bg-white rounded-lg p-5 border-2 border-[#0000003]">
+                <div className="chart-data min-w-[55vw] sm:max-h-[85vh] bg-white rounded-lg py-5 px-2 lg:p-5 border-2 border-[#0000003]">
                     <div className="flex justify-between">
                     <h1 className='font-bold '>Account Statistics</h1>
                     <div className="px-2 ">
@@ -27,18 +27,18 @@ const Content = () => {
                     </div>
                     </div>
 
-                    <div className='flex gap-8 py-5'>
-                        <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 h-[15vh] lg:w-60 p-5 rounded-lg flex-col relative  bg-inputG'>
+                    <div className='flex lg:gap-8 gap-2 py-5 flex-col md:flex-row'>
+                        <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 lg:h-[15vh] text-[12px] lg:text-base lg:w-60 py-5 px-2 lg:px-5 rounded-lg flex-col relative  bg-inputG'>
                             <p>Total Account Registered </p>
                             <p className=' text-center text-xl font-bold'>02</p>
                             <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +2</span>
                         </div>
-                        <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 h-[15vh] lg:w-60 p-5 rounded-lg flex-col relative  bg-inputG'>
+                        <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 lg:h-[15vh] text-[12px] lg:text-base lg:w-60 py-5 px-2 lg:px-5 rounded-lg flex-col relative  bg-inputG'>
                             <p>Total  Registered </p>
                             <p className=' text-center text-xl font-bold'>02</p>
                             <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +2</span>
                         </div>
-                        <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 h-[15vh] lg:w-60 p-5 rounded-lg flex-col relative  bg-inputG'>
+                        <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 lg:h-[15vh] text-[12px] lg:text-base lg:w-60 py-5 px-2 lg:px-5 rounded-lg flex-col relative  bg-inputG'>
                             <p>Total Account Registered </p>
                             <p className=' text-center text-xl font-bold'>02</p>
                             <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +2</span>

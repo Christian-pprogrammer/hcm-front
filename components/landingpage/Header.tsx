@@ -24,15 +24,14 @@ const Header = () => {
         </div>
         <div className={`flex ${ShowLinks && 'flex flex-col  gap-6 justify-center'}  place-items-center justify-center  md:gap-[2em] lg:gap-[8em]`}>
         <ul className={`text-black text-[14px] font-normal ${ShowLinks ? 'flex flex-col gap-6 text-center justify-center' : 'hidden' }  md:flex gap-10`}>
-            <li><Link className={`${ChangeHeader('/')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="#">HOME</Link></li>
-            <li><Link className={`${ChangeHeader('/#about')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="#about">ABOUT US</Link></li>
-            <li><Link className={`${ChangeHeader('/#services')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="#services">SERVICES</Link></li>
-            <li><Link className={`${ChangeHeader('/appointments')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/appointments">APPOINTMENT</Link></li>
+            <li><Link className={`${ChangeHeader('/')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/">HOME</Link></li>
+            <li><Link className={`${ChangeHeader('/#about')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/#about">ABOUT US</Link></li>
+            <li><Link className={`${ChangeHeader('/#services')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/#services">SERVICES</Link></li>
+            <li><Link className={`${ChangeHeader('/Patient/LandingAppointmentPage')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/Patient/LandingAppointmentPage">APPOINTMENT</Link></li>
         </ul>
-        <Link href='/auth/Login' className={` ${ShowLinks ? 'flex flex-col gap-6 py-10 justify-center' : 'hidden'}  md:flex`}>
-            <button className="btn border-solid hover:bg-backG hover:text-white duration-600 border-backG border-2 rounded-md flex justify-center  text-backG py-2 px-10 font-semibold">Login</button>
+        <Link href='/auth/Login' className={` ${ShowLinks ? 'flex flex-col gap-6 py-10 justify-center' : 'hidden'}  `}>
+            <button className={`btn lg:flex border-solid hover:bg-backG hover:text-white duration-600 border-backG border-2 rounded-md  justify-center  text-backG py-2 px-10 font-semibold hidden ${ShowLinks && 'flex'}  `}>Login</button>
         </Link>
-        
         <div className={`flex absolute right-2 top-4 md:hidden`}>
             <button className="btn duration-600" onClick={() => setShowLinks((prevLink) => !prevLink)}>{ShowLinks ? <CloseToggle /> : <MenuIcon/> }</button>
         </div>

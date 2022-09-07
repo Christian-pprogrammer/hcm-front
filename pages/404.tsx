@@ -1,5 +1,13 @@
+import Header from "../components/landingpage/Header";
+import ForbiddenPage from "../layouts/ForbiddenPage";
+
 export default function NotFound() {
     return (
-        <div>not found page content here</div>
+        <>
+            <Header/>
+            <div>
+            <ForbiddenPage/>
+            </div>
+        </>
     )
 }
