@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "@syncfusion/ej2-react-calendars": "^20.2.46",
-    "@tanstack/react-query": "^4.0.10",
+    "axios": "^0.27.2",
     "chart.js": "^3.9.1",
     "crypto-js": "^4.1.1",
     "faker": "^6.6.6",
+    "jwt-decode": "^3.1.2",
     "multiselect-react-dropdown": "^2.0.25",
     "next": "12.2.3",
     "react": "18.2.0",
@@ -26,10 +27,13 @@
     "react-phone-number-input": "^3.2.7",
     "react-select": "^5.4.0",
     "react-select-country-list": "^2.2.3",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
     "swiper": "^8.3.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.4.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/node": "18.6.1",
     "@types/react": "18.0.15",
     "@types/react-calendar": "^3.5.2",

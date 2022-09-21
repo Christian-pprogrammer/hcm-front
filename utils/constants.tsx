@@ -2,7 +2,7 @@ import React, { ReactComponentElement } from 'react';
 import { FaChartPie, FaCheckSquare, FaConnectdevelop, FaLanguage, FaNotesMedical, FaReacteurope, FaSignOutAlt } from 'react-icons/fa'
 export const system_users = {
     SUPER_ADMIN: "SUPER_ADMIN",
-    MINISTRY_ADMIN: "MINISTRY_ADMIN",
+    GROUP_ADMIN: "GROUP_ADMIN",
     GROUP_DIRECTOR : "GROUP_DIRECTOR",
     HOSPITAL_ADMIN: "HOSPITAL_ADMIN",
     HOSPITAL_DIRECTOR : "HOSPITAL_DIRECTOR",
@@ -11,6 +11,26 @@ export const system_users = {
     APPOINTMENT_MANAGER: "APPOINTMENT_MANAGER",
     SCHEDULE_MANAGER: "SCHEDULE_MANAGER"
 };
+
+const APP_NAME = "HCM Appointment System";
+
+export const global_color = "1A73E8";
+
+export const app_config = {
+    APP_NAME: APP_NAME,
+    APP_COMPANY_NAME: APP_NAME + " Corp",
+    APP_NAME_LOWER: "HCM Appointment System",
+    APP_LOGO: "/favicon_io/logo.png",
+    APP_PHONE: "+250 785 867 199",
+    APP_EMAIL: "info@hcm.org",
+    APP_URL: "www.hcm.org",
+    APP_URL_HTTPS:"https://hcm-backend-hosting.herokuapp.com/",
+    APP_DISCRIPTO: "Easy, fast and secure hospital appointment system",
+};
+
+export const LOCAL_STORAGE_TOKEN_KEY =
+    "U2FsdGVkX1/G0spCYq44fQCTDWSVO6gq2/UDLKJSLKAFJKLADFDS";
+
 export interface SideBarInterface{
     id : number;
     IconName: any;
@@ -20,7 +40,7 @@ export interface SideBarInterface{
 const SideBarAdmins : SideBarInterface[] = [
 {
     id: 1,
-    IconName: <FaChartPie/>,
+    IconName: <FaChartPie />,
     LinkName: "Dashboard",
     Linkurl: "/SuperAdmin/Dashboard"
 },
