@@ -1,7 +1,9 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 import { CloseToggle, MenuIcon } from '../../icons'
+import { app_config } from '../../utils/constants';
 
 const Header = () => {
     const [ShowLinks,setShowLinks] = useState<Boolean>(false)
@@ -15,7 +17,7 @@ const Header = () => {
     <header className={` ${ShowLinks && 'flex-col gap-6 origin-center duration-300 '} z-10 fixed top-0 left-0 right-0 bg-white duration-500 justify-between drop-shadow-xl px-2 flex md:px-2 lg:px-[4em]  min-h-[10vh]`}>
         <div className='flex  py-2  gap-4'>
             <div className=' flex justify-center place-items-center rounded-full bg-white'>
-                <img className='h-12 w-12  object-contain' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt=""/>
+                <img className='h-12 w-12  object-contain' src={app_config.APP_LOGO} alt={app_config.APP_NAME_LOWER}/>
             </div>
             <div className='flex flex-col justify-center place-items-center'>
                 <h1>The HCM Appointment System</h1>
