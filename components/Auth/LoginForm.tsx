@@ -1,23 +1,103 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { useState,useEffect } from 'react'
-import { KeyIcon, LockIcon, PersonaIcon } from '../../icons'
-import { FormLoginStructure, LoginFormData } from '../../utils/FormData'
+import Link from 'next/link';
+import Head from "next/head";
+import Router, { useRouter } from 'next/router';
+import React, { useState,useEffect } from 'react';
+import { useDispatch } from "react-redux";
 
-const LoginForm = () => {
-    const [showPassword, setShowPasswords] = useState<Boolean>(false)
-    const [FormData, setFormData] = useState<FormLoginStructure>(LoginFormData)
-    const [isValid,setValid] = useState<Boolean>(true)
-    const navigate = useRouter()
-    useEffect(()=>{
-        FormData.email === '' || FormData.password === '' ? setValid(false): setValid(true)    
-    },[FormData])
-    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        navigate.push('/SuperAdmin/Dashboard')
+import AuthService from "../../services/auth/auth.service";
+import RouteService from "../../services/auth/routing";
+import Alert from "../../components/alert";
+import {app_config, system_users} from "../../utils/constants";
+import { KeyIcon, LockIcon, PersonaIcon } from '../../icons';
+import { FormLoginStructure, LoginFormData } from '../../utils/FormData';
+import ForbiddenPage from '../../layouts/ForbiddenPage';
+import { UrlObject } from 'url';
+
+export default function LoginForm() {
+
+    const [showPassword, setShowPasswords] = useState(false);
+    const [FormData, setFormData] = useState<FormLoginStructure>(LoginFormData);
+    const [isValid,setValid] = useState(true);
+
+    const [loading, setLoading] = React.useState(false);
+    const [alertData, setAlertData] = React.useState({
+        alert: false,
+        message: "",
+        class: "",
+    });
+
+    const handleGoTo = (link: string | UrlObject) => {
+        setTimeout(() => {
+            setAlertData({alert: false, message: "", class: ""});
+            Router.push(link);
+        }, 1000);
     }
+
+    useEffect(()=>{
+        !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+         || FormData.password.match(/^(?=.*[A-Z])(?=.*[\\W])(?=.*[0-9])(?=.*[a-z]).{8,30}$/) ? setValid(false): setValid(true)
+    },[FormData]);
+
+    const login = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setAlertData({alert: false, message: "", class: ""});
+        setLoading(true);
+
+        try {
+            const res = await AuthService.login(FormData);
+            AuthService.setToken(res.data.token);
+            setAlertData({
+                alert: true,
+                message: "Logged In Successfully",
+                class: "green"
+            });
+
+            if (RouteService.getPrevRoute()) {
+                let link: any = RouteService.getPrevRoute();
+                RouteService.removePrevRoute();
+                handleGoTo(link);
+            } else {
+                if (res.data.role === system_users.SUPER_ADMIN)
+                    handleGoTo("/super-admin");
+                else if (res.data.role === system_users.GROUP_ADMIN)
+                    handleGoTo("/group-admin");
+                else if (res.data.role === system_users.GROUP_DIRECTOR)
+                    handleGoTo("/group-director");
+                else if (res.data.role === system_users.HOSPITAL_ADMIN)
+                    handleGoTo("/hospital-admin");
+                else if (res.data.role === system_users.HOSPITAL_DIRECTOR)
+                    handleGoTo("/hospital-director");
+                else if (res.data.role === system_users.SCHEDULE_MANAGER)
+                    handleGoTo("/schedule-manager");
+                else if (res.data.role === system_users.APPOINTMENT_MANAGER)
+                    handleGoTo("/appointment-manager");
+                else if (res.data.role === system_users.DOCTOR)
+                    handleGoTo("/doctor");
+                else if (res.data.role === system_users.PATIENT)
+                    handleGoTo("/patient");
+                else
+                    handleGoTo("/404");
+            }
+
+        } catch (e: any) {
+            // console.log("rr" ,e)
+            const ERROR_MESSAGE = e.response ? e.response.data.message : e.message;
+            setAlertData({
+                alert: true,
+                message: ERROR_MESSAGE,
+                class: "red",
+            });
+        }
+
+        setLoading(false);
+    };
+
     return (
+        <ForbiddenPage>
         <div className="bg-white h-screen flex-row-reverse flex ">
+            <Head>
+                    <title>Login | {app_config.APP_NAME_LOWER}</title>
+                </Head>
             <div className="relative md:flex hidden auth-image">
                 <div className="absolute text-[12px] flex gap-4 top-0 p-5">
                     <div className=' flex justify-center place-items-center rounded-full '>
@@ -42,10 +122,10 @@ const LoginForm = () => {
                         <img className='h-12 w-12  object-contain' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
                     </div>
                     <div className='flex flex-col justify-center  font-semibold place-items-center'>
-                        <h1>The HCM Appointment System</h1>
+                        <h1>HCM Appointment System</h1>
                     </div>
                 </div>
-                <form className={`px-2 md:px-10 py-5`} method="post" onSubmit={handleOnSubmit}>
+                <form className={`px-2 md:px-10 py-5`} method="post" onSubmit={login}>
                     <h1 className='font-bold text-xl'>Login</h1>
 
                     <div className='pt-8'>
@@ -88,7 +168,6 @@ const LoginForm = () => {
                 </div>
             </div>
         </div>
+        </ForbiddenPage>
     )
 }
-
-export default LoginForm

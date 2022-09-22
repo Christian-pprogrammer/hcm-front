@@ -1,29 +1,29 @@
-import { useRouter } from 'next/router'
-import React from 'react'
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
-import { ForbiddenPageIcon, RightArrow } from '../icons'
+import {useSelector} from "react-redux";
+import React, {ReactNode, useEffect} from "react";
+import Router from "next/router";
+import {getUserHref} from "../utils/validations/redirects";
+import Navbar from "../components/Dashboard/Navbar";
 
-const ForbiddenPage = () =>{
-    const router = useRouter()
-    const Redirecting = () =>{
-        router.push('/')
-    }
-    return(
-        <div className='flex min-h-screen place-items-center justify-center lg:justify-start gap-[4em] lg:px-20 md:px-10 px-5'>
-            <div className='hidden lg:flex'>
-                <ForbiddenPageIcon/>
-            </div>
-            <div className='flex flex-col place-items-center lg:place-items-start gap-8 '>
-                <div>
-                <h1 className=' font-black text-backG text-[10em] '>404</h1>
-                <span className='font-bold text-[12px]'>Not Found Page !! Error Ahead !!</span>
-                <p className='text-[#00000065] '>Page currently unavailable please. Retreat to the main home page or request for the help center!</p>
-                </div>
-                <div className='py-5'>
-                <button onClick={Redirecting} className='btn animate-pulse hover:drop-shadow-xl duration-300 hover:scale-110 hover:bg-backG hover:text-white btn-primary py-5 px-10 rounded-full text-backG flex place-items-center gap-6'><span>Go Home</span><RightArrow/></button>
-                </div>
-            </div>
-        </div>
+
+interface Props {
+    children?: ReactNode
+}
+
+export const ForbiddenPage = ({children}: Props) => {
+    const authUser = useSelector((state: any) => state.authUser)
+
+    useEffect(() => {
+        if (authUser.role) {
+            Router.push(getUserHref(authUser)).then()
+        }
+    }, [authUser])
+
+    return (
+        <>
+            <Navbar/>
+            {children}
+        </>
     )
 }
-export default ForbiddenPage
+
+export  default  ForbiddenPage;
