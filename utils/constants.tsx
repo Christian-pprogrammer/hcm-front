@@ -32,6 +32,8 @@ export const LOCAL_STORAGE_TOKEN_KEY =
     "U2FsdGVkX1/G0spCYq44fQCTDWSVO6gq2/UDLKJSLKAFJKLADFDS";
 export const PREV_LINK_LOCAL_STORAGE_KEY =
     "U2FsdGVkX1/wKjkfljasdlkjfkajdaPpveuMtd+sqe8pr64Dq2r";
+export const DEVICE_DETAILS_LOCAL_STORAGE_KEY =
+    "U2FsdGVkX18VgmL9lt/jkldfjklsjfdau3rWg1q6h4lsc=";
 
 export interface SideBarInterface{
     id : number;
