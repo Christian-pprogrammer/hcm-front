@@ -6,14 +6,15 @@ import { Provider, useDispatch } from "react-redux";
 import { compose, legacy_createStore as createStore } from "redux";
 import { useEffect } from "react";
 import Head from "next/head";
-import jwt from "jwt-decode";
+import jwt_decode from "jwt-decode";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import UserService from "../services/users/user.service";
 import { updateJavaScriptObject } from "../utils/functions";
 import reducer from "../store/reducers";
 import AuthService from "../services/auth/auth.service";
 import { setAuthUser } from "../store/actions";
-import Snack from "../components/reusable/snackbar";
 import { details } from "../utils/site-traffic";
 import SiteTrafficService from "../services/site-traffic";
 import {
@@ -39,7 +40,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 if (typeof window !== "undefined") {
   store = createStore(
-    reducer /* preloadedState, */,
+    reducer,
     composeEnhancers()
   );
 }
@@ -55,9 +56,9 @@ function AppMeta() {
     if (AuthService.isLoggedIn()) {
       if (!AuthService.tokenExpired()) {
         const token: any = AuthService.getDecToken();
-        UserService.get(jwt(token).id)
+        UserService.get(jwt_decode<any>(token).id)
           .then((res) => {
-            const curr_user = updateJavaScriptObject(jwt(token), res.data);
+            const curr_user = updateJavaScriptObject(jwt_decode(token), res.data);
             // console.log("Curr user ",curr_user)
             curr_user.fullNames = res.data.firstName + " " + res.data.lastName;
             dispatch(setAuthUser(curr_user));
@@ -115,7 +116,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <div>
-        <Snack />
+        <ToastContainer style={{fontSize: "0.8em"}} />
         <AppMeta />
         <Component {...pageProps} />
       </div>
