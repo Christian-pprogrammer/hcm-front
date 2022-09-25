@@ -3,10 +3,8 @@ import jwt from 'jwt-decode';
 import http from "../http-common";
 import { encryptText, decryptText, decryptTextV2 } from "../../utils/encryption-decryption";
 import { LOCAL_STORAGE_TOKEN_KEY } from "../../utils/constants";
-import { useRouter } from 'next/router';
 
 class AuthService {
-    public router = useRouter();
 
     login(data: any) {
         return http.post('/auth/login', data);
@@ -74,7 +72,6 @@ class AuthService {
 
     logout() {
         this.removeToken();
-        this.router.push('/auth/login');
     }
     removeToken() {
         localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY)
