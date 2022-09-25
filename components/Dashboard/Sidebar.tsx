@@ -22,8 +22,11 @@ const Sidebar = () => {
             return "bg-[#d9d9d93a] font-semibold"
         }
     }
-    const handleSystemSignOut = () =>{
-        authService.logout();
+    const handleSystemSignOut = async () =>{
+       const SignOut = authService.logout();
+       if(await SignOut){
+        return authService.removeToken();
+       }
     }
   return (
     <div className='bg-backG  bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] '>
@@ -42,6 +45,6 @@ const Sidebar = () => {
         </div>
     </div>
   )
-}
+}   
 
 export default Sidebar
