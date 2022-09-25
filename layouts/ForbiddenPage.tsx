@@ -20,7 +20,6 @@ export const ForbiddenPage = ({children}: Props) => {
 
     return (
         <>
-            <Navbar/>
             {children}
         </>
     )

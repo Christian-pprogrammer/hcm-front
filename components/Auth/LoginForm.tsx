@@ -96,7 +96,7 @@ export default function LoginForm() {
         <ForbiddenPage>
         <div className="bg-white h-screen flex-row-reverse flex ">
             <Head>
-                    <title>Login | {app_config.APP_NAME_LOWER}</title>
+                    <title>{`Login | ${app_config.APP_NAME_LOWER}`}</title>
                 </Head>
             <div className="relative md:flex hidden auth-image">
                 <div className="absolute text-[12px] flex gap-4 top-0 p-5">
