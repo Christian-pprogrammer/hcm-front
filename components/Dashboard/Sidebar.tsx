@@ -7,9 +7,9 @@ import  SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, G
 
 const Sidebar = () => {
     const VerifyUser= () => {
-    const userRole = "PATIENT";
-        if(userRole === system_users.PATIENT){
-            return PatientAdminArr;
+    const userRole = "SUPER_ADMIN";
+        if(userRole === system_users.SUPER_ADMIN){
+            return SideBarAdmins;
         }
         else{
             return SideBarAdmins

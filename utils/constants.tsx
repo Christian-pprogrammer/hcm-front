@@ -1,5 +1,5 @@
-import React, { ReactComponentElement } from 'react';
-import { FaChartPie, FaCheckSquare, FaConnectdevelop, FaLanguage, FaNotesMedical, FaReacteurope, FaSignOutAlt } from 'react-icons/fa'
+import React from 'react';
+import { FaChartPie, FaConnectdevelop, FaLanguage, FaNotesMedical, FaReacteurope } from 'react-icons/fa'
 export const system_users = {
     SUPER_ADMIN: "SUPER_ADMIN",
     GROUP_ADMIN: "GROUP_ADMIN",
