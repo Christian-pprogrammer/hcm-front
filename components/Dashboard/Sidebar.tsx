@@ -4,6 +4,7 @@ import React from 'react'
 import { FaChartPie, FaCheckSquare, FaConnectdevelop, FaReacteurope, FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
 import  SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, GroupDirectorArr, HospitalAdminArr, HospitalDirectorArr, PatientAdminArr, ScheduleManagerArr, system_users } from '../../utils/constants'
+import authService from '../../services/auth/auth.service'
 
 const Sidebar = () => {
     const VerifyUser= () => {
@@ -21,6 +22,9 @@ const Sidebar = () => {
             return "bg-[#d9d9d93a] font-semibold"
         }
     }
+    const handleSystemSignOut = () =>{
+        authService.logout();
+    }
   return (
     <div className='bg-backG  bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] '>
         <DashBoardLogo/>
@@ -31,7 +35,7 @@ const Sidebar = () => {
                 <Link href={sidebar.Linkurl}><span className='cursor-pointer text-white text-[16px]'>{sidebar.LinkName}</span></Link>
             </div>
             ))}
-            <div className='flex absolute bottom-2 px-10  py-5 justify-start place-items-center gap-[4em]'>
+            <div onClick={handleSystemSignOut} className='flex absolute bottom-2 px-10  py-5 justify-start place-items-center gap-[4em]'>
                 <FaSignOutAlt className='text-[2em]'/>
                 <span className='font-bold text-white'>Sign Out</span>
             </div>
