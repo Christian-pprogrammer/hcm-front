@@ -74,7 +74,7 @@ class AuthService {
 
     logout() {
         this.removeToken();
-        this.router.push('/auth/login');
+        return this.router.push('/auth/login');
     }
     removeToken() {
         localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY)
