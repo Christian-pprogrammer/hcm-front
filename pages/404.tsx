@@ -14,7 +14,7 @@ export default function NotFound() {
     return(
         <>
         <Head>
-            <title>Page not found | {app_config.APP_NAME_LOWER}</title>
+            <title>{`Page not found | ${app_config.APP_NAME_LOWER}`}</title>
             <link rel="icon" href={"/favicon.ico"} />
         </Head>
         <Header />

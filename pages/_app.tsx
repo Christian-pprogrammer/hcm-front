@@ -10,6 +10,8 @@ import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import "../styles/globals.css";
+
 import UserService from "../services/users/user.service";
 import { updateJavaScriptObject } from "../utils/functions";
 import reducer from "../store/reducers";
@@ -36,14 +38,14 @@ declare global {
   }
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-if (typeof window !== "undefined") {
+// if (typeof window !== "undefined") {
   store = createStore(
     reducer,
-    composeEnhancers()
+    // composeEnhancers()
   );
-}
+// }
 
 function AppMeta() {
   
