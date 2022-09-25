@@ -87,9 +87,7 @@ const TableAdmin = () => {
                 <td className='px-10 whitespace-nowrap '>
                     <span className='text-[#00000043]'>12/12/2021</span>
                 </td>
-                
-            </tr>
-            
+            </tr>   
         </tbody>
     </table>
 
