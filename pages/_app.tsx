@@ -118,7 +118,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <div>
-        <ToastContainer style={{fontSize: "0.8em"}} />
+        <ToastContainer style={{fontSize: "0.2em"}} />
         <AppMeta />
         <Component {...pageProps} />
       </div>

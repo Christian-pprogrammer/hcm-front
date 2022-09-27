@@ -31,7 +31,7 @@ const Header = () => {
             <li><Link className={`${ChangeHeader('/#services')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/#services">SERVICES</Link></li>
             <li><Link className={`${ChangeHeader('/patient/landing-appointment-page')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/patient/landing-appointment-page">APPOINTMENT</Link></li>
         </ul>
-        <Link href='/auth/login' className={` ${ShowLinks ? 'flex flex-col gap-6 py-10 justify-center' : 'hidden'}  `}>
+        <Link href='/auth/loginpage' className={` ${ShowLinks ? 'flex flex-col gap-6 py-10 justify-center' : 'hidden'}  `}>
             <button className={`btn lg:flex border-solid hover:bg-backG hover:text-white duration-600 border-backG border-2 rounded-md  justify-center  text-backG py-2 px-10 font-semibold hidden ${ShowLinks && 'flex'}  `}>Login</button>
         </Link>
         <div className={`flex absolute right-2 top-4 md:hidden`}>

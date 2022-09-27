@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { FaChartPie, FaCheckSquare, FaConnectdevelop, FaReacteurope, FaSignOutAlt } from 'react-icons/fa'
+import {  FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
 import  SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, GroupDirectorArr, HospitalAdminArr, HospitalDirectorArr, PatientAdminArr, ScheduleManagerArr, system_users } from '../../utils/constants'
 import authService from '../../services/auth/auth.service'
@@ -23,10 +23,7 @@ const Sidebar = () => {
         }
     }
     const handleSystemSignOut = async () =>{
-       const SignOut = authService.logout();
-       if(await SignOut){
-        return authService.removeToken();
-       }
+       authService.logout();
     }
   return (
     <div className='bg-backG  bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] '>

@@ -1,12 +1,11 @@
-import publicIp from 'public-ip';
+import {publicIpv4} from 'public-ip';
 import DeviceDetector from "device-detector-js";
 
 async function details() {
     const navigator = window.navigator
     const deviceDetector = new DeviceDetector();
     const device: any = deviceDetector.parse(navigator.userAgent);
-
-    const device_public_ip = await publicIp.publicIpv4();
+    const device_public_ip = await publicIpv4();
     const location = "Rwanda"
     const os_type = device.os.name
     const browser_type = device.client.name

@@ -6,8 +6,10 @@ import { LOCAL_STORAGE_TOKEN_KEY } from "../../utils/constants";
 import { useRouter } from 'next/router';
 
 class AuthService {
-    public router = useRouter();
-
+    // public router = useRouter();
+    signup(data: any) {
+        return http.post("/auth/signup", data);
+    }
     login(data: any) {
         return http.post('/auth/login', data);
     }
@@ -74,7 +76,8 @@ class AuthService {
 
     logout() {
         this.removeToken();
-        return this.router.push('/auth/login');
+        return window.location.href = '/auth/loginpage';
+        // return this.router.push('/auth/login');
     }
     removeToken() {
         localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY)
