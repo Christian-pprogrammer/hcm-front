@@ -1,14 +1,17 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { LineSvg } from '../../icons'
 import LocalInfo from './LocalInfo'
 import PersonalInfo from './PersonalInfo'
 import SignupInfo from './SignupInfo'
 import { FormDummy, FormStructure } from '../../utils/FormData'
+import AuthService from "../../services/auth/auth.service";
+import { useRouter } from 'next/router';
 
 const SignupForm = () => {
     const [FormPage, setFormPage] = useState<number>(0);
     const [FormData, setFormData] = useState<FormStructure>(FormDummy);
+    const router = useRouter();
     const PageDisplay = () => {
         if (FormPage == 0) {
             return <SignupInfo 
@@ -26,6 +29,37 @@ const SignupForm = () => {
             setFormData={setFormData} />;
         }
 
+    }
+    const [loading, setLoading] = useState<Boolean>(false);
+    const [alertData, setAlertData] = useState({
+    alert: false,
+    message: "",
+    class: "",
+});
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setAlertData({alert: false, message: "", class: ""});
+        setLoading(true);
+        try{
+            const res = await AuthService.signup(FormData);
+            if(res.data.status == 200){
+                setAlertData({alert: false, message: "Successfully Signup", class: "green"});
+                setLoading(false);
+                return router.push('/auth/loginpage');
+            }else{
+                setAlertData({alert: true, message: "User Sign Up Failed" || res.data.message, class: "red"});
+                setFormData(FormDummy);
+                return router.reload();
+            }
+        }catch(e:any){
+            const ERROR_MESSAGE = e.response ? 'Response Error' : e.message;
+            setFormData(FormDummy);
+            setAlertData({
+                alert: true,
+                message: ERROR_MESSAGE,
+                class: "red"
+            });
+        }
     }
     return (
         <div className="bg-white h-screen flex-row-reverse flex ">
@@ -71,9 +105,9 @@ const SignupForm = () => {
                     </div>
                 </div>
                 <div className='md:px-10 px-2 py-2 md:py-0'>
-                    <h1 className='font-bold text-xl'>Sign Up</h1>
+                    <h1 className='font-bold text-base'>Sign Up</h1>
                 </div>
-                <form className={`px-2 md:px-10 `} method="post">
+                <form className={`px-2 md:px-10 `} method="post" onSubmit={handleSubmit}>
                     {PageDisplay()}
                     {FormPage == 0 &&
                         <div className='pt-4'>
@@ -93,7 +127,7 @@ const SignupForm = () => {
                     }
                 </form>
                 <div className='px-2 md:px-10  text-left text-[12px]'>
-                    <span>Already Have an Account?</span> <Link className='text-backG ' href='/auth/Login'>Login </Link>
+                    <span>Already Have an Account?</span> <Link className='text-backG ' href='/auth/loginpage'>Login </Link>
                 </div>
             </div>
         </div>
