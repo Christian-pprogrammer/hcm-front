@@ -61,7 +61,6 @@ function AppMeta() {
         UserService.get(jwt_decode<any>(token).id)
           .then((res) => {
             const curr_user = updateJavaScriptObject(jwt_decode(token), res.data);
-            // console.log("Curr user ",curr_user)
             curr_user.fullNames = res.data.firstName + " " + res.data.lastName;
             dispatch(setAuthUser(curr_user));
           })
