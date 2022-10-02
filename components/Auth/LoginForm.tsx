@@ -141,19 +141,6 @@ export default function LoginForm() {
                                 <small className={`text-[12px] ${!isValid && 'text-red-500'}`}>{!isValid ? "Please enter a valid email" : ""}</small>
                             </div>
                         </div>
-<<<<<<< HEAD
-                    </div>
-                    <div>
-                        <label className='font-normal'>Password <span className='text-red-500 pl-2'>*</span> </label>
-                        <div className='py-2'>
-                            <div className='flex hover:border-solid my-4 hover:border-2 hover:rounded-md duration-500 rounded-md hover:border-backG border-2 border-white'>
-                                <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
-                                    <KeyIcon />
-                                </div>
-                                <input value={FormData.password} onChange={(e)=>setFormData({...FormData, password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder="••••••••" />
-                                <div className='flex rounded-r-md place-items-center justify-center bg-inputG p-2'>
-                                    <button type='button' onClick={() => setShowPasswords((prev) => !prev)}><LockIcon /></button>
-=======
                         <div>
                             <label className='font-normal'>Password <span className='text-red-500 pl-2'>*</span> </label>
                             <div className='py-2'>
@@ -161,11 +148,10 @@ export default function LoginForm() {
                                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                                         <KeyIcon />
                                     </div>
-                                    <input value={FormData.password} onChange={(e)=>setFormData({...FormData, password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder=" ***************** " />
+                                    <input value={FormData.password} onChange={(e)=>setFormData({...FormData, password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder="••••••••" />
                                     <div className='flex rounded-r-md place-items-center justify-center bg-inputG p-2'>
                                         <button type='button' onClick={() => setShowPasswords((prev) => !prev)}><LockIcon /></button>
                                     </div>
->>>>>>> 847e0676290512a718b450116e86915c88247c35
                                 </div>
                                     <small className={`text-[12px] ${!isValid && 'text-red-500'}`}>{!isValid ? "Please enter a valid password" : ""}</small>
                             </div>
