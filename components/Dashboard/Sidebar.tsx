@@ -26,7 +26,7 @@ const Sidebar = () => {
        authService.logout();
     }
   return (
-    <div className='bg-backG  bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] '>
+    <aside className='bg-backG bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] '>
         <DashBoardLogo/>
         <div className='flex py-5 flex-col px-2 gap-4'>
             {VerifyUser().map((sidebar) => (
@@ -40,7 +40,7 @@ const Sidebar = () => {
                 <span className='font-bold text-white'>Sign Out</span>
             </div>
         </div>
-    </div>
+    </aside>
   )
 }   
 
