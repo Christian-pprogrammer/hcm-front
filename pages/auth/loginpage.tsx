@@ -8,16 +8,21 @@ import { useRouter } from 'next/router';
 
 const Login = () => {
   const Router = useRouter();
-  const SessionRedirect = async () => {
-    if(sessionStorage.getItem(DEVICE_DETAILS_LOCAL_STORAGE_KEY)){
-      const RouteRedirect = await RouteService.getPrevRoute();
-      return Router.push(`${RouteRedirect}`);
-    }
-  }
+  // const SessionRedirect = async () => {
+  //   if(sessionStorage.getItem(DEVICE_DETAILS_LOCAL_STORAGE_KEY)){
+  //     const RouteRedirect = await RouteService.getPrevRoute();
+  //     if(RouteRedirect == null){
+  //       Router.push('/auth/loginpage');
+  //     }
+  //     return Router.push(`${RouteRedirect}`);
+  //   }
+  // }
   return (
     <>
-    {!sessionStorage.getItem(DEVICE_DETAILS_LOCAL_STORAGE_KEY)
-        ?  <LoginForm/> : SessionRedirect()}
+    {/* {!sessionStorage.getItem(DEVICE_DETAILS_LOCAL_STORAGE_KEY) */}
+        {/* ?  */}
+         <LoginForm/> 
+         {/* : SessionRedirect()} */}
     </>
   )
 }
