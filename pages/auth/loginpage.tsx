@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import LoginForm from '../../components/Auth/LoginForm'
 import {
   DEVICE_DETAILS_LOCAL_STORAGE_KEY,
@@ -10,13 +10,18 @@ const Login = () => {
   const Router = useRouter();
   const SessionRedirect = async () => {
     if(sessionStorage.getItem(DEVICE_DETAILS_LOCAL_STORAGE_KEY)){
-      const RouteRedirect = await RouteService.getPrevRoute();
+      const RouteRedirect = await RouteService.getPrevRoute() || '/auth/loginpage';
       return Router.push(`${RouteRedirect}`);
     }
   }
+  
+  const [storageKey, setStorageKey]:any = useState(null);
+  useEffect(()=>{
+    setStorageKey(sessionStorage.getItem(DEVICE_DETAILS_LOCAL_STORAGE_KEY));
+  }, [])
   return (
     <>
-    {!sessionStorage.getItem(DEVICE_DETAILS_LOCAL_STORAGE_KEY)
+    {!storageKey
         ?  <LoginForm/> : SessionRedirect()}
     </>
   )

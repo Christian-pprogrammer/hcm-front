@@ -2,7 +2,6 @@ import {useSelector} from "react-redux";
 import React, {ReactNode, useEffect} from "react";
 import Router from "next/router";
 import {getUserHref} from "../utils/validations/redirects";
-import Navbar from "../components/Dashboard/Navbar";
 
 
 interface Props {
