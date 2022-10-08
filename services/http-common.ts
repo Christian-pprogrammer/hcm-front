@@ -26,9 +26,10 @@ http.interceptors.response.use(
         return Promise.resolve(response)
     },
     function (error) {
-        let res = error.response
+        let res = error.response;
+        reportError(res);
         if (res?.data && res.data.message === "INVALID BEARER TOKEN")
-            Router.push("/auth/loginpage").then()
+            Router.push("/auth/login").then()
 
         return Promise.reject(error);
     }

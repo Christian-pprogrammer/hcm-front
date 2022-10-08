@@ -76,7 +76,7 @@ class AuthService {
 
     logout() {
         this.removeToken();
-        return window.location.href = '/auth/loginpage';
+        return window.location.href = '/auth/login';
         // return this.router.push('/auth/login');
     }
     removeToken() {

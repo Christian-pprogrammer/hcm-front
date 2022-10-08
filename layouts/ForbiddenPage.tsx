@@ -5,12 +5,11 @@ import {getUserHref} from "../utils/validations/redirects";
 
 
 interface Props {
-    children?: ReactNode
+    children?: React.ReactElement | React.ReactNode
 }
 
 export const ForbiddenPage = ({children}: Props) => {
     const authUser = useSelector((state: any) => state.authUser)
-
     useEffect(() => {
         if (authUser.role) {
             Router.push(getUserHref(authUser)).then()

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Head from "next/head";
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import React, { useState,useEffect } from 'react';
 import { useDispatch } from "react-redux";
 
@@ -9,7 +9,7 @@ import RouteService from "../../services/auth/routing";
 import Alert from "../../components/alert";
 import {app_config, system_users} from "../../utils/constants";
 import { KeyIcon, LockIcon, PersonaIcon } from '../../icons';
-import { FormLoginStructure, LoginFormData } from '../../utils/FormData';
+import { FormDummy, FormLoginStructure, LoginFormData } from '../../utils/FormData';
 import ForbiddenPage from '../../layouts/ForbiddenPage';
 import { UrlObject } from 'url';
 
@@ -42,7 +42,6 @@ export default function LoginForm() {
         e.preventDefault();
         setAlertData({alert: false, message: "", class: ""});
         setLoading(true);
-
         try {
             const res = await AuthService.login(FormData);
             AuthService.setToken(res.data.token);
@@ -78,15 +77,20 @@ export default function LoginForm() {
                 else
                     handleGoTo("/404");
             }
+            setFormData(FormDummy);
 
         } catch (e: any) {
             // console.log("rr" ,e)
-            const ERROR_MESSAGE = e.response ? e.response.data.message : e.message;
+            const ERROR_MESSAGE = e.response ? e.response.data.message || "Not Found" : e.message;
             setAlertData({
                 alert: true,
                 message: ERROR_MESSAGE,
                 class: "red",
             });
+            setFormData({
+                email:"",
+                password : FormData?.password
+            })
         }
 
         setLoading(false);
@@ -94,6 +98,11 @@ export default function LoginForm() {
 
     return (
         <ForbiddenPage>
+            {loading ?
+            <div className='h-screen w-scree flex place-items-center justify-center bg-slate-700 left-0 right-0 bottom-0 top-0'>
+                <div className="spinner"></div>
+            </div> 
+            :
             <div className="bg-white h-screen flex-row-reverse flex ">
                 <Head>
                         <title>{`Login | ${app_config.APP_NAME_LOWER}`}</title>
@@ -168,6 +177,7 @@ export default function LoginForm() {
                     </div>
                 </div>
             </div>
+    }
         </ForbiddenPage>
     )
 }

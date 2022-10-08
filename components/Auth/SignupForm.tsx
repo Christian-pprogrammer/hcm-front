@@ -45,7 +45,7 @@ const SignupForm = () => {
             if(res.data.status == 200){
                 setAlertData({alert: false, message: "Successfully Signup", class: "green"});
                 setLoading(false);
-                return router.push('/auth/loginpage');
+                return router.push('/auth/login');
             }else{
                 setAlertData({alert: true, message: "User Sign Up Failed" || res.data.message, class: "red"});
                 setFormData(FormDummy);
@@ -127,7 +127,7 @@ const SignupForm = () => {
                     }
                 </form>
                 <div className='px-2 md:px-10  text-left text-[12px]'>
-                    <span>Already Have an Account?</span> <Link className='text-backG ' href='/auth/loginpage'>Login </Link>
+                    <span>Already Have an Account?</span> <Link className='text-backG ' href='/auth/login'>Login </Link>
                 </div>
             </div>
         </div>

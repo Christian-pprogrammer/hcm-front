@@ -51,7 +51,7 @@ function AppMeta() {
   
   useEffect(() => {
     setUser();
-  });
+  },[]);
   const dispatch = useDispatch();
 
   const setUser = () => {
