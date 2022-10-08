@@ -89,7 +89,7 @@ const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any})
             <label className="block text-gray-700 text-sm font-bold">
                 Profile Image
             </label>
-            <input onChange={onImageChange} multiple className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="file-image" type="file" accept="image/*" />
+            <input onChange={()=> onImageChange} multiple className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="file-image" type="file" accept="image/*" />
             <small className='text-[12px] text-red-500'>Enter Valid info</small>
           </div>
         </div>
