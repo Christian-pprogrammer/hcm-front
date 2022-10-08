@@ -80,7 +80,7 @@ function AppMeta() {
           }
         />
         <meta property={"og:title"} content={"Medical Appointment System"} />
-        <link rel="icon" href="/favicon_io/favicon.ico" />
+        <link rel="icon" href={app_config.APP_LOGO} />
         <meta
           name="keywords"
           content="hcm, medical, appointment system, hospital appointment system, appointment treatment"
