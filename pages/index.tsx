@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useTranslations } from 'next-intl';
 
 import AccountSection from '../components/landingpage/AccountSection';
 import Hero from '../components/landingpage/Hero';
@@ -11,8 +12,10 @@ import NewsSection from '../components/landingpage/NewsSection';
 import Footer from '../components/landingpage/Footer';
 import Header from '../components/landingpage/Header';
 import { app_config } from '../utils/constants';
+import { withLocaleMessages } from '../utils/ssg/withLocaleMessages';
 
 const Home: NextPage = () => {
+  const t = useTranslations('example-group')
   return (
     <>
       <Head>
@@ -41,4 +44,10 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Home;
+
+export const getStaticProps = withLocaleMessages(async () => {
+  return {
+    props: {}
+  }
+})
