@@ -1,28 +1,30 @@
 import { useRouter } from 'next/router';
 import React,{useState, useEffect} from 'react';
 import * as ReactDOM from 'react-dom';
-
-import {
-    DEVICE_DETAILS_LOCAL_STORAGE_KEY, PREV_LINK_LOCAL_STORAGE_KEY,
-  } from "../../utils/constants";
-  import RouteService from '../../services/auth/routing'
+import {PREV_LINK_LOCAL_STORAGE_KEY} from "../../utils/constants";
+import RouteService from '../../services/auth/routing'
 const LoaderCache = ({showModal,onClose}:{ showModal: Boolean, onClose: any}) => {
   const [isBrowser, setBrowser] = useState<Boolean>(false)
   useEffect(() => {
     setBrowser(true)
   }, [])
     const Router = useRouter();
+    const handleClose = () => {
+        console.log("Handle Log Out");
+        onClose();
+    }
     const SessionRedirect = async () => {
         if(sessionStorage.getItem(PREV_LINK_LOCAL_STORAGE_KEY)){
             const RouteRedirect = RouteService.getPrevRoute() || '/auth/signup';
-            return Router.push(`${RouteRedirect}`);
+            Router.push(`${RouteRedirect}`);
+            console.log(RouteRedirect);
         }
     }
     useEffect(() => {
         if(sessionStorage.getItem(PREV_LINK_LOCAL_STORAGE_KEY)){
             SessionRedirect
         }else{
-            return onClose();
+            return handleClose();
         };
     })
     const ModalContent = showModal ? (
