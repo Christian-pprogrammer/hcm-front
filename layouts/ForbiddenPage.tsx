@@ -4,11 +4,11 @@ import Router from "next/router";
 import {getUserHref} from "../utils/validations/redirects";
 
 
-// interface Props {
-//     children?: React.ReactElement | React.ReactNode
-// }
+interface Props {
+    children?: React.ReactElement | React.ReactNode
+}
 
-export const ForbiddenPage = ({children}: {children: JSX.Element}) => {
+export const ForbiddenPage = ({children}: Props) => {
     const authUser = useSelector((state: any) => state.authUser)
     useEffect(() => {
         if (authUser.role) {
