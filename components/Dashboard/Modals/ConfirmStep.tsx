@@ -9,8 +9,10 @@ const ConfirmStep = ({ showConfirm, onClose , children } : {showConfirm: Boolean
   const handleClose = () => {
     onClose() 
   }
-  const handleClick = (e :any) => {
+  const handleClick = (e :React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    
   }
   const ModalContent = showConfirm ? (
     <div className="modal-portal bg-modalG h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
@@ -27,7 +29,7 @@ const ConfirmStep = ({ showConfirm, onClose , children } : {showConfirm: Boolean
         </div>
         <div className="modal-footer flex py-10 justify-between">
           <button type="button" className="btn bg-slate-500 text-white px-10 py-4 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>
-          <button type="button" className="btn bg-backG text-white px-10 py-4 btn-secondary" data-dismiss="modal" onClick={handleClick}>Download</button>
+          <button type="button" className="btn bg-backG text-white px-10 py-4 btn-secondary" data-dismiss="modal" onClick={(e)=>handleClick}>Confirm</button>
         </div>
       </div>
     </div>

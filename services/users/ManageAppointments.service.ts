@@ -32,3 +32,4 @@ class ManageAppointments{
         return http.post(`/api/v2/appointments/send-appointment`,data);
     }
 }
+export default new ManageAppointments();

@@ -45,9 +45,9 @@ const TableManageAcc = () => {
                     <div>
                         <button onClick={toggleAddAccount} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                             <FaPlus/>
-                            <span className=''>Add Account</span>
-                            <AddAccount addAccount={addAccount} onClose={()=>setAddAccount(false)} />
+                            <span>Add Account</span>
                         </button>
+                            <AddAccount addAccount={addAccount} onClose={()=>setAddAccount(false)} />
                     </div>
                 </div>
             </div>

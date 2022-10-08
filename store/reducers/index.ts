@@ -4,6 +4,7 @@ import { action } from '../../types/action';
 const authUser = (state = {}, action: action) => {
     switch (action.type) {
         case 'SET_AUTH_USER':
+            state = action.payload;
             return action.payload;
         default:
             return state
