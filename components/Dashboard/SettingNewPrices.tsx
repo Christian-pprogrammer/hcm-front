@@ -1,12 +1,12 @@
-import { NumberType } from 'libphonenumber-js/types';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import { NewPriceData, NewPriceInterface } from '../../utils/ModalTypes';
 import { PriceArr } from '../../utils/Prices';
 
 const SettingsNewPrice = ({ showModal , onClose}: { showModal: Boolean ,onClose: any}) => {
     
     const [isBrowser, setBrowser] = useState<Boolean>(false)
-    const [Fee, setFee] = useState<Number>(0)
+    const [FormData, setFormData] = useState<NewPriceInterface>(NewPriceData);
     useEffect(() => {
         setBrowser(true)
     }, [])
@@ -33,7 +33,7 @@ const SettingsNewPrice = ({ showModal , onClose}: { showModal: Boolean ,onClose:
                                 <label className="block text-gray-700 text-sm font-bold">
                                     Select Service
                                 </label>
-                                <select className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Fee">
+                                <select onChange={(e)=>setFormData({...FormData,serviceName: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {PriceArr.map((price, i) => (
                                         <option key={i} value={price.serviceName}>{price.serviceName} ${price.servicePrice}</option>
                                     ))}
@@ -44,7 +44,7 @@ const SettingsNewPrice = ({ showModal , onClose}: { showModal: Boolean ,onClose:
                                 <label className="block text-gray-700 text-sm font-bold">
                                     New Fee
                                 </label>
-                                <input onChange={(e) => setFee(e.target.valueAsNumber)} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Fee" type="number" placeholder="Fee" />
+                                <input onChange={(e) => setFormData({...FormData,fee:e.target.valueAsNumber})} value={FormData?.fee} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" placeholder="Fee" />
                                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
                             </div>
                         </div>

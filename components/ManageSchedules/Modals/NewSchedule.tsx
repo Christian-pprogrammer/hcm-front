@@ -1,11 +1,19 @@
 import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import SchedulesService from '../../../services/users/Schedules.service';
+import { NewScheduleData, NewScheduleInterface } from '../../../utils/ModalTypes';
 import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 
 const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean, onClose: any }) => {
-
-    const [isBrowser, setBrowser] = useState<Boolean>(false)
+    const [loading, setLoading] = React.useState(false);
+    const [alertData, setAlertData] = React.useState({
+        alert: false,
+        message: "",
+        class: "",
+    });
+    const [isBrowser, setBrowser] = useState<Boolean>(false);
+    const [FormData,setFormData] = useState<NewScheduleInterface>(NewScheduleData);
     useEffect(() => {
         setBrowser(true)
     }, [])
@@ -15,10 +23,33 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean,
     const [selectData,setSelectData] = useState<SelectedData[]>([])
     const handleClose = () => {
         onClose()
-   
     }
-    const handleSubmit = (e: any) => {
+    const handleOnSelect = (e:React.FormEvent<HTMLFormElement>|any)=> {
+        setSelectData(e);
+        setFormData({...FormData,services:selectData});
+    }
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        try {
+            setLoading(true);
+            console.log(FormData);
+            const res = await SchedulesService.createSchedule(FormData);
+            if (res.data.status === 200) {
+                setAlertData({
+                    alert: true,
+                    message: res.data.message || "Successfuly Created the service",
+                    class: "green"
+                });
+            } else {
+                setAlertData({
+                    alert: true,
+                    message: res.data.error || "Failure Check Provided Credentials",
+                    class: "red"
+                })
+            }
+        }catch(error) {
+            reportError(error);
+        }
     }
     const ModalContent = NewScheduleModal ? (
         <div className="modal-portal bg-modalG h-screen w-screen px-5 flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
@@ -30,47 +61,47 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean,
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form onSubmit={handleSubmit}>
+                    <form method="post" onSubmit={handleSubmit}>
                         <div className="modal-body"> 
                             <div className="py-1">
                                 <label className="block text-gray-700 text-sm font-bold">
                                     Doctor Name
                                 </label>
-                                <input className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="name" placeholder="Doctor Name" />
+                                <input value={FormData?.doctorName} onChange={(e)=>setFormData({...FormData,doctorName: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="name" placeholder="Doctor Name" />
                                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
                             </div>
                             <div className="py-1">
                                 <label className="block text-gray-700 text-sm font-bold">
                                     Services
                                 </label>
-                                <Multiselect loading={false} options={ServicesArr} displayValue={"ServiceName"} className="shadow appearance-none bg-inputG border rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" placeholder="Select " />
+                                <Multiselect onSelect={handleOnSelect} loading={false} options={ServicesArr} displayValue={"ServiceName"} className="shadow appearance-none bg-inputG border rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Select " />
                                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
                             </div>
                             <div className="py-1">
                                 <label className="block text-gray-700 text-sm font-bold">
                                     Schedule Date
                                 </label>
-                                <input className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date-image" type="date" placeholder="schedule date" />
+                                <input value={FormData?.scheduleDate} onChange={(e)=>setFormData({...FormData,scheduleDate: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="date" placeholder="schedule date" />
                                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
                             </div>
                             <div className="py-1">
                                 <label className="block text-gray-700 text-sm font-bold">
                                     Start Hour
                                 </label>
-                                <input className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date-time" type="time" placeholder="Start Hour" />
+                                <input value={FormData?.startHour} onChange={(e)=>setFormData({...FormData,startHour: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="time" placeholder="Start Hour" />
                                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
                             </div>
                             <div className="py-1">
                                 <label className="block text-gray-700 text-sm font-bold">
                                     End Hour
                                 </label>
-                                <input className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date-time" type="time" placeholder="End Hour" />
+                                <input value={FormData?.endHour} onChange={(e)=>setFormData({...FormData,endHour: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="time" placeholder="End Hour" />
                                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
                             </div>
                         </div>
                         <div className="modal-footer flex py-2 gap-2 justify-between">
                             <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>
-                            <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleSubmit}>New Schedule</button>
+                            <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">New Schedule</button>
                         </div>
                     </form>
                 </div>

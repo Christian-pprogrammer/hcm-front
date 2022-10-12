@@ -70,9 +70,9 @@ const ApproveAppointments = () => {
                     <span className='text-[#00000043]'>12/12/2021</span>
                 </td>
                 
-                <td className='px-10 whitespace-nowrap text-center flex place-items-center justify-center py-2 gap-6'>
-                    <button className='text-red-500 bg-redlinearG w-14 h-14 border-2 border-red-500 flex justify-center place-items-center text-xl rounded-full font-bold '><span aria-hidden="true" className='text-3xl'>&times;</span></button>
-                    <button className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></button>
+                <td className='px-10 whitespace-nowrap text-center flex place-items-center justify-center py-2 h-16 gap-6'>
+                    <button className='text-red-500 bg-redlinearG w-10 h-10 border-2 border-red-500 flex justify-center place-items-center rounded-full font-bold '><span aria-hidden="true" className='text-xl'>&times;</span></button>
+                    <button className='text-backG bg-linear w-10 h-10 border-2 border-backG flex justify-center place-items-center rounded-full font-bold '><FaCheck /></button>
                 </td>
             </tr>
         </tbody>

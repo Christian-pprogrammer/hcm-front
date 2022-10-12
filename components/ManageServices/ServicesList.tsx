@@ -11,7 +11,7 @@ const ServicesList = () => {
     const STATUS ='Active'
   return (
     <div className="px-2 bg-[#F7F7F7] ">
-        <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
+        <div className="content-link py-2 text-backG text-[12px] flex gap-4">
                 <FaGlobe /><Link href='/HCM/Dashboard'>Manage Services / </Link> 
         </div>
         <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
@@ -33,8 +33,7 @@ const ServicesList = () => {
                     </div>
                     <div>
                         <button className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
-                            <FaPlus/>
-                            <span className=''>Remove All</span>
+                            <span >Remove All</span>
                         </button>
                     </div>
                 </div>

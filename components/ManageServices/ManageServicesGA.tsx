@@ -12,7 +12,7 @@ const ManageServicesGA = () => {
     const STATUS ='Active'
   return (
     <div className="px-2 bg-[#F7F7F7] ">
-        <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
+        <div className="content-link py-2 text-backG text-[12px] flex gap-4">
                 <FaGlobe /><Link href='/HCM/Dashboard'>Manage Services / </Link> 
         </div>
         <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
@@ -67,7 +67,7 @@ const ManageServicesGA = () => {
                     32
                 </td>  
                 <td>
-                    <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear w-32 h-10 border-2 border-backG flex justify-center place-items-center text-base rounded-lg font-bold '> Add </button>
+                    <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear w-32 h-10 border-2 border-backG flex justify-center place-items-center text-base rounded-lg font-bold '> Map </button>
                     <MapHospital showModal={MapHospitalModal} onClose={() => setMapHospitalModal(false)} />
                 </td>
             </tr>
@@ -85,7 +85,7 @@ const ManageServicesGA = () => {
                     32
                 </td>  
                 <td>
-                    <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear w-32 h-10 border-2 border-backG flex justify-center place-items-center text-base rounded-lg font-bold '> Add </button>
+                    <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear w-32 h-10 border-2 border-backG flex justify-center place-items-center text-base rounded-lg font-bold '> Map </button>
                     <MapHospital showModal={MapHospitalModal} onClose={() => setMapHospitalModal(false)} />
                 </td>
             </tr>
@@ -104,7 +104,7 @@ const ManageServicesGA = () => {
                     32
                 </td>  
                 <td>
-                    <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear w-32 h-10 border-2 border-backG flex justify-center place-items-center text-base rounded-lg font-bold '> Add </button>
+                    <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear w-32 h-10 border-2 border-backG flex justify-center place-items-center text-base rounded-lg font-bold '> Map </button>
                     <MapHospital showModal={MapHospitalModal} onClose={() => setMapHospitalModal(false)} />
                 </td>
             </tr>

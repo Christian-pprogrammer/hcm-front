@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import "../styles/globals.css";
+import { withLocaleMessages } from '../utils/ssg/withLocaleMessages';
 
 import UserService from "../services/users/user.service";
 import { updateJavaScriptObject } from "../utils/functions";
@@ -23,6 +24,7 @@ import {
   app_config,
   DEVICE_DETAILS_LOCAL_STORAGE_KEY,
 } from "../utils/constants";
+import { AbstractIntlMessages, NextIntlProvider } from 'next-intl';
 
 NProgress.configure({ showSpinner: false });
 //Binding events.
@@ -31,7 +33,9 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 let store = createStore(reducer);
-
+type MessageProps ={
+  messages?: AbstractIntlMessages;
+}
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
@@ -41,17 +45,17 @@ declare global {
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // if (typeof window !== "undefined") {
-  store = createStore(
-    reducer,
-    // composeEnhancers()
-  );
+store = createStore(
+  reducer,
+  // composeEnhancers()
+);
 // }
 
 function AppMeta() {
-  
+
   useEffect(() => {
     setUser();
-  },[]);
+  });
   const dispatch = useDispatch();
 
   const setUser = () => {
@@ -116,11 +120,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <Provider store={store}>
-      <div>
-        <ToastContainer style={{fontSize: "0.2em"}} />
-        <AppMeta />
-        <Component {...pageProps} />
-      </div>
+      <NextIntlProvider messages={pageProps.messages}>
+          <ToastContainer style={{ fontSize: "0.2em" }} />
+          <AppMeta />
+          <Component {...pageProps} />
+      </NextIntlProvider>
     </Provider>
   );
 }

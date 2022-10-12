@@ -36,9 +36,9 @@ const ManageUserAdmin = () => {
                     <div>
                         <button onClick={()=>setAddUserModal(true)} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                             <FaPlus/>
-                            <span className=''>New Hospital</span>
+                            <span>New User</span>
                         </button>
-                            <AddNewUser showModal={AddUserModal} onClose={()=>setAddUserModal(false)} />
+                        <AddNewUser showModal={AddUserModal} onClose={()=>setAddUserModal(false)} />
                     </div>
                 </div>
             </div>

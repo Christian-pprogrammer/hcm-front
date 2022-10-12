@@ -1,23 +1,57 @@
-import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
+import userService from '../../../services/users/user.service';
+import { NewUserData, NewUserInterface } from '../../../utils/ModalTypes';
+import AdvanceUserInfo from './AdvanceUserInfo';
+import BasicUserInfo from './BasicUserInfo';
 
 const AddNewUser = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
-
+    const [loading, setLoading] = React.useState(false);
+    const [alertData, setAlertData] = React.useState({
+        alert: false,
+        message: "",
+        class: "",
+    });
     const [isBrowser, setBrowser] = useState<Boolean>(false)
     useEffect(() => {
         setBrowser(true)
     }, [])
-    interface SelectedData {
-        SelectedService: ServiceStructure;
-    }
-    const [selectData, setSelectData] = useState<SelectedData[]>([])
+  
+    const [FormData, setFormData] = useState<NewUserInterface>(NewUserData)
     const handleClose = () => {
         onClose()
     }
-    const handleSubmit = (e: any) => {
+    const [FormPageNumber,setFormPageNumber] = useState<number>(0);
+    const PageDisplayForm = () => {
+        if(FormPageNumber == 0){
+            return <BasicUserInfo FormData={FormData} setFormData={setFormData} />
+        }else{
+            return <AdvanceUserInfo FormData={FormData} setFormData={setFormData} />
+        }
+    }
+   
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        try {
+            console.log(FormData);
+            setLoading(true);
+            const res = await userService.create(FormData);
+            if (res.data.status === 200) {
+                setAlertData({
+                    alert: true,
+                    message: res.data.message || "Successfuly Created the service",
+                    class: "green"
+                });
+            } else {
+                setAlertData({
+                    alert: true,
+                    message: res.data.error || "Failure Check Provided Credentials",
+                    class: "red"
+                })
+            }
+        } catch (error) {
+            reportError(error);
+        }
     }
     const ModalContent = showModal ? (
         <div className="modal-portal bg-modalG h-screen w-screen px-5 flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
@@ -25,55 +59,25 @@ const AddNewUser = ({ showModal, onClose }: { showModal: Boolean, onClose: any }
                 <div className="modal-content">
 
                     <div className="modal-header py-2 flex justify-between">
-                        <h5 className="modal-title font-bold text-backG ">New Doctor Account </h5>
+                        <h5 className="modal-title font-bold text-backG ">New User Account </h5>
                         <button onClick={handleClose} type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form onSubmit={handleSubmit}>
+                    <form method="post" onSubmit={handleSubmit}>
                         <div className="modal-body">
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Username
-                                </label>
-                                <input className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Enter your username" />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Email
-                                </label>
-                                <input className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email" />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Password
-                                </label>
-                                <input className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Enter password" />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Services 
-                                </label>
-                                <Multiselect onSelect={(e) => setSelectData(e)} loading={false} options={ServicesArr} displayValue={"ServiceName"} className="shadow appearance-none bg-inputG border rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" placeholder="Select " />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Working Status
-                                </label>
-                                <select className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Select the status">
-                                    <option value="Active">Active</option>
-                                    <option value="Pending">Pending</option>
-                                </select>
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
+                            {PageDisplayForm()}
                         </div>
                         <div className="modal-footer flex py-2 gap-2 justify-between">
-                            <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>
-                            <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleSubmit}>Save</button>
+                        {FormPageNumber == 0 ? <>
+                                <button className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
+                                <button className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
+                            </>:
+                            <>
+                            <button className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
+                            <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Add User</button>
+                            </>
+                            }
                         </div>
                     </form>
                 </div>

@@ -14,7 +14,7 @@ const ServicesFee = () => {
         return TotalPrice
       }
   return (
-    <div className=" bg-white min-w-[30vw]    lg:block relative  rounded-lg p-5 border-2 border-[#0000003]">
+    <div className=" bg-white min-w-[30vw] flex-col md:flex-row    lg:block relative  rounded-lg p-5 border-2 border-[#0000003]">
     <div className='flex justify-between'>
       <h5 className='font-bold'>Active Prices</h5>
       <div>

@@ -62,13 +62,13 @@ const DeleteAcc = ({ showModal, onClose } : {showModal: Boolean, onClose: any}) 
         </div>
         <form method="post" onSubmit={handleDeleteSubmit}>
         <div className="modal-bod py-10 text-center">
-          <div className="py-1">
-            <label className="block text-gray-700 text-sm font-bold">
-                Password
-            </label>
-            <input value={password} onChange={(e)=>setPassword(e.target.value)} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Input password credentials" />
-            <small className='text-[12px] text-red-500'>Enter Valid info</small>
-          </div>
+            <div className="py-1">
+              <label className="block text-gray-700 text-sm font-bold">
+                  Password
+              </label>
+              <input value={password} onChange={(e)=>setPassword(e.target.value)} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Input password credentials" />
+              <small className='text-[12px] text-red-500'>Enter Valid info</small>
+            </div>
           <p>Would you like to remove access the account will remove permanent access to the system.The system will remove the access to the system details and functionalities !!Are you sure you want to delete your account?</p>
         </div>
         <div className="modal-footer flex py-10 justify-between">

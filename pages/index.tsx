@@ -15,7 +15,7 @@ import { app_config } from '../utils/constants';
 import { withLocaleMessages } from '../utils/ssg/withLocaleMessages';
 
 const Home: NextPage = () => {
-  const t = useTranslations('example-group')
+  const t = useTranslations('Home')
   return (
     <>
       <Head>

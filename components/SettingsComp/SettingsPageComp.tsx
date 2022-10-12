@@ -16,9 +16,9 @@ const SettingsPageComp = () => {
             <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
                 <FaHome /><Link href='/HCM/Dashboard' > Settings / </Link>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col md:flex-row gap-2">
                 <div className="chart-data flex gap-[4em] min-w-[45vw] h-[50vh] bg-white rounded-lg p-5 border-2 border-[#0000003]">
-                    <div className="bg-white flex flex-col gap-6">
+                    <div className="bg-white hidden lg:flex flex-col gap-6">
                         <h5>Set Reminder</h5>
                         <ClockIcon />
                     </div>
@@ -35,13 +35,13 @@ const SettingsPageComp = () => {
                 </div>
                 <ServicesFee />
             </div>
-            <div className='flex gap-2'>
+            <div className='flex flex-col md:flex-row gap-2'>
                 <div className='gap-2 '>
                     <div className='py-5'>
                         <h1 className='font-bold'>License Expiration Duration</h1>
                     </div>
                     <div className='w-full border-2 flex place-items-center justify-center p-5 gap-[2em] border-[#000000082] md:min-w-[45vw] h-[50vh] bg-white rounded-lg'>
-                        <div>
+                        <div className="hidden lg:flex">
                             <AlertIcon />
                         </div>
                         <div className='py-5'>
@@ -51,7 +51,7 @@ const SettingsPageComp = () => {
                         </div>
                     </div>
                 </div>
-                <div className='hidden lg:block '>
+                <div className='flex flex-col lg:block'>
                     <div className='py-1  place-items-center  flex pr-5  justify-between'>
                         <h1 className='font-bold'>Message Templates</h1>
                         <div>

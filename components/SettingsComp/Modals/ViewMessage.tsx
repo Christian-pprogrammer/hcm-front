@@ -14,8 +14,8 @@ const ViewMessage = ({ showMessage, onClose, children }: { showMessage: Boolean,
         e.preventDefault();
     }
     const ModalContent = showMessage ? (
-        <div className="modal-portal bg-modalG min-h-full w-full flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
-            <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow  w-[30vw]">
+        <div className="modal-portal bg-modalG min-h-full w-full px-5 flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
+            <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow w-full md:w-1/2 lg:w-[30vw]">          
                 <div className="modal-content">
                     <div className="modal-header py-10 flex justify-between">
                         <h5 className="modal-title font-bold">View Step</h5>
@@ -28,7 +28,7 @@ const ViewMessage = ({ showMessage, onClose, children }: { showMessage: Boolean,
                             </select>
                         </div>
                     </div>
-                    <div className="modal-bod py-5 text-center">
+                    <div className="modal-body py-5 text-center">
                         {children}
                     </div>
                     <div className="modal-footer flex justify-center py-10 ">
