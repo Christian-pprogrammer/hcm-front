@@ -47,7 +47,6 @@ class UserService {
         return http.get(`/users/load-file/${filename}`);
     }
 
-
 }
 
 export default new UserService();
