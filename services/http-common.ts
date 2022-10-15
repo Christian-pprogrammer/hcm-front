@@ -1,6 +1,6 @@
 import axios from "axios";
 import Router from "next/router";
-import AuthService from './auth/auth.service'
+import AuthService from './auth/auth.service';
 
 export const domain = "https://hcm-backend-hosting.herokuapp.com";
 
