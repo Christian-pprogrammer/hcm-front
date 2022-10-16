@@ -9,10 +9,8 @@ import Head from "next/head";
 import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import "../styles/globals.css";
 import { withLocaleMessages } from '../utils/ssg/withLocaleMessages';
-
 import UserService from "../services/users/user.service";
 import { updateJavaScriptObject } from "../utils/functions";
 import reducer from "../store/reducers";
@@ -24,7 +22,7 @@ import {
   app_config,
   DEVICE_DETAILS_LOCAL_STORAGE_KEY,
 } from "../utils/constants";
-import { AbstractIntlMessages, NextIntlProvider } from 'next-intl';
+import { AbstractIntlMessages, IntlError, IntlErrorCode, NextIntlProvider } from 'next-intl';
 
 NProgress.configure({ showSpinner: false });
 //Binding events.
@@ -33,9 +31,7 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 let store = createStore(reducer);
-type MessageProps ={
-  messages?: AbstractIntlMessages;
-}
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
@@ -50,6 +46,36 @@ store = createStore(
   // composeEnhancers()
 );
 // }
+type ProviderProps = {
+  messages?: AbstractIntlMessages;
+};
+
+
+function onError(error: IntlError) {
+  if (error.code === IntlErrorCode.MISSING_MESSAGE) {
+    // Missing translations are expected and should only log an error
+    console.error(error);
+  }
+}
+
+function getMessageFallback({
+  namespace,
+  key,
+  error,
+}: {
+  namespace?: string | undefined;
+  key: string;
+  error: IntlError;
+}) {
+  const path = [namespace, key].filter(part => part != null).join('.');
+
+  if (error.code === IntlErrorCode.MISSING_MESSAGE) {
+    return `${path} is not yet translated`;
+  }
+
+  return `Dear developer, please fix this message: ${path}`;
+}
+
 
 function AppMeta() {
 
@@ -120,8 +146,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <Provider store={store}>
-      <NextIntlProvider messages={pageProps.messages}>
-          <ToastContainer style={{ fontSize: "0.2em" }} />
+      <NextIntlProvider       // To achieve consistent date, time and number formatting
+      // across the app, you can define a set of global formats.
+      formats={{
+        dateTime: {
+          short: {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          },
+        },
+      }}
+      messages={pageProps.messages}
+      // Providing an explicit value for `now` ensures consistent formatting of
+      // relative values regardless of the server or client environment.
+      now={new Date(pageProps.now)}
+      // Also an explicit time zone is helpful to ensure dates render the
+      // same way on the client as on the server, which might be located
+      // in a different time zone.
+      timeZone="Austria/Vienna"   getMessageFallback={getMessageFallback} onError={onError}>
+          <ToastContainer style={{ fontSize: "0.8em" }} />
           <AppMeta />
           <Component {...pageProps} />
       </NextIntlProvider>
