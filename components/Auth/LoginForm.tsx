@@ -2,16 +2,16 @@ import Link from 'next/link';
 import Head from "next/head";
 import Router from 'next/router';
 import React, { useState,useEffect } from 'react';
-import { useDispatch } from "react-redux";
 
 import AuthService from "../../services/auth/auth.service";
 import RouteService from "../../services/auth/routing";
-import Alert from "../../components/alert";
+import {notifyError, notifySuccess} from "../../components/alert";
 import {app_config, system_users} from "../../utils/constants";
 import { KeyIcon, LockIcon, PersonaIcon } from '../../icons';
 import { FormDummy, FormLoginStructure, LoginFormData } from '../../utils/FormData';
 import ForbiddenPage from '../../layouts/ForbiddenPage';
 import { UrlObject } from 'url';
+import jwtDecode from 'jwt-decode';
 
 export default function LoginForm() {
 
@@ -20,60 +20,52 @@ export default function LoginForm() {
     const [isValid,setValid] = useState(true);
 
     const [loading, setLoading] = React.useState(false);
-    const [alertData, setAlertData] = React.useState({
-        alert: false,
-        message: "",
-        class: "",
-    });
 
     const handleGoTo = (link: string | UrlObject) => {
         setTimeout(() => {
-            setAlertData({alert: false, message: "", class: ""});
             Router.push(link);
         }, 1000);
     }
 
     useEffect(()=>{
-        !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-         || FormData.password.match(/^(?=.*[A-Z])(?=.*[\\W])(?=.*[0-9])(?=.*[a-z]).{8,30}$/) ? setValid(false): setValid(true)
+        (!FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+         && !FormData.password.match(/^(?=.*[A-Z])(?=.*[\\W])(?=.*[0-9])(?=.*[a-z]).{8,30}$/)) ? setValid(false): setValid(true)
     },[FormData]);
 
     const login = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setAlertData({alert: false, message: "", class: ""});
         setLoading(true);
         try {
             const res = await AuthService.login(FormData);
-            AuthService.setToken(res.data.token);
-            setAlertData({
-                alert: true,
-                message: "Logged In Successfully",
-                class: "green"
-            });
+            AuthService.setToken(res.data.accessToken);
+            const decodedToken: any = jwtDecode(res.data.accessToken);
+            console.log(decodedToken);
+            const role = decodedToken.authorities[0].authority;
+            notifySuccess("Logged In Successful");
 
             if (RouteService.getPrevRoute()) {
                 let link: any = RouteService.getPrevRoute();
                 RouteService.removePrevRoute();
                 handleGoTo(link);
             } else {
-                if (res.data.role === system_users.SUPER_ADMIN)
-                    handleGoTo("/super-admin");
-                else if (res.data.role === system_users.GROUP_ADMIN)
-                    handleGoTo("/group-admin");
-                else if (res.data.role === system_users.GROUP_DIRECTOR)
-                    handleGoTo("/group-director");
-                else if (res.data.role === system_users.HOSPITAL_ADMIN)
-                    handleGoTo("/hospital-admin");
-                else if (res.data.role === system_users.HOSPITAL_DIRECTOR)
-                    handleGoTo("/hospital-director");
-                else if (res.data.role === system_users.SCHEDULE_MANAGER)
-                    handleGoTo("/schedule-manager");
-                else if (res.data.role === system_users.APPOINTMENT_MANAGER)
-                    handleGoTo("/appointment-manager");
-                else if (res.data.role === system_users.DOCTOR)
-                    handleGoTo("/doctor");
-                else if (res.data.role === system_users.PATIENT)
-                    handleGoTo("/patient");
+                if (role === system_users.SUPER_ADMIN)
+                    handleGoTo("/super-admin/dashboard");
+                else if (role === system_users.GROUP_ADMIN)
+                    handleGoTo("/group-admin/dashboard");
+                else if (role === system_users.GROUP_DIRECTOR)
+                    handleGoTo("/group-director/dashboard");
+                else if (role === system_users.HOSPITAL_ADMIN)
+                    handleGoTo("/hospital-admin/dashboard");
+                else if (role === system_users.HOSPITAL_DIRECTOR)
+                    handleGoTo("/hospital-director/dashboard");
+                else if (role === system_users.SCHEDULE_MANAGER)
+                    handleGoTo("/schedule-manager/dashboard");
+                else if (role === system_users.APPOINTMENT_MANAGER)
+                    handleGoTo("/appointment-manager/dashboard");
+                else if (role === system_users.DOCTOR)
+                    handleGoTo("/doctor/dashboard");
+                else if (role === system_users.PATIENT)
+                    handleGoTo("/patient/appointment-dashboard");
                 else
                     handleGoTo("/404");
             }
@@ -82,13 +74,9 @@ export default function LoginForm() {
         } catch (e: any) {
             // console.log("rr" ,e)
             const ERROR_MESSAGE = e.response ? e.response.data.message || "Not Found" : e.message;
-            setAlertData({
-                alert: true,
-                message: ERROR_MESSAGE,
-                class: "red",
-            });
+            notifyError(ERROR_MESSAGE);
             setFormData({
-                email:"",
+                email:FormData?.email,
                 password : FormData?.password
             })
         }
@@ -101,7 +89,7 @@ export default function LoginForm() {
             {loading ?
             <div className='h-screen w-scree flex place-items-center justify-center bg-slate-700 left-0 right-0 bottom-0 top-0'>
                 <div className="spinner"></div>
-            </div> 
+            </div>
             :
             <div className="bg-white h-screen flex-row-reverse flex ">
                 <Head>

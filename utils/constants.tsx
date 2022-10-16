@@ -28,8 +28,10 @@ export const app_config = {
     APP_DISCRIPTO: "Easy, fast and secure hospital appointment system",
 };
 
+export const ALERT_EXPIRATION_PERIOD = 4000;
+
 export const LOCAL_STORAGE_TOKEN_KEY =
-    "U2FsdGVkX1/G0spCYq44fQCTDWSVO6gq2/UDLKJSLKAFJKLADFDS";
+    "lkaf@#sdafkaslk4238832fdsfsadfaFAFALfdafFfa8ewre423@#4";
 export const PREV_LINK_LOCAL_STORAGE_KEY =
     "U2FsdGVkX1/wKjkfljasdlkjfkajdaPpveuMtd+sqe8pr64Dq2r";
 export const DEVICE_DETAILS_LOCAL_STORAGE_KEY =
