@@ -96,6 +96,7 @@ export const NewTemplateArr:NewTemplateInterface = {
 }
 export interface NewScheduleInterface{
     doctorName:string;
+    doctorEmail:string;
     services:Object[];
     scheduleDate:string;
     startHour:string;
@@ -103,6 +104,7 @@ export interface NewScheduleInterface{
 }
 export const NewScheduleData:NewScheduleInterface = {
     doctorName: "",
+    doctorEmail:"",
     services:[],
     scheduleDate: "",
     startHour:"",
@@ -123,4 +125,20 @@ export const SendAppointmentDataArr : SendAppointmentInterface = {
     patientRecordNumber:"",
     appointmentHr:"",
     patientTel:0
+}
+export interface PatientInterface {
+    patientName:string;
+    patientNumber:string;
+    patientTel:number;
+    doctorName:string;
+    phoneNumber:string;
+    email:string;
+}
+export const PatientInterfaceData:PatientInterface= {
+    patientName :"",
+    patientNumber:"",
+    patientTel:0,
+    doctorName:"",
+    phoneNumber:"",
+    email:""
 }
