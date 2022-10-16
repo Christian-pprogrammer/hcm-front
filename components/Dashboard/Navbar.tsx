@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
-import { FaBell, FaUser } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
-import { NotificationIcon, PersonaIcon } from '../../icons'
+import React from 'react';
+import { FaBell, FaUser } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const AuthUser = useSelector((state: any) => state.authUser);
@@ -20,7 +19,7 @@ const Navbar = () => {
             </div>
             <div className='justify-center px-4 md:px-8 place-items-center flex '>
                 <span className='font-semibold '>
-                    {AuthUser.role || "Unauthorized Access"} 
+                    {AuthUser.role || "Unauthorized Access"}
                 </span>
             </div>
             <div className='flex   '>

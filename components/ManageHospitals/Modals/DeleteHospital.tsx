@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import GroupAdminService from '../../../services/users/GroupAdmin.service';
-import superAdminService from '../../../services/users/superAdmin.service';
+import GroupAdminService from '../../../services/users/group-admin.service';
+import superAdminService from '../../../services/users/super-admin.service';
 
 const DeleteHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
 

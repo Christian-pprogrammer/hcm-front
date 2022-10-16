@@ -6,7 +6,7 @@ import { Provider, useDispatch } from "react-redux";
 import { compose, legacy_createStore as createStore } from "redux";
 import { useEffect } from "react";
 import Head from "next/head";
-import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../styles/globals.css";
@@ -88,10 +88,36 @@ function AppMeta() {
     if (AuthService.isLoggedIn()) {
       if (!AuthService.tokenExpired()) {
         const token: any = AuthService.getDecToken();
-        UserService.get(jwt_decode<any>(token).id)
+        UserService.get(jwtDecode<any>(token).user.id)
           .then((res) => {
-            const curr_user = updateJavaScriptObject(jwt_decode(token), res.data);
-            curr_user.fullNames = res.data.firstName + " " + res.data.lastName;
+            const curr_user = updateJavaScriptObject(jwtDecode(token), res.data);
+            curr_user.fullNames = res.data.username;
+            const user_role = (res.data.roles[0].role);
+            // curr_user.role = res.data.roles[0].role;
+            console.log(user_role);
+
+            if (user_role == "SUPER_ADMIN") {
+              curr_user.role = "Super Admin";
+            } else if (user_role == "GROUP_ADMIN") {
+              curr_user.role = "Group Admin";
+            } else if (user_role == "GROUP_DIRECTOR") {
+              curr_user.role = "Group Director";
+            } else if (user_role == "HOSPITAL_ADMIN") {
+              curr_user.role = "Hospital Admin";
+            } else if (user_role == "HOSPITAL_DIRECTOR") {
+              curr_user.role = "Hospital Director";
+            } else if (user_role == "DOCTOR") {
+              curr_user.role = "Doctor";
+            } else if (user_role == "PATIENT") {
+              curr_user.role = "Patient";
+            } else if (user_role == "APPOINTMENT_MANAGER") {
+              curr_user.role = "Appointment Manager";
+            } else if (user_role == "SCHEDULE_MANAGER") {
+              curr_user.role = "Schedule Manager";
+            } else {
+              curr_user.role = "Guest";
+            }
+
             dispatch(setAuthUser(curr_user));
           })
           .catch((e) => console.log(e));
