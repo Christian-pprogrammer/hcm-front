@@ -2,11 +2,8 @@ import Link from 'next/link';
 import Head from "next/head";
 import Router from 'next/router';
 import React, { useState,useEffect } from 'react';
-<<<<<<< HEAD
 import { toast } from 'react-toastify';
-=======
 
->>>>>>> 4bf797a2aa2e0461b9bec5e89903d8344f92779c
 import AuthService from "../../services/auth/auth.service";
 import RouteService from "../../services/auth/routing";
 import {notifyError, notifySuccess} from "../../components/alert";
@@ -15,11 +12,8 @@ import { KeyIcon, LockIcon, PersonaIcon } from '../../icons';
 import { FormDummy, FormLoginStructure, LoginFormData } from '../../utils/FormData';
 import ForbiddenPage from '../../layouts/ForbiddenPage';
 import { UrlObject } from 'url';
-<<<<<<< HEAD
 import LoaderCache from '../../pages/auth/LoaderCache';
-=======
 import jwtDecode from 'jwt-decode';
->>>>>>> 4bf797a2aa2e0461b9bec5e89903d8344f92779c
 
 export default function LoginForm() {
 
@@ -45,25 +39,12 @@ export default function LoginForm() {
         setLoading(true);
         try {
             const res = await AuthService.login(FormData);
-<<<<<<< HEAD
-            AuthService.setToken(res.data.token);
-            setAlertData({
-                alert: true,
-                message: res.data.message || "Logged In Successfully",
-                class: "green"
-            });
-            console.log(res.data);
-            toast.success(alertData.message,{
-                theme: "colored",
-            });
-=======
             AuthService.setToken(res.data.accessToken);
             const decodedToken: any = jwtDecode(res.data.accessToken);
             console.log(decodedToken);
             const role = decodedToken.authorities[0].authority;
             notifySuccess("Logged In Successful");
 
->>>>>>> 4bf797a2aa2e0461b9bec5e89903d8344f92779c
             if (RouteService.getPrevRoute()) {
                 let link: any = RouteService.getPrevRoute();
                 RouteService.removePrevRoute();
@@ -94,18 +75,8 @@ export default function LoginForm() {
 
         } catch (e: any) {
             // console.log("rr" ,e)
-<<<<<<< HEAD
-            const ERROR_MESSAGE = e.response ? e.response.data.message || "Not Found " : e.message;
-            setAlertData({
-                alert: true,
-                message: ERROR_MESSAGE,
-                class: "red",
-            });
-            toast.error(alertData.message);
-=======
             const ERROR_MESSAGE = e.response ? e.response.data.message || "Not Found" : e.message;
             notifyError(ERROR_MESSAGE);
->>>>>>> 4bf797a2aa2e0461b9bec5e89903d8344f92779c
             setFormData({
                 email:FormData?.email,
                 password : FormData?.password
@@ -117,15 +88,8 @@ export default function LoginForm() {
 
     return (
         <ForbiddenPage>
-<<<<<<< HEAD
             {loading ? 
             <LoaderCache/>
-=======
-            {loading ?
-            <div className='h-screen w-scree flex place-items-center justify-center bg-slate-700 left-0 right-0 bottom-0 top-0'>
-                <div className="spinner"></div>
-            </div>
->>>>>>> 4bf797a2aa2e0461b9bec5e89903d8344f92779c
             :
             <div className="bg-white h-screen flex-row-reverse flex ">
                 <Head>
