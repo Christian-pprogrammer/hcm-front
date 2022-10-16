@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import SettingsService from '../../../services/users/Settings.service';
+import SettingsService from '../../../services/settings/Settings.service';
 import { NewTemplateArr, NewTemplateInterface } from '../../../utils/ModalTypes';
 import { MessageType } from '../../../utils/SelectOptions';
 

@@ -1,7 +1,7 @@
 import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import ManageAppointmentsService from '../../../services/users/ManageAppointments.service';
+import ManageAppointmentsService from '../../../services/users/manage-appointments.service';
 import { SendAppointmentDataArr, SendAppointmentInterface } from '../../../utils/ModalTypes';
 import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 import AdvancedSendInfo from './AdvancedSendInfo';

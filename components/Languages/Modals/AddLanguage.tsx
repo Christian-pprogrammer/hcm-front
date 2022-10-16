@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import LanguageService from '../../../services/users/Language.service';
+import LanguageService from '../../../services/users/language.service';
 import { LanguagesData, LanguagesType } from '../../../utils/ModalTypes';
 
 const AddLanguage = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
@@ -15,7 +15,7 @@ const AddLanguage = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
     useEffect(() => {
         setBrowser(true)
     }, [])
-    
+
     const handleClose = () => {
         onClose()
     }
@@ -54,7 +54,7 @@ const AddLanguage = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
                         </button>
                     </div>
                     <form method="post" onSubmit={handleSubmit}>
-                        <div className="modal-body"> 
+                        <div className="modal-body">
                             <div className="py-1">
                                 <label className="block text-gray-700 text-sm font-bold">
                                     New Language Name

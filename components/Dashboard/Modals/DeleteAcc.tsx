@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import Router, { useRouter } from 'next/router';
 
-import SuperAdminService from "../../../services/users/superAdmin.service";
+import SuperAdminService from "../../../services/users/super-admin.service";
 
 const DeleteAcc = ({ showModal, onClose } : {showModal: Boolean, onClose: any}) => {
   const router = useRouter()
@@ -18,7 +18,7 @@ const DeleteAcc = ({ showModal, onClose } : {showModal: Boolean, onClose: any}) 
     setBrowser(true)
   }, [])
   const handleClose = () => {
-    onClose() 
+    onClose()
   }
 
   const handleDeleteSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
