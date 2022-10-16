@@ -111,13 +111,13 @@ const SignupForm = () => {
                     {PageDisplay()}
                     {FormPage == 0 &&
                         <div className='pt-4'>
-                            <button className='py-5 bg-backG text-white w-full' onClick={() => { setFormPage((prev) => prev + 1) }}>Register</button>
+                            <button type="button" className='py-5 bg-backG text-white w-full' onClick={() => { setFormPage((prev) => prev + 1) }}>Register</button>
                         </div>
                     }
                     {FormPage == 1 &&
                         <div className='flex gap-6 py-1'>
-                            <button className='py-4 bg-zinc-600 text-white w-full ' onClick={() => { setFormPage((prev) => prev - 1) }}>Previous</button>
-                            <button className='py-4 bg-backG text-white w-full ' onClick={() => { setFormPage((prev) => prev + 1) }}>Next</button>
+                            <button type="button" className='py-4 bg-zinc-600 text-white w-full ' onClick={() => { setFormPage((prev) => prev - 1) }}>Previous</button>
+                            <button type="button" className='py-4 bg-backG text-white w-full ' onClick={() => { setFormPage((prev) => prev + 1) }}>Next</button>
                         </div>
                     }
                     {FormPage == 2 &&
