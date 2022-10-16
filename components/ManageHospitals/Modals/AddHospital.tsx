@@ -2,7 +2,6 @@ import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import { AddHospitalData, AddHospitalStructure } from '../../../utils/ModalTypes';
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 import AdvancedInfo from './AdvancedInfo';
 import BasicInfo from './BasicInfo';
 
@@ -50,11 +49,11 @@ const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
                         </div>
                         <div className="modal-footer flex py-2 gap-2 justify-between">
                             {FormPageNumber == 0 ? <>
-                                <button className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
-                                <button className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
+                                <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
+                                <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
                             </>:
                             <>
-                            <button className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
+                            <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
                             <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Add Account</button>
                             </>
                             }

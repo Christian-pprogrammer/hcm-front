@@ -56,15 +56,15 @@ const DeleteHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: a
             <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow w-full md:w-1/2 lg:w-[30vw]">
                 <div className="modal-content">
 
-                    <div className="modal-header py-10 flex justify-between">
+                    <div className="modal-header py-5 flex justify-between">
                         <h5 className="modal-title font-bold">Delete Hospital</h5>
                         <button type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close" onClick={handleClose}>
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form onSubmit={handleDeleteHospital} method="post">
-                    <div className="modal-bod py-10 text-center">
-                        <div className="py-1">
+                    <div className="modal-bod py-5 text-center">
+                        <div className="py-4">
                             <label className="block text-gray-700 text-sm font-bold">
                                 Password
                             </label>

@@ -1,14 +1,15 @@
 import React,{ useState } from 'react'
 import Link from 'next/link'
 import DeleteAcc from './Modals/DeleteAcc'
-import { FaCheck,FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
+import { FaCheck,FaEllipsisH,FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
 import AddAccount from './Modals/AddAccount'
 import EditAccount from './Modals/EditAccount'
 
 const TableManageAcc = () => {
     const [showModal,setModal] = useState<Boolean>(false)
     const [addAccount,setAddAccount] = useState<Boolean>(false)
-    const [EditModal,setEditModal] = useState<Boolean>(false)
+    const [EditModal,setEditModal] = useState<Boolean>(false);
+    const [showListActions,setshowListActions] = useState<Boolean>(false);
     const [searchtext,setSearchText] = useState<string>('');
     const toggleModal = () =>{
         setModal(!showModal)
@@ -63,7 +64,7 @@ const TableManageAcc = () => {
                 </tr>
             </thead>
             <tbody className=''>
-                <tr className='bg-inputG  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
+                <tr className='bg-inputG relative  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                     <td className='py-2  whitespace-nowrap lg:px-5 '>
                         <div className='flex px-2 gap-6'>
                             <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
@@ -86,10 +87,17 @@ const TableManageAcc = () => {
                     <td className='px-10 whitespace-nowrap '>
                         <span className='text-[#00000043]'>12/12/2021</span>
                     </td>
-                    <td className='px-10 whitespace-nowrap flex gap-10 text-backG'>
-                        <button onClick={toggleEditAccount}><FaPencilAlt /><EditAccount EditModal={EditModal} onClose={toggleEditAccount}/></button>
-                        <button onClick={toggleModal}><FaTrash /><DeleteAcc showModal={showModal} onClose={toggleModal}/></button>
+                    <td className='px-10 whitespace-nowrap justify-center flex gap-10 text-backG'>
+                        <button onClick={() => setshowListActions((prev)=>!prev)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> 
                     </td>
+                    {showListActions && 
+                    <div className="group bg-white flex-col flex text-[12px] absolute top-2 right-[9em]">
+                        <button className="btn  py-2 px-4 bg-zinc-100 border-2 border-white" onClick={toggleEditAccount}>Edit Account</button>
+                        <button className="btn  py-2 px-4 hover:bg-zinc-100 hover:border-2 border-2 border-white hover:border-white duration-300" onClick={toggleModal}>Delete Account</button>
+                    </div>
+                    }
+                    <DeleteAcc showModal={showModal} onClose={toggleModal}/>
+                    <EditAccount EditModal={EditModal} onClose={toggleEditAccount}/>
                 </tr>
                 <tr className='bg-inputG  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                     <td className='py-2  whitespace-nowrap lg:px-5 '>

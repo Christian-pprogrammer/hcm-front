@@ -2,23 +2,31 @@ import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import { LineSvg } from '../../../icons';
+import ManageAppointmentsService from '../../../services/users/ManageAppointments.service';
+import { PatientInterface, PatientInterfaceData } from '../../../utils/ModalTypes';
 import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 import ConfirmRequestModal from './ConfirmRequestModal';
 import PersonalInfo from './PersonalInfo'
 import TransactionModeInfo from './TransactionModeInfo'
 
 const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
-
+    const [loading, setLoading] = React.useState(false);
+    const [alertData, setAlertData] = React.useState({
+        alert: false,
+        message: "",
+        class: "",
+    });
     const [isBrowser, setBrowser] = useState<Boolean>(false)
     useEffect(() => {   
         setBrowser(true)
-    }, [])
+    }, []);
+    const [FormData,setFormData] = useState<PatientInterface>(PatientInterfaceData);
     const [FormPageNumber,setFormPageNumber] = useState<number>(0)
     const PageDisplayForm = () => {
         if(FormPageNumber == 0){
-            return <PersonalInfo />
+            return <PersonalInfo  FormData={FormData} setFormData={setFormData}/>
         }else if(FormPageNumber == 1){
-            return <TransactionModeInfo />
+            return <TransactionModeInfo FormData={FormData} setFormData={setFormData}/>
         }
         else{
             return <ConfirmRequestModal/>
@@ -28,8 +36,28 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
         onClose()
       
     }
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        try {
+            console.log(FormData);
+            setLoading(true);
+            const res = await ManageAppointmentsService.createAppointment("kjadh129aklsd12k",FormData);
+            if (res.data.status === 200) {
+                setAlertData({
+                    alert: true,
+                    message: res.data.message || "Successfuly Created the service",
+                    class: "green"
+                });
+            } else {
+                setAlertData({
+                    alert: true,
+                    message: res.data.error || "Failure Check Provided Credentials",
+                    class: "red"
+                })
+            }
+        }catch(error) {
+            reportError(error);
+        }
     }
     const ModalContent = showModal ? (
         <div className="modal-portal bg-modalG h-screen w-screen px-5 flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
@@ -56,7 +84,7 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
                         <button className={`btn hover:scale-110 hover:bg-backG hover:text-white duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-inputG text-backG font-bold1 ${FormPageNumber == 2 && 'bg-backG text-white'}`} onClick={()=>setFormPageNumber(2)}>3</button>
                     </div>
                 </div>
-                    <form onSubmit={handleSubmit}>
+                    <form method="post" onSubmit={handleSubmit}>
                         <div className="modal-body">
                             {PageDisplayForm()}
                         </div>
@@ -66,7 +94,7 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
                                 <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
                             </>
                             }
-                            {FormPageNumber === 1 &&
+                            {FormPageNumber == 1 &&
                             <>
                             <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
                             <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
@@ -75,7 +103,7 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
                             {FormPageNumber ==2 && 
                             <>
                             <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev-1)}>Previous</button>
-                            <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleSubmit}>Confirm</button>
+                            <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Confirm</button>
                             </>
                             }
                         </div>

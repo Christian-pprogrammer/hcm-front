@@ -1,9 +1,9 @@
-import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import SchedulesService from '../../../services/users/Schedules.service';
 import { NewScheduleData, NewScheduleInterface } from '../../../utils/ModalTypes';
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
+import AdvancedScheduleInfo from './AdvancedScheduleInfo';
+import BasicScheduleInfo from './BasicScheduleInfo';
 
 const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean, onClose: any }) => {
     const [loading, setLoading] = React.useState(false);
@@ -17,16 +17,17 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean,
     useEffect(() => {
         setBrowser(true)
     }, [])
-    interface SelectedData{
-        SelectedService : ServiceStructure;
-    }
-    const [selectData,setSelectData] = useState<SelectedData[]>([])
+
     const handleClose = () => {
         onClose()
     }
-    const handleOnSelect = (e:React.FormEvent<HTMLFormElement>|any)=> {
-        setSelectData(e);
-        setFormData({...FormData,services:selectData});
+    const [FormPageNumber,setFormPageNumber] = useState<number>(0);
+    const PageDisplayForm = () => {
+        if(FormPageNumber == 0){
+            return <BasicScheduleInfo FormData={FormData} setFormData={setFormData} />
+        }else{
+            return <AdvancedScheduleInfo FormData={FormData} setFormData={setFormData} />
+        }
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -63,45 +64,18 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean,
                     </div>
                     <form method="post" onSubmit={handleSubmit}>
                         <div className="modal-body"> 
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Doctor Name
-                                </label>
-                                <input value={FormData?.doctorName} onChange={(e)=>setFormData({...FormData,doctorName: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="name" placeholder="Doctor Name" />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Services
-                                </label>
-                                <Multiselect onSelect={handleOnSelect} loading={false} options={ServicesArr} displayValue={"ServiceName"} className="shadow appearance-none bg-inputG border rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Select " />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Schedule Date
-                                </label>
-                                <input value={FormData?.scheduleDate} onChange={(e)=>setFormData({...FormData,scheduleDate: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="date" placeholder="schedule date" />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Start Hour
-                                </label>
-                                <input value={FormData?.startHour} onChange={(e)=>setFormData({...FormData,startHour: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="time" placeholder="Start Hour" />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    End Hour
-                                </label>
-                                <input value={FormData?.endHour} onChange={(e)=>setFormData({...FormData,endHour: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="time" placeholder="End Hour" />
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
+                            {PageDisplayForm()}
                         </div>
                         <div className="modal-footer flex py-2 gap-2 justify-between">
-                            <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>
+                        {FormPageNumber == 0 ? <>
+                                <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
+                                <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
+                            </>:
+                            <>
+                            <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
                             <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">New Schedule</button>
+                            </>
+                            }
                         </div>
                     </form>
                 </div>

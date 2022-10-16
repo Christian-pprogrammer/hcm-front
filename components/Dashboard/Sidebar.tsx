@@ -8,9 +8,9 @@ import authService from '../../services/auth/auth.service'
 
 const Sidebar = () => {
     const VerifyUser = () => {
-        const userRole = "APPOINTMENT_MANAGER";
-        if (userRole === system_users.APPOINTMENT_MANAGER) {
-            return AppointmentManagerArr;
+        const userRole = "GROUP_ADMIN";
+        if (userRole === system_users.GROUP_ADMIN) {
+            return GroupAdminArr;
         }
         else {
             return SideBarAdmins

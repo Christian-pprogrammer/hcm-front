@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { FaBan, FaCheck, FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
+import { FaBan, FaCheck, FaEllipsisH, FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
 import AddHospital from './Modals/AddHospital'
 import DeleteHospital from './Modals/DeleteHospital'
 import EditHospital from './Modals/EditHospital'
@@ -9,7 +9,8 @@ import ManageAdminModal from './Modals/ManageAdminModal'
 const ManageHospitalsGA = () => {
   const [DeleteModal,setDeleteModal] = useState<Boolean>(false)
     const [AddHospitalModal,setAddHospital] = useState<Boolean>(false)
-    const [EditModal,setEditModal] = useState<Boolean>(false)
+    const [EditModal,setEditModal] = useState<Boolean>(false);
+    const [showListActions,setshowListActions] = useState<Boolean>(false);
     const [showManageAdmin,setManageAdmin] = useState<Boolean>(false)
     const [searchtext,setSearchText] = useState<string>(''); 
   const STATUS ='Active'
@@ -38,7 +39,7 @@ const ManageHospitalsGA = () => {
                     <div>
                         <button onClick={()=>setAddHospital(true)} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                             <FaPlus/>
-                            <span className=''>New Hospital</span>
+                            <span>New Hospital</span>
                         </button>
                             <AddHospital showModal={AddHospitalModal} onClose={()=>setAddHospital(false)} />
                     </div>
@@ -46,7 +47,7 @@ const ManageHospitalsGA = () => {
             </div>
         <div className=' w-full overflow-x-auto'>
         <table className=' table-auto w-full  '>
-        <thead className=''>
+        <thead>
             <tr>
             <th className='py-5 text-[#000000c8] text-sm '>Accounts</th>
             <th className='py-5 text-[#000000c8] text-sm '>Status</th>
@@ -56,7 +57,7 @@ const ManageHospitalsGA = () => {
             </tr>
         </thead>
         <tbody className=''>
-            <tr className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
+            <tr className='bg-inputG relative hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
                     <div className='flex px-2 gap-6'>
                         <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
@@ -75,11 +76,19 @@ const ManageHospitalsGA = () => {
                 <td className='px-10 whitespace-nowrap text-center'>
                     <span className='text-[#00000043]'>12/12/2021</span>
                 </td>
-                <td className='px-10 whitespace-nowrap flex gap-10 text-backG'>
-                        <button onClick={()=>setEditModal(true)}><FaPencilAlt /></button><EditHospital EditModal={EditModal} onClose={()=>setEditModal(false)}/>
-                        <button onClick={()=>setDeleteModal(true)}> <FaTrash/></button> <DeleteHospital showModal={DeleteModal} onClose={()=>setDeleteModal(false)}/>
-                        <button onClick={()=>setManageAdmin(true)}> <FaBan/></button> <ManageAdminModal showModal={showManageAdmin} onClose={()=>setManageAdmin(false)}/>
+                <td className='px-10 whitespace-nowrap justify-center flex gap-10 text-backG'>
+                    <button onClick={() => setshowListActions((prev)=>!prev)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> 
                 </td>
+                {showListActions && 
+                    <div className="group bg-white flex-col flex text-[12px] absolute top-2 right-[14em]">
+                        <button className="btn  py-2 px-4 bg-zinc-100 border-2 border-white" onClick={()=>setEditModal(true)}>Edit Hospital</button>
+                        <button className="btn  py-2 px-4 hover:bg-zinc-100 hover:border-2 border-2 border-white hover:border-white duration-300" onClick={()=>setDeleteModal(true)}>Delete Hospital</button>
+                        <button className="btn  py-2 px-4 hover:bg-zinc-100 hover:border-2 border-2 border-white hover:border-white duration-300" onClick={()=>setManageAdmin(true)}>Manage Director</button>
+                    </div>
+                    }
+                        <EditHospital EditModal={EditModal} onClose={()=>setEditModal(false)}/>
+                        <DeleteHospital showModal={DeleteModal} onClose={()=>setDeleteModal(false)}/>
+                         <ManageAdminModal showModal={showManageAdmin} onClose={()=>setManageAdmin(false)}/>
             </tr>
             <tr className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>

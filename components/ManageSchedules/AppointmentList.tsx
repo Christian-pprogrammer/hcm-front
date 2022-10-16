@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { FaBan, FaCheck, FaHome, FaMap, FaPaperPlane, FaPencilAlt, FaPlus, FaTrash, FaUserAlt } from 'react-icons/fa'
+import { FaBan, FaCheck, FaEllipsisH, FaHome, FaMap, FaPaperPlane, FaPencilAlt, FaPlus, FaTrash, FaUserAlt } from 'react-icons/fa'
 
 import MapAppointments from './Modals/MapAppointments'
 import NewSchedule from './Modals/NewSchedule'
@@ -69,7 +69,7 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className='bg-inputG hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
+                            <tr className='bg-inputG group hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                                 <td className='py-2  text-center flex place-items-center  whitespace-nowrap  lg:px-5 '>
                                     <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowActions((prev) => !prev)} />
                                     <span className='text-[#00000043] pl-2 font-bold'>08.00am - 08.30am</span>
@@ -91,7 +91,7 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
                                 </td>
                                 {showAction &&
                                     <td className='px-10 whitespace-nowrap text-center gap-10 text-backG'>
-                                        <button onClick={() => setMapModal(true)}> <FaUserAlt /></button> <MapAppointments MapModal={MapModal} onClose={() => setMapModal(false)} />
+                                        <button onClick={() => setMapModal(true)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> <MapAppointments MapModal={MapModal} onClose={() => setMapModal(false)} />
                                     </td>
                                 }
                             </tr>
