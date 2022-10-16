@@ -2,8 +2,7 @@ import Link from 'next/link';
 import Head from "next/head";
 import Router from 'next/router';
 import React, { useState,useEffect } from 'react';
-import { useDispatch } from "react-redux";
-
+import { toast } from 'react-toastify';
 import AuthService from "../../services/auth/auth.service";
 import RouteService from "../../services/auth/routing";
 import Alert from "../../components/alert";
@@ -12,6 +11,7 @@ import { KeyIcon, LockIcon, PersonaIcon } from '../../icons';
 import { FormDummy, FormLoginStructure, LoginFormData } from '../../utils/FormData';
 import ForbiddenPage from '../../layouts/ForbiddenPage';
 import { UrlObject } from 'url';
+import LoaderCache from '../../pages/auth/LoaderCache';
 
 export default function LoginForm() {
 
@@ -47,10 +47,13 @@ export default function LoginForm() {
             AuthService.setToken(res.data.token);
             setAlertData({
                 alert: true,
-                message: "Logged In Successfully",
+                message: res.data.message || "Logged In Successfully",
                 class: "green"
             });
-
+            console.log(res.data);
+            toast.success(alertData.message,{
+                theme: "colored",
+            });
             if (RouteService.getPrevRoute()) {
                 let link: any = RouteService.getPrevRoute();
                 RouteService.removePrevRoute();
@@ -81,12 +84,13 @@ export default function LoginForm() {
 
         } catch (e: any) {
             // console.log("rr" ,e)
-            const ERROR_MESSAGE = e.response ? e.response.data.message || "Not Found" : e.message;
+            const ERROR_MESSAGE = e.response ? e.response.data.message || "Not Found " : e.message;
             setAlertData({
                 alert: true,
                 message: ERROR_MESSAGE,
                 class: "red",
             });
+            toast.error(alertData.message);
             setFormData({
                 email:"",
                 password : FormData?.password
@@ -98,10 +102,8 @@ export default function LoginForm() {
 
     return (
         <ForbiddenPage>
-            {loading ?
-            <div className='h-screen w-scree flex place-items-center justify-center bg-slate-700 left-0 right-0 bottom-0 top-0'>
-                <div className="spinner"></div>
-            </div> 
+            {loading ? 
+            <LoaderCache/>
             :
             <div className="bg-white h-screen flex-row-reverse flex ">
                 <Head>
@@ -110,7 +112,7 @@ export default function LoginForm() {
                 <div className="relative md:flex hidden auth-image">
                     <div className="absolute text-[12px] flex gap-4 top-0 p-5">
                         <div className=' flex justify-center place-items-center rounded-full '>
-                            <img className='h-14 w-14 bg-white rounded-full p-2  object-contain' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
+                            <img className='h-14 w-14 bg-white rounded-full object-contain' src={`${app_config.APP_LOGO}`} alt="" />
                         </div>
                         <div className=' justify-center'>
                             <h1 className='text-xl font-semibold '>HCM Corp</h1>
@@ -118,7 +120,7 @@ export default function LoginForm() {
                             <span className='text-[#ffffffb3] text-[12px]'>2022</span>
                         </div>
                     </div>
-                    <div className='flex flex-col justify-center align-middle place-content-center  w-full text-center font-extrabold text-[5em] place-items-center'>
+                    <div className='flex flex-col justify-center align-middle place-content-center   w-full text-center font-extrabold text-[3em] place-items-center'>
                         <h1>HCM Appointment System</h1>
                     </div>
                     <div className='flex left-[25vw] absolute bottom-2 text-[white]'>
@@ -128,7 +130,7 @@ export default function LoginForm() {
                 <div className="bg-white mx-auto md:min-w-[50vw] lg:min-w-1/2 lg:px-20 text-black p-5">
                     <div className='flex py-5 flex-col justify-center gap-4 place-items-center'>
                         <div className=' flex justify-center place-items-center rounded-full bg-white'>
-                            <img className='h-12 w-12  object-contain' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
+                            <img className='h-12 w-12  object-contain' src={`${app_config.APP_LOGO}`} alt="" />
                         </div>
                         <div className='flex flex-col justify-center  font-semibold place-items-center'>
                             <h1>HCM Appointment System</h1>
