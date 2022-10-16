@@ -1,8 +1,11 @@
 {
+    "manzicedrick":{
+        "label": "Manzicedrick"
+    },
     "Homepage": {
         "Navbar": {
             "links":{
-                "home":"HOME",
+                "homedata":"HOME",
                 "about":"ABOUT",
                 "Showcase":"SHOWCASE",
                 "Appointment":"APPOINTMENT"
