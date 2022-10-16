@@ -46,8 +46,12 @@ const Home: NextPage = () => {
 
 export default Home;
 
-export const getStaticProps = withLocaleMessages(async () => {
-  return {
-    props: {}
+export async function getStaticProps ({locale} : any){
+  return { 
+    props : {
+      messages : {
+        ...require(`../locales/${(locale ?? 'en-us').toLocaleLowerCase()}.json`)
+      }
+    }
   }
-})
+}
