@@ -20,9 +20,9 @@ export const alertInfo = (setAlert: any, message: any, status: any)=> {
 
 
 export const notifySuccess = (successMess: any) => toast.success(successMess, {position: toast.POSITION.TOP_RIGHT, autoClose: ALERT_EXPIRATION_PERIOD});
-export const notifyError = (successMess: any) => toast.success(successMess, {position: toast.POSITION.TOP_RIGHT, autoClose: ALERT_EXPIRATION_PERIOD});
-export const notifyWarning = (successMess: any) => toast.success(successMess, {position: toast.POSITION.TOP_RIGHT, autoClose: ALERT_EXPIRATION_PERIOD});
-export const notifyInfo = (successMess: any) => toast.success(successMess, {position: toast.POSITION.TOP_RIGHT, autoClose: ALERT_EXPIRATION_PERIOD});
+export const notifyError = (successMess: any) => toast.error(successMess, {position: toast.POSITION.TOP_RIGHT, autoClose: ALERT_EXPIRATION_PERIOD});
+export const notifyWarning = (successMess: any) => toast.warn(successMess, {position: toast.POSITION.TOP_RIGHT, autoClose: ALERT_EXPIRATION_PERIOD});
+export const notifyInfo = (successMess: any) => toast.info(successMess, {position: toast.POSITION.TOP_RIGHT, autoClose: ALERT_EXPIRATION_PERIOD});
 
 export  const basic_alerts = (setLoading: any, setAlert: any)=>{
     window.setTimeout(function () {

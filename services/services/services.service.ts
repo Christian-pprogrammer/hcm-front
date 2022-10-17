@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class ManageServices {
+class ManageServicesService {
   createService(data: any) {
     return http.post(`/api/v2/services`, data);
   }
@@ -28,5 +28,6 @@ class ManageServices {
   removeServiceFromHospital(hospitalId: string, serviceId: string) {
     return http.delete(`/api/v2/services/hospital/${hospitalId}/remove/${serviceId}`);
   }
+
 }
-export default new ManageServices();
+export default new ManageServicesService();

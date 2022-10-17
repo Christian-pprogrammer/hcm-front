@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import ManageServicesService from '../../../services/users/ManageServices.service';
+import ManageServicesService from '../../../services/services/services.service';
 import { MapInterface, MapInterfaceData } from '../../../utils/ModalTypes';
 import { HospitalValues, MapStatus } from '../../../utils/SelectOptions';
 

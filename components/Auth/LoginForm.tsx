@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Head from "next/head";
 import Router from 'next/router';
 import React, { useState,useEffect } from 'react';
-import { toast } from 'react-toastify';
 
 import AuthService from "../../services/auth/auth.service";
 import RouteService from "../../services/auth/routing";
@@ -41,7 +40,6 @@ export default function LoginForm() {
             const res = await AuthService.login(FormData);
             AuthService.setToken(res.data.accessToken);
             const decodedToken: any = jwtDecode(res.data.accessToken);
-            console.log(decodedToken);
             const role = decodedToken.authorities[0].authority;
             notifySuccess("Logged In Successful");
 
@@ -75,7 +73,7 @@ export default function LoginForm() {
 
         } catch (e: any) {
             // console.log("rr" ,e)
-            const ERROR_MESSAGE = e.response ? e.response.data.message || "Not Found" : e.message;
+            const ERROR_MESSAGE = e.response ? e.response.data.email || "Not Found" : e.email;
             notifyError(ERROR_MESSAGE);
             setFormData({
                 email:FormData?.email,
@@ -88,7 +86,7 @@ export default function LoginForm() {
 
     return (
         <ForbiddenPage>
-            {loading ? 
+            {loading ?
             <LoaderCache/>
             :
             <div className="bg-white h-screen flex-row-reverse flex ">

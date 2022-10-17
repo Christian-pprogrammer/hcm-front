@@ -2,7 +2,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import ManageService from '../../../pages/group-admin/manage-service';
-import ManageServicesService from '../../../services/users/ManageServices.service';
+import ManageServicesService from '../../../services/services/services.service';
 import { NewService, NewServiceData } from '../../../utils/ModalTypes';
 import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 
@@ -29,7 +29,7 @@ const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
         try {
             console.log(FormData);
             setLoading(true);
-            const res = await ManageServicesService.addServiceToGroup(FormData);
+            const res = await ManageServicesService.createService(FormData);
             if (res.data.status === 200) {
                 setAlertData({
                     alert: true,
