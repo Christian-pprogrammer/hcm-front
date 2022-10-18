@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import SchedulesService from '../../../services/users/Schedules.service';
+import scheduleService from '../../../services/schedules/schedule.service';
 
 const DeleteSchedule = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
   const router = useRouter()
@@ -23,7 +23,7 @@ const DeleteSchedule = ({ showModal, onClose }: { showModal: Boolean, onClose: a
         e.preventDefault();
             try{
               setLoading(true)
-              const resdelete = await SchedulesService.deleteSchedule("kj234asfh1298",password);
+              const resdelete = await scheduleService.deleteSchedule("kj234asfh1298",password);
               if(resdelete.data.status === 200){
                 setAlertData({
                     alert:true,

@@ -4,6 +4,7 @@ import { FaBan, FaCheck, FaEllipsisH, FaHome, FaPencilAlt, FaPlus, FaTrash } fro
 import AddHospital from './Modals/AddHospital'
 import DeleteHospital from './Modals/DeleteHospital'
 import EditHospital from './Modals/EditHospital'
+import { GetServerSideProps } from "next";
 import ManageAdminModal from './Modals/ManageAdminModal'
 
 const ManageHospitalsGA = () => {
@@ -148,5 +149,7 @@ const ManageHospitalsGA = () => {
     </div>
   )
 }
-
+// export const getServerSideProps : GetServerSideProps = async ({context} :any) =>{
+//     const res = await fetch('')
+// }
 export default ManageHospitalsGA

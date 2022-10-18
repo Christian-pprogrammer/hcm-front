@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import SchedulesService from '../../../services/users/Schedules.service';
+import scheduleService from '../../../services/schedules/schedule.service';
 import { NewScheduleData, NewScheduleInterface } from '../../../utils/ModalTypes';
 import AdvancedScheduleInfo from './AdvancedScheduleInfo';
 import BasicScheduleInfo from './BasicScheduleInfo';
@@ -34,7 +34,7 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean,
         try {
             setLoading(true);
             console.log(FormData);
-            const res = await SchedulesService.createSchedule(FormData);
+            const res = await scheduleService.createSchedule(FormData);
             if (res.data.status === 200) {
                 setAlertData({
                     alert: true,

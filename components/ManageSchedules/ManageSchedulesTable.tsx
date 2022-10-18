@@ -84,4 +84,4 @@ const ManageSchedulesTable = ({showAppFunc}:{ showAppFunc :any}) => {
   )
 }
 
-export default ManageSchedulesTable
+export default ManageSchedulesTable;
