@@ -1,15 +1,18 @@
+import { GetServerSideProps } from 'next';
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaCheck, FaGlobe, FaPlus } from 'react-icons/fa'
+import servicesService from '../../services/services/services.service';
+import { notifyError, notifySuccess } from '../alert';
 import MapHospital from './Modals/MapHospital';
 import NewServices from './Modals/NewServices';
 
-const ManageServicesGA = () => {
+const ManageServicesGA = (data:any) => {
     const [searchtext,setSearchText] = useState<string>(''); 
     const [NewServiceModal,setNewServiceModal] = useState<Boolean>(false)
     const [MapHospitalModal,setMapHospitalModal] = useState<Boolean>(false)
-
     const STATUS ='Active'
+    console.log("Manage Services Group Admin",data)
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -35,7 +38,7 @@ const ManageServicesGA = () => {
                     <div>
                         <button onClick={()=>setNewServiceModal(true)} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                             <FaPlus/>
-                            <span className=''>New Service</span>
+                            <span>New Service</span>
                         </button>
                         <NewServices showModal={NewServiceModal} onClose={()=>setNewServiceModal(false)} />
                     </div>
@@ -117,5 +120,25 @@ const ManageServicesGA = () => {
     </div>
   )
 }
-
+export const getServerSideProps: GetServerSideProps = async ({
+    res
+  }) => {
+    try{
+        const data = await servicesService.getHospitalServices("askdfsadk21i3usdafaskldfjasdlf");
+        if(res.statusCode == 200){
+            notifySuccess("Successfully Pulled the Group Admin Services");
+        }
+        return {
+            props : {data}
+        }
+    }catch(error:any){
+        res.statusCode = 404;
+        const Error_Message = error.message;
+        reportError(Error_Message);
+        notifyError(Error_Message);
+        return {
+            props : {}
+        }
+    }
+  };
 export default ManageServicesGA

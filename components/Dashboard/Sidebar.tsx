@@ -8,9 +8,9 @@ import authService from '../../services/auth/auth.service'
 
 const Sidebar = () => {
     const VerifyUser = () => {
-        const userRole = "HOSPITAL_ADMIN";
-        if (userRole === system_users.HOSPITAL_ADMIN) {
-            return HospitalAdminArr;
+        const userRole = "SUPER_ADMIN";
+        if (userRole === system_users.SUPER_ADMIN) {
+            return SideBarAdmins;
         }
         else {
             return SideBarAdmins

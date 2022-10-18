@@ -6,8 +6,10 @@ import DeleteHospital from './Modals/DeleteHospital'
 import EditHospital from './Modals/EditHospital'
 import { GetServerSideProps } from "next";
 import ManageAdminModal from './Modals/ManageAdminModal'
+import hospitalService from '../../services/hospital/hospital.service'
+import { notifyError, notifySuccess } from '../alert'
 
-const ManageHospitalsGA = () => {
+const ManageHospitalsGA = (data:any) => {
   const [DeleteModal,setDeleteModal] = useState<Boolean>(false)
     const [AddHospitalModal,setAddHospital] = useState<Boolean>(false)
     const [EditModal,setEditModal] = useState<Boolean>(false);
@@ -15,6 +17,7 @@ const ManageHospitalsGA = () => {
     const [showManageAdmin,setManageAdmin] = useState<Boolean>(false)
     const [searchtext,setSearchText] = useState<string>(''); 
   const STATUS ='Active'
+  console.log(data);
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -149,7 +152,25 @@ const ManageHospitalsGA = () => {
     </div>
   )
 }
-// export const getServerSideProps : GetServerSideProps = async ({context} :any) =>{
-//     const res = await fetch('')
-// }
+export const getServerSideProps: GetServerSideProps = async ({
+    res
+  }) => {
+    try{
+        const data = await hospitalService.getAllHospitals();
+        if(data){
+            notifySuccess(data.data.message || "Hospital Data Retrieved Successfully")
+        }
+        return {
+            props : {data}
+        }
+    }catch(error:any){
+        res.statusCode = 404;
+        const Error_Message = error.message;
+        reportError(Error_Message);
+        notifyError(Error_Message);
+        return {
+            props : {}
+        }
+    }
+  };
 export default ManageHospitalsGA

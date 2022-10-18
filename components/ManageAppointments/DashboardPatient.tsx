@@ -1,16 +1,19 @@
+import { GetServerSideProps } from 'next';
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaBan, FaCheck, FaHome, FaPaperPlane, FaPencilAlt, FaPlus, FaTrash, FaUserAlt } from 'react-icons/fa'
+import hospitalService from '../../services/hospital/hospital.service';
+import { notifyError } from '../alert';
 import RequestAppointment from './Modals/RequestAppointment';
 
 
 
-const DashboardPatient = (): JSX.Element => {
+const DashboardPatient = (data:any): JSX.Element => {
     const [searchtext, setSearchText] = useState<string>('');
     const [showModal, setShowModal] = useState<Boolean>(false)
     const [showAction, setShowActions] = useState<Boolean>(false)
     const STATUS = 'Active'
-
+    console.log("Patient Data Log",data)
     return (
         <div className="px-2 bg-[#F7F7F7]">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -73,5 +76,22 @@ const DashboardPatient = (): JSX.Element => {
         </div>
     )
 }
-
+export const getServerSideProps: GetServerSideProps = async ({
+    res
+  }) => {
+    try{
+        const data = await hospitalService.getAllHospitals();
+        return {
+            props : {data}
+        }
+    }catch(error:any){
+        res.statusCode = 404;
+        const Error_Message = error.message;
+        reportError(Error_Message);
+        notifyError(Error_Message);
+        return {
+            props : {}
+        }
+    }
+  };
 export default DashboardPatient

@@ -7,7 +7,7 @@ import AuthService from "../../services/auth/auth.service";
 import RouteService from "../../services/auth/routing";
 import {notifyError, notifySuccess} from "../../components/alert";
 import {app_config, system_users} from "../../utils/constants";
-import { KeyIcon, LockIcon, PersonaIcon } from '../../icons';
+import {KeyIcon, EyeNoShowIcon, EyeShowIcon, EmailIcon } from '../../icons';
 import { FormDummy, FormLoginStructure, LoginFormData } from '../../utils/FormData';
 import ForbiddenPage from '../../layouts/ForbiddenPage';
 import { UrlObject } from 'url';
@@ -129,7 +129,7 @@ export default function LoginForm() {
 
                                 <div className='flex hover:border-solid  hover:border-2 hover:rounded-md duration-500 rounded-md border-2 border-[white] hover:border-backG '>
                                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
-                                        <PersonaIcon />
+                                        <EmailIcon />
                                     </div>
                                     <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="email" placeholder="Enter your email" />
                                 </div>
@@ -143,9 +143,9 @@ export default function LoginForm() {
                                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                                         <KeyIcon />
                                     </div>
-                                    <input value={FormData.password} onChange={(e)=>setFormData({...FormData, password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder="••••••••" />
+                                    <input value={FormData.password} onChange={(e)=>setFormData({...FormData, password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder="••••••••••••••••" />
                                     <div className='flex rounded-r-md place-items-center justify-center bg-inputG p-2'>
-                                        <button type='button' onClick={() => setShowPasswords((prev) => !prev)}><LockIcon /></button>
+                                        <button type='button' onClick={() => setShowPasswords((prev) => !prev)}>{!showPassword ? <EyeShowIcon/> : <EyeNoShowIcon/>}</button>
                                     </div>
                                 </div>
                                     <small className={`text-[12px] ${!isValid && 'text-red-500'}`}>{!isValid ? "Please enter a valid password" : ""}</small>

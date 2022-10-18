@@ -4,8 +4,12 @@ import DeleteAcc from './Modals/DeleteAcc'
 import { FaCheck,FaEllipsisH,FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
 import AddAccount from './Modals/AddAccount'
 import EditAccount from './Modals/EditAccount'
+import { GetServerSideProps } from 'next'
+import scheduleService from '../../services/schedules/schedule.service'
+import { notifyError } from '../alert'
+import groupAdminService from '../../services/users/group-admin.service'
 
-const TableManageAcc = () => {
+const TableManageAcc = (data:any) => {
     const [showModal,setModal] = useState<Boolean>(false)
     const [addAccount,setAddAccount] = useState<Boolean>(false)
     const [EditModal,setEditModal] = useState<Boolean>(false);
@@ -20,7 +24,8 @@ const TableManageAcc = () => {
     const toggleEditAccount = () =>{
         setEditModal(!EditModal)
     }
-    const STATUS = 'Active'
+    const STATUS = 'Active';
+    console.log("The manage group table fetch data:",data)
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
@@ -54,7 +59,7 @@ const TableManageAcc = () => {
             </div>
         <div className=' w-full overflow-x-auto'>
          <table className='w-full table-auto '>
-            <thead className=''>
+            <thead>
                 <tr>
                 <th className='py-5 text-[#000000c8] text-sm'>Accounts</th>
                 <th className='py-5 text-[#000000c8] text-sm'>Status</th>
@@ -63,7 +68,7 @@ const TableManageAcc = () => {
                 <th className='py-5 text-[#000000c8] text-sm'>Actions</th>
                 </tr>
             </thead>
-            <tbody className=''>
+            <tbody>
                 <tr className='bg-inputG relative  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                     <td className='py-2  whitespace-nowrap lg:px-5 '>
                         <div className='flex px-2 gap-6'>
@@ -163,5 +168,22 @@ const TableManageAcc = () => {
     </div>
   )
 }
-
+export const getServerSideProps: GetServerSideProps = async ({
+    res
+  }) => {
+    try{
+        const data = await groupAdminService.getAllGroupsAdmins();
+        return {
+            props : {data}
+        }
+    }catch(error:any){
+        res.statusCode = 404;
+        const Error_Message = error.message;
+        reportError(Error_Message);
+        notifyError(Error_Message);
+        return {
+            props : {}
+        }
+    }
+  };
 export default TableManageAcc

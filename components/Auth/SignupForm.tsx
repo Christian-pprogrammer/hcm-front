@@ -7,6 +7,8 @@ import SignupInfo from './SignupInfo'
 import { FormDummy, FormStructure } from '../../utils/FormData'
 import AuthService from "../../services/auth/auth.service";
 import { useRouter } from 'next/router';
+import LoaderCache from '../../pages/auth/LoaderCache';
+import { notifyError, notifySuccess } from '../alert';
 
 const SignupForm = () => {
     const [FormPage, setFormPage] = useState<number>(0);
@@ -43,25 +45,23 @@ const SignupForm = () => {
         try{
             const res = await AuthService.signup(FormData);
             if(res.data.status == 200){
-                setAlertData({alert: false, message: "Successfully Signup", class: "green"});
+                notifySuccess(res.data.message || "Successfully Registered")
                 setLoading(false);
                 return router.push('/auth/login');
             }else{
-                setAlertData({alert: true, message: "User Sign Up Failed" || res.data.message, class: "red"});
+                notifyError(res.data.message || "Credentials Failed")
                 setFormData(FormDummy);
                 return router.reload();
             }
         }catch(e:any){
             const ERROR_MESSAGE = e.response ? 'Response Error' : e.message;
             setFormData(FormDummy);
-            setAlertData({
-                alert: true,
-                message: ERROR_MESSAGE,
-                class: "red"
-            });
+            notifyError(ERROR_MESSAGE);
         }
     }
     return (
+        <>
+        {loading ? <LoaderCache/> : 
         <div className="bg-white h-screen flex-row-reverse flex ">
             <div className="relative overflow-y-hidden md:flex hidden  auth-image">
                 <div className="absolute text-[12px] flex gap-4 top-0 p-5">
@@ -131,6 +131,8 @@ const SignupForm = () => {
                 </div>
             </div>
         </div>
+}
+</>
     )
 }
 

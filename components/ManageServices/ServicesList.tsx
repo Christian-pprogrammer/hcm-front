@@ -1,14 +1,18 @@
+import { GetServerSideProps } from 'next';
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaCheck, FaGlobe, FaPlus } from 'react-icons/fa'
-import MapHospital from './Modals/MapHospital';
+import servicesService from '../../services/services/services.service';
+import { notifyError, notifySuccess } from '../alert';
 import RemoveService from './Modals/RemoveService';
 
-const ServicesList = () => {
+const ServicesList = (data:any) => {
     const [searchtext,setSearchText] = useState<string>(''); 
     const [RemoveServiceModal,setRemoveServiceModal] = useState<Boolean>(false)
 
     const STATUS ='Active'
+    console.log("Manage Services Hospital Admin",data);
+    
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -112,5 +116,25 @@ const ServicesList = () => {
     </div>
   )
 }
-
+export const getServerSideProps: GetServerSideProps = async ({
+    res
+  }) => {
+    try{
+        const data = await servicesService.getHospitalServices("askdfsadk21i3usdafaskldfjasdlf");
+        if(res.statusCode == 200){
+            notifySuccess("Successfully Pulled the Services");
+        }
+        return {
+            props : {data}
+        }
+    }catch(error:any){
+        res.statusCode = 404;
+        const Error_Message = error.message;
+        reportError(Error_Message);
+        notifyError(Error_Message);
+        return {
+            props : {}
+        }
+    }
+  };
 export default ServicesList

@@ -1,13 +1,19 @@
+import { GetServerSideProps } from 'next';
 import React, { useState } from 'react'
 import { FaCheck } from 'react-icons/fa';
+import appointmentService from '../../services/appointments/appointment.service';
+import groupAdminService from '../../services/users/group-admin.service';
+import { notifyError, notifySuccess } from '../alert';
 import RequestAppointment from './Modals/RequestAppointment';
 
 //Landing Page Appointment 
 
-const AppointmentPage = () => {
+const AppointmentPage = (data:any) => {
     const [searchtext, setSearchText] = useState<string>('');
     const [showModal, setShowModal] = useState<Boolean>(false)
-    const STATUS = 'Active'
+    const STATUS = 'Active';
+    console.log("GROUP ADMIN SECTION",data);
+    
     return (
             <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
                 <div className="flex px-5 place-items-center justify-between gap-6 py-5">
@@ -65,5 +71,23 @@ const AppointmentPage = () => {
             </div>
     )
 }
-
+export const getServerSideProps: GetServerSideProps = async ({
+    res
+  }) => {
+    try{
+        const data = await groupAdminService.getAllGroupsAdmins();
+        notifySuccess('Success Call');
+        return {
+            props : {data}
+        }
+    }catch(error:any){
+        res.statusCode = 404;
+        const Error_Message = error.message;
+        reportError(Error_Message);
+        notifyError(Error_Message);
+        return {
+            props : {}
+        }
+    }
+  };
 export default AppointmentPage

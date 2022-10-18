@@ -1,6 +1,10 @@
+import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaCheck, FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
+import hospitalCategoryService from '../../services/hospital/hospital-category.service'
+import hospitalService from '../../services/hospital/hospital.service'
+import { notifyError, notifySuccess } from '../alert'
 import AddNewUser from './Modals/AddNewUser'
 import DeleteUserModal from './Modals/DeleteUserModal'
 import EditUserModal from './Modals/EditUserModal'
@@ -85,4 +89,25 @@ const ManageUserAdmin = () => {
   )
 }
 
+export const getServerSideProps: GetServerSideProps = async ({
+    res
+  }) => {
+    try{
+        // const data = await hospitalAdmin.getAllUsers("askdfsadk21i3usdafaskldfjasdlf");
+        if(res.statusCode == 200){
+            notifySuccess("Successfully Pulled the Services");
+        }
+        return {
+            props : {}
+        }
+    }catch(error:any){
+        res.statusCode = 404;
+        const Error_Message = error.message;
+        reportError(Error_Message);
+        notifyError(Error_Message);
+        return {
+            props : {}
+        }
+    }
+  };
 export default ManageUserAdmin;

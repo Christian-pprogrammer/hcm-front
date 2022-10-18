@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { FaBan, FaCheck, FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
+import { FaCheck, FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
 import DeleteSchedule from './Modals/DeleteSchedule'
 import EditSchedule from './Modals/EditSchedule'
 import NewSchedule from './Modals/NewSchedule'
 
-const ManageSchedulesTable = ({showAppFunc}:{ showAppFunc :any}) => {
-    const [DeleteModal,setDeleteModal] = useState<Boolean>(false)
+const ManageSchedulesTable = ({showAppFunc,data}:{ showAppFunc :any,data:any}) => {
+    const [DeleteModal,setDeleteModal] = useState<Boolean>(false);
+    const [ScheduleData,setScheduleData] = useState();
     const [EditModal,setEditModal] = useState<Boolean>(false)
     const [NewScheduleModal,setNewScheduleModal] = useState<Boolean>(false)
     const [searchtext,setSearchText] = useState<string>(''); 
@@ -14,6 +15,7 @@ const ManageSchedulesTable = ({showAppFunc}:{ showAppFunc :any}) => {
   const handleShowApp = () => {
     showAppFunc();
   }
+  console.log(data);
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -84,4 +86,7 @@ const ManageSchedulesTable = ({showAppFunc}:{ showAppFunc :any}) => {
   )
 }
 
+
+  
 export default ManageSchedulesTable;
+
