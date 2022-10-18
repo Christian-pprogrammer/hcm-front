@@ -94,7 +94,6 @@ function AppMeta() {
             curr_user.fullNames = res.data.username;
             const user_role = (res.data.roles[0].role);
             // curr_user.role = res.data.roles[0].role;
-            console.log(user_role);
 
             if (user_role == "SUPER_ADMIN") {
               curr_user.role = "Super Admin";
