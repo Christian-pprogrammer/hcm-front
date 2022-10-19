@@ -119,7 +119,7 @@ function AppMeta() {
 
             dispatch(setAuthUser(curr_user));
           })
-          .catch((e) => console.log(e));
+          .catch((e:any) => reportError("No Auth User"));
       }
     }
   };
@@ -160,11 +160,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           );
           try {
             await SiteTrafficService.create(detail);
-          } catch {
+          } catch (e:any){
             (e: any) => console.log(e);
           }
-        }
-      } catch {
+        } 
+      } catch(e:any) {
         (e: any) => console.log(e);
       }
     })();

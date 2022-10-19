@@ -77,10 +77,7 @@ export default function LoginForm() {
             // console.log("rr" ,e)
             const ERROR_MESSAGE = e.response ? e.response.data.email || "Not Found" : e.email;
             notifyError(ERROR_MESSAGE);
-            setFormData({
-                email:FormData?.email,
-                password : FormData?.password
-            })
+            setFormData(FormDummy);
         }
 
         setLoading(false);
