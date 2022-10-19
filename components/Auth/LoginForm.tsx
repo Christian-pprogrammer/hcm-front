@@ -38,8 +38,10 @@ export default function LoginForm() {
         setLoading(true);
         try {
             const res = await AuthService.login(FormData);
+            console.log("The Response",res)
             AuthService.setToken(res.data.accessToken);
             const decodedToken: any = jwtDecode(res.data.accessToken);
+            console.log("The Decoded Token",decodedToken)
             const role = decodedToken.authorities[0].authority;
             notifySuccess("Logged In Successful");
 
@@ -143,7 +145,7 @@ export default function LoginForm() {
                                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                                         <KeyIcon />
                                     </div>
-                                    <input value={FormData.password} onChange={(e)=>setFormData({...FormData, password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={showPassword ? "password" : "text"} min={6} placeholder="••••••••••••••••" />
+                                    <input value={FormData.password} onChange={(e)=>setFormData({...FormData, password:e.target.value})} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={!showPassword ? "password" : "text"} min={6} placeholder="••••••••••••••••" />
                                     <div className='flex rounded-r-md place-items-center justify-center bg-inputG p-2'>
                                         <button type='button' onClick={() => setShowPasswords((prev) => !prev)}>{!showPassword ? <EyeShowIcon/> : <EyeNoShowIcon/>}</button>
                                     </div>

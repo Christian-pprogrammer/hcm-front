@@ -17,17 +17,21 @@ http.interceptors.request.use(
         return config;
     },
     function (error) {
+        reportError(error);
+        console.log(error)
         return Promise.reject(error);
     }
 );
 
 http.interceptors.response.use(
     function (response) {
+        console.log(response);
         return Promise.resolve(response)
     },
     function (error) {
         let res = error.response;
         reportError(res);
+        console.log(res)
         if (res?.data && res.data.message === "INVALID BEARER TOKEN")
             Router.push("/auth/login").then()
 

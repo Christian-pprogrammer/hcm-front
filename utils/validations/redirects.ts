@@ -9,23 +9,23 @@ export const getUserHref = (authUser: any) => {
         if (authUser.role) {
             switch (authUser.role) {
                 case "SUPER_ADMIN":
-                    return "/super-admin";
+                    return "/super-admin/dashboard";
                 case "GROUP_ADMIN":
-                    return "/group-admin";
+                    return "/group-admin/dashboard";
                 case "GROUP_DIRECTOR":
-                    return "/group-director";
+                    return "/group-director/dashboard";
                 case "HOSPTIAL_ADMIN":
-                    return "/hospital-admin";
+                    return "/hospital-admin/dashboard";
                 case "HOSPITAL_DIRECTOR":
-                    return "/hospital-director";
+                    return "/hospital-director/dashboard";
                 case "DOCTOR":
-                    return "/doctor";
+                    return "/doctor/dashboard";
                 case "SCHEDULE_MANAGER":
-                    return "/schedule-manager";
+                    return "/schedule-manager/dashboard";
                 case "APPOINTMENT_MANAGER":
-                    return "/appointment-manager";
+                    return "/appointment-manager/dashboard";
                 default:
-                    return "/patient";
+                    return "/patient/dashboard";
             }
         }
     }
