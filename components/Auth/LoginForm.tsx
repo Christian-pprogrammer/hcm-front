@@ -42,7 +42,7 @@ export default function LoginForm() {
             AuthService.setToken(res.data.accessToken);
             const decodedToken: any = jwtDecode(res.data.accessToken);
             console.log("The Decoded Token",decodedToken)
-            const role = decodedToken.authorities[0].authority;
+            const role = decodedToken.user.role.role;
             notifySuccess("Logged In Successful");
 
             if (RouteService.getPrevRoute()) {
