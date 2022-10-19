@@ -91,8 +91,9 @@ function AppMeta() {
         UserService.get(jwtDecode<any>(token).user.id)
           .then((res) => {
             const curr_user = updateJavaScriptObject(jwtDecode(token), res.data);
+            console.log("Current User",curr_user);
             curr_user.fullNames = res.data.username;
-            const user_role = (res.data.roles[0].role);
+            const user_role = (res.data.role.role);
             // curr_user.role = res.data.roles[0].role;
 
             if (user_role == "SUPER_ADMIN") {
@@ -116,7 +117,6 @@ function AppMeta() {
             } else {
               curr_user.role = "Guest";
             }
-
             dispatch(setAuthUser(curr_user));
           })
           .catch((e:any) => reportError("No Auth User"));
