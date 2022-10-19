@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
 import SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, GroupDirectorArr, HospitalAdminArr, HospitalDirectorArr, PatientAdminArr, ScheduleManagerArr, system_users } from '../../utils/constants'
@@ -8,28 +8,38 @@ import authService from '../../services/auth/auth.service'
 import { useSelector } from 'react-redux'
 
 const Sidebar = () => {
-    const AuthUser = useSelector((state: any) => state.authUser);
-    const VerifyUser = (AuthUser:any) => {
-        switch (AuthUser.role.role[0]) {
-            case "SUPER_ADMIN":
-                return SideBarAdmins;
-            case "GROUP_ADMIN":
-                return GroupAdminArr;
-            case "GROUP_DIRECTOR":
-                return GroupDirectorArr;
-            case "HOSPTIAL_ADMIN":
-                return HospitalAdminArr;
-            case "HOSPITAL_DIRECTOR":
-                return HospitalDirectorArr;
-            case "DOCTOR":
-                return DoctorAdminArr;
-            case "SCHEDULE_MANAGER":
-                return ScheduleManagerArr;
-            case "APPOINTMENT_MANAGER":
-                return AppointmentManagerArr;
-            default:
-                return PatientAdminArr;
-        }
+  const AuthUser = useSelector((state: any) => state.authUser);
+  console.log("The Auth User",AuthUser);
+  let role:any;
+  useEffect(() => {
+    role  = AuthUser.user.role.role;
+    console.log("The Role",role);
+
+    })
+    const VerifyUser = () => {
+        if (role == "SUPER_ADMIN") {
+            return SideBarAdmins;
+          } else if (role == "GROUP_ADMIN") {
+            return GroupAdminArr;
+          } else if (role == "GROUP_DIRECTOR") {
+            return GroupDirectorArr;
+          } else if (role == "HOSPITAL_ADMIN") {
+            return HospitalAdminArr
+          } else if (role == "HOSPITAL_DIRECTOR") {
+            return HospitalDirectorArr
+          } else if (role == "DOCTOR") {
+            return DoctorAdminArr
+          } else if (role == "PATIENT") {
+            return PatientAdminArr;
+          } else if (role == "APPOINTMENT_MANAGER") {
+            return AppointmentManagerArr;
+          } else if (role == "SCHEDULE_MANAGER") {
+            return ScheduleManagerArr
+          } else {
+            return PatientAdminArr;
+          }
+            // return PatientAdminArr;
+
     }
     const ChangeHeader = (path: string) => {
         const router = useRouter()
@@ -44,7 +54,7 @@ const Sidebar = () => {
         <aside className='bg-backG bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] '>
             <DashBoardLogo />
             <div className='flex py-5 flex-col px-2 gap-4'>
-                {VerifyUser(AuthUser).map((sidebar) => (
+                {VerifyUser().map((sidebar) => (
                     <div key={sidebar.id} className={`flex text-[1.5em] rounded-lg hover:bg-[#d9d9d93a] px-10 py-5 justify-start place-items-center gap-[2em]  ${ChangeHeader(`${sidebar.Linkurl}`)}`}>
                         {sidebar.IconName}
                         <Link href={sidebar.Linkurl}><span className='cursor-pointer text-white text-[16px]'>{sidebar.LinkName}</span></Link>
