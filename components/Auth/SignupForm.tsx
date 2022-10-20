@@ -46,18 +46,19 @@ const SignupForm = () => {
             const res = await AuthService.signup(FormData);
             if(res.data.status == 200){
                 notifySuccess(res.data.message || "Successfully Registered")
+                router.push('/auth/login');
                 setLoading(false);
-                return router.push('/auth/login');
             }else{
                 notifyError(res.data.message || "Credentials Failed")
+                router.reload();
                 setFormData(FormDummy);
-                return router.reload();
             }
         }catch(e:any){
             const ERROR_MESSAGE = e.response ? 'Response Error' : e.message;
             setFormData(FormDummy);
             notifyError(ERROR_MESSAGE);
         }
+        setLoading(false);
     }
     return (
         <>

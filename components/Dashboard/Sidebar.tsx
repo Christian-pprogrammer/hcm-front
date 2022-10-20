@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
 import SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, GroupDirectorArr, HospitalAdminArr, HospitalDirectorArr, PatientAdminArr, ScheduleManagerArr, system_users } from '../../utils/constants'
@@ -8,14 +8,10 @@ import authService from '../../services/auth/auth.service'
 import { useSelector } from 'react-redux'
 
 const Sidebar = () => {
-  const AuthUser = useSelector((state: any) => state.authUser);
-  console.log("The Auth User",AuthUser);
-  let role:any;
-  useEffect(() => {
-    role  = AuthUser.user.role.role;
+    const AuthUser = useSelector((state: any) => state.authUser);
+    console.log("The Auth User",AuthUser)
+    const role  = AuthUser.user.role.role;
     console.log("The Role",role);
-
-    })
     const VerifyUser = () => {
         if (role == "SUPER_ADMIN") {
             return SideBarAdmins;

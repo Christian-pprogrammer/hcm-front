@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 class AuthService {
     // public router = useRouter();
     signup(data: any) {
-        return http.post("/auth/signup", data);
+        return http.post("/auth/users/register", data);
     }
     login(data: any) {
         return http.post('/auth/login', data);
