@@ -10,12 +10,14 @@ import { useSelector } from 'react-redux'
 const Sidebar = () => {
   const AuthUser = useSelector((state: any) => state.authUser);
   console.log("The Auth User",AuthUser);
-  let role:any;
+  let role: any;
   useEffect(() => {
-    role  = AuthUser.user.role.role;
-    console.log("The Role",role);
+    if (AuthUser) {
+      role = AuthUser?.user?.role?.role;
+      console.log("The Role",role);
+    }
+  })
 
-    })
     const VerifyUser = () => {
         if (role == "SUPER_ADMIN") {
             return SideBarAdmins;
@@ -41,6 +43,7 @@ const Sidebar = () => {
             // return PatientAdminArr;
 
     }
+
     const ChangeHeader = (path: string) => {
         const router = useRouter()
         if (router.asPath == path) {
