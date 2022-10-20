@@ -16,7 +16,7 @@ const Sidebar = () => {
       role = AuthUser?.user?.role?.role;
       console.log("The Role",role);
     }
-  })
+  }, [AuthUser]);
 
     const VerifyUser = () => {
         if (role == "SUPER_ADMIN") {
