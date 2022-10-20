@@ -1,7 +1,7 @@
 import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import ManageAppointmentsService from '../../../services/users/manage-appointments.service';
+import AppointmentService from '../../../services/appointments/appointment.service';
 import { SendAppointmentDataArr, SendAppointmentInterface } from '../../../utils/ModalTypes';
 import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 import AdvancedSendInfo from './AdvancedSendInfo';
@@ -39,7 +39,7 @@ const SendAppointments = ({ SendAppModal, onClose }: { SendAppModal: Boolean, on
         try {
             console.log(FormData);
             setLoading(true);
-            const res = await ManageAppointmentsService.sendAppointments(FormData);
+            const res = await AppointmentService.bookAppintment(FormData.patientRecordNumber /* thi should be changed into appointment id */,FormData);
             if (res.data.status === 200) {
                 setAlertData({
                     alert: true,
@@ -68,7 +68,7 @@ const SendAppointments = ({ SendAppModal, onClose }: { SendAppModal: Boolean, on
                         </button>
                     </div>
                     <form onSubmit={handleSubmit}>
-                        <div className="modal-body"> 
+                        <div className="modal-body">
                             {PageDisplayForm()}
                         </div>
                         <div className="modal-footer flex py-2 gap-2 justify-between">

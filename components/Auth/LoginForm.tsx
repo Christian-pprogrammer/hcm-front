@@ -75,7 +75,7 @@ export default function LoginForm() {
 
         } catch (e: any) {
             // console.log("rr" ,e)
-            const ERROR_MESSAGE = e.response ? e.response.data.error || "Sorry, try again!" : e.error;
+            const ERROR_MESSAGE = e.response ? e.response?.data?.error || "Sorry, try again!" : e.error;
             notifyError(ERROR_MESSAGE);
             setFormData(FormDummy);
         }

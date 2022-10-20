@@ -2,7 +2,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import { LineSvg } from '../../../icons';
-import ManageAppointmentsService from '../../../services/users/ManageAppointments.service';
+import AppointmentService from '../../../services/appointments/appointment.service';
 import { PatientInterface, PatientInterfaceData } from '../../../utils/ModalTypes';
 import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 import ConfirmRequestModal from './ConfirmRequestModal';
@@ -17,7 +17,7 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
         class: "",
     });
     const [isBrowser, setBrowser] = useState<Boolean>(false)
-    useEffect(() => {   
+    useEffect(() => {
         setBrowser(true)
     }, []);
     const [FormData,setFormData] = useState<PatientInterface>(PatientInterfaceData);
@@ -34,14 +34,14 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
     }
     const handleClose = () => {
         onClose()
-      
+
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             console.log(FormData);
             setLoading(true);
-            const res = await ManageAppointmentsService.createAppointment("kjadh129aklsd12k",FormData);
+            const res = await AppointmentService.createAppointment("kjadh129aklsd12k" /* this should be changed into real appointment id */,FormData);
             if (res.data.status === 200) {
                 setAlertData({
                     alert: true,
@@ -100,7 +100,7 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
                             <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
                             </>
                             }
-                            {FormPageNumber ==2 && 
+                            {FormPageNumber ==2 &&
                             <>
                             <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev-1)}>Previous</button>
                             <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Confirm</button>

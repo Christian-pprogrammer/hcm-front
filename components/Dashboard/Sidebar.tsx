@@ -1,22 +1,24 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
 import SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, GroupDirectorArr, HospitalAdminArr, HospitalDirectorArr, PatientAdminArr, ScheduleManagerArr, system_users } from '../../utils/constants'
-import authService from '../../services/auth/auth.service'
-import { useSelector } from 'react-redux'
+import authService from '../../services/auth/auth.service';
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
   const AuthUser = useSelector((state: any) => state.authUser);
-  console.log("The Auth User",AuthUser);
-  let role: any;
+  const [role, setRole] = useState("");
+
   useEffect(() => {
-    if (AuthUser) {
-      role = AuthUser?.user?.role?.role;
-      console.log("The Role",role);
-    }
+    setTimeout(() => {
+      setRole(AuthUser?.user?.role?.role);
+    }, 500);
   }, [AuthUser]);
+
+
+    if (role !== undefined) {clearTimeout()}
 
     const VerifyUser = () => {
         if (role == "SUPER_ADMIN") {
