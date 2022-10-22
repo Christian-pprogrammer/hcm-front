@@ -12,7 +12,6 @@ import NewsSection from '../components/landingpage/NewsSection';
 import Footer from '../components/landingpage/Footer';
 import Header from '../components/landingpage/Header';
 import { app_config } from '../utils/constants';
-import { withLocaleMessages } from '../utils/ssg/withLocaleMessages';
 
 const Home: NextPage = () => {
   const t = useTranslations('Home')
@@ -47,7 +46,7 @@ const Home: NextPage = () => {
 export default Home;
 
 export async function getStaticProps ({locale} : any){
-  return { 
+  return {
     props : {
       messages : {
         ...require(`../locales/${(locale ?? 'en-us').toLocaleLowerCase()}.json`)
