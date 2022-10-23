@@ -7,10 +7,9 @@ import { compose, legacy_createStore as createStore } from "redux";
 import { useEffect } from "react";
 import Head from "next/head";
 import jwtDecode from "jwt-decode";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "../styles/globals.css";
-import { withLocaleMessages } from '../utils/ssg/withLocaleMessages';
 import UserService from "../services/users/user.service";
 import { updateJavaScriptObject } from "../utils/functions";
 import reducer from "../store/reducers";
@@ -92,7 +91,7 @@ function AppMeta() {
           .then((res) => {
             const curr_user = updateJavaScriptObject(jwtDecode(token), res.data);
             console.log("Current User",curr_user);
-            curr_user.fullNames = res.data.username;
+            curr_user.fullNames = res.data.fullName;
             const user_role = (res.data.role.role);
             // curr_user.role = res.data.roles[0].role;
 
@@ -163,7 +162,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           } catch (e:any){
             (e: any) => console.log(e);
           }
-        } 
+        }
       } catch(e:any) {
         (e: any) => console.log(e);
       }

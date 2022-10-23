@@ -19,7 +19,7 @@ const Navbar = () => {
             </div>
             <div className='justify-center px-4 md:px-8 place-items-center flex '>
                 <span className='font-semibold '>
-                    {AuthUser.role || "Unauthorized Access"}
+                    {AuthUser.fullNames || "Guest"}
                 </span>
             </div>
             <div className='flex   '>

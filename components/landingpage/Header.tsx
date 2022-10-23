@@ -28,7 +28,7 @@ const Header = () => {
         </div>
         <div className={`flex ${ShowLinks && 'flex flex-col  gap-6 justify-center'}  place-items-center justify-center  md:gap-[2em] lg:gap-[8em]`}>
         <ul className={`text-black text-[14px] font-normal ${ShowLinks ? 'flex flex-col gap-6 text-center justify-center' : 'hidden' }  md:flex gap-10`}>
-            <li><Link className={`${ChangeHeader('/')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/">{t('Navbar.links.homedata')}</Link></li>
+            <li><Link className={`${ChangeHeader('/')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/">HOME</Link></li>
             <li><Link className={`${ChangeHeader('/#about')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/#about">ABOUT US</Link></li>
             <li><Link className={`${ChangeHeader('/#services')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/#services">SERVICES</Link></li>
             <li><Link className={`${ChangeHeader('/patient/landing-appointment-page')} hover:border-b-2 hover:border-solid hover:border-backG py-2`} href="/patient/landing-appointment-page">APPOINTMENT</Link></li>
@@ -44,4 +44,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Header;
