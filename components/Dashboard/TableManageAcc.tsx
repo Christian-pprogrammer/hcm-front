@@ -15,7 +15,7 @@ const TableManageAcc = () => {
     const [EditModal,setEditModal] = useState<Boolean>(false);
     const [showListActions,setshowListActions] = useState<Boolean>(false);
     const [searchtext,setSearchText] = useState<string>('');
-    let [manageAccData,setmanageAccData] = useState<any>([]);
+    let [manageAccData,setmanageAccData] = useState<any>(null);
     const toggleModal = () =>{
         setModal(!showModal)
     }
@@ -28,7 +28,7 @@ const TableManageAcc = () => {
     async function fetchData () {
         const data = await groupService.getAllGroups();
         setmanageAccData(data.data);
-        console.log("Manage Acc Data",manageAccData)
+        console.log("Manage Acc Data",data.data)
     }
     useEffect(()=>{
         fetchData();
@@ -76,14 +76,13 @@ const TableManageAcc = () => {
                 </tr>
             </thead>
             <tbody className='relative'>
-                {!manageAccData ? manageAccData.map((acc:any)=>(
+                {manageAccData ? manageAccData.map((acc:any)=>(
                 <tr key={acc.id} className='bg-inputG relative  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                     <td className='py-2  whitespace-nowrap lg:px-5 '>
                         <div className='flex px-2 gap-6'>
                             <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
-                            <div>
+                            <div className='flex flex-col text-center place-items-center justify-center'>
                                 <h1 className='font-bold '>{acc.groupName}</h1>
-                                <span className='text-[#00000073]'>{acc.groupLocation}</span>
                             </div>
                         </div>
                     </td>
@@ -98,7 +97,7 @@ const TableManageAcc = () => {
                         <span className='text-white rounded-full text-[14px] font-bold w-12 h-12 flex place-items-center justify-center bg-red-500 border-2 border-white'>+248</span>
                     </td>
                     <td className='px-10 whitespace-nowrap '>
-                        <span className='text-[#00000043]'>{acc.date}</span>
+                        <span className='text-[#00000043]'>{acc.updatedAt}</span>
                     </td>
                     <td className='px-10 whitespace-nowrap justify-center flex gap-10 text-backG'>
                         <button onClick={() => setshowListActions((prev)=>!prev)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> 
