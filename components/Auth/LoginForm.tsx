@@ -18,7 +18,8 @@ export default function LoginForm() {
 
     const [showPassword, setShowPasswords] = useState(false);
     const [FormData, setFormData] = useState<FormLoginStructure>(LoginFormData);
-    const [isValid,setValid] = useState(true);
+    const [isEmailValid,setEmailValid] = useState(true);
+    const [isPassValid,setPassValid] = useState(true);
 
     const [loading, setLoading] = React.useState(false);
 
@@ -29,8 +30,8 @@ export default function LoginForm() {
     }
 
     useEffect(()=>{
-        (!FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-         && !FormData.password.match(/^(?=.*[A-Z])(?=.*[\\W])(?=.*[0-9])(?=.*[a-z]).{8,30}$/)) ? setValid(false): setValid(true)
+        !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? setEmailValid(false): setEmailValid(true);
+        !FormData.password.match(/^(?=.*[A-Z])(?=.*[\\W])(?=.*[0-9])(?=.*[a-z]).{8,30}$/) ? setPassValid(false): setPassValid(true);
     },[FormData]);
 
     const login = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -132,7 +133,7 @@ export default function LoginForm() {
                                     </div>
                                     <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="email" placeholder="Enter your email" />
                                 </div>
-                                <small className={`text-[12px] ${!isValid && 'text-red-500'}`}>{!isValid ? "Please enter a valid email" : ""}</small>
+                                <small className={`text-[12px] ${!isEmailValid && 'text-red-500'}`}>{!isEmailValid ? "Please enter a valid email" : ""}</small>
                             </div>
                         </div>
                         <div>
@@ -147,7 +148,7 @@ export default function LoginForm() {
                                         <button type='button' onClick={() => setShowPasswords((prev) => !prev)}>{!showPassword ? <EyeShowIcon/> : <EyeNoShowIcon/>}</button>
                                     </div>
                                 </div>
-                                    <small className={`text-[12px] ${!isValid && 'text-red-500'}`}>{!isValid ? "Please enter a valid password" : ""}</small>
+                                    <small className={`text-[12px] ${!isPassValid && 'text-red-500'}`}>{!isPassValid ? "Please enter a valid password" : ""}</small>
                             </div>
                             <div className='flex -translate-y-2 gap-4'>
                                 <input type="checkbox" /><span className='text-[10px] '>Remember Password</span>

@@ -8,9 +8,9 @@ import TopReviews from './TopReviews'
 
 const Content = () => {
     return (
-        <div className="px-2 bg-[#F7F7F7] py-4">
+        <div className="px-2 bg-[#F7F7F7] py-4 w-[80vw]">
             <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/HCM/Dashboard' > Dasboard/ </Link> 
+                <FaHome /><Link href='/HCM/Dashboard' > Dasboard/ </Link>
             </div>
             <div className="flex  gap-2">
                 <div className="chart-data min-w-[55vw] sm:max-h-[85vh] bg-white rounded-lg py-5 px-2 lg:p-5 border-2 border-[#0000003]">
@@ -54,11 +54,11 @@ const Content = () => {
                     <div className='py-5'>
                         <h1 className='font-bold'>Account Management</h1>
                     </div>
-                    <div className='w-full bg-white border-2 rounded-lg h-[50vh] border-[#000000082] overflow-x-auto'>
+                    <div className='lg:max-w-[55vw] w-full bg-white border-2 rounded-lg h-[50vh] border-[#000000082] overflow-x-auto'>
                         <TableAdmin />
                     </div>
                 </div>
-                <div className='hidden lg:block '>
+                <div className='hidden lg:block'>
                     <div className='py-5'>
                         <h1 className='font-bold'>Top Reviews</h1>
                     </div>

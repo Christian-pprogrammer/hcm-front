@@ -56,7 +56,7 @@ const Sidebar = () => {
         authService.logout();
     }
     return (
-        <aside className='bg-backG bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] '>
+        <aside className='bg-backG bottom-0 overflow-hidden hidden md:block min-h-screen text-white w-[20vw] h-screen sticky top-0'>
             <DashBoardLogo />
             <div className='flex py-5 flex-col px-2 gap-4'>
                 {VerifyUser().map((sidebar) => (
