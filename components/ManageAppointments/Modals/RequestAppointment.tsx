@@ -2,7 +2,8 @@ import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import { LineSvg } from '../../../icons';
-import ManageAppointmentsService from '../../../services/users/ManageAppointments.service';
+import manageAppointmentsService from '../../../services/users/manage-appointments.service';
+// import ManageAppointmentsService from '../../../services//ManageAppointments.service';
 import { PatientInterface, PatientInterfaceData } from '../../../utils/ModalTypes';
 import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 import ConfirmRequestModal from './ConfirmRequestModal';
@@ -41,7 +42,7 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
         try {
             console.log(FormData);
             setLoading(true);
-            const res = await ManageAppointmentsService.createAppointment("kjadh129aklsd12k",FormData);
+            const res = await manageAppointmentsService.createAppointment("kjadh129aklsd12k",FormData);
             if (res.data.status === 200) {
                 setAlertData({
                     alert: true,

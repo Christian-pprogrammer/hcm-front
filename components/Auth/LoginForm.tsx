@@ -35,8 +35,8 @@ export default function LoginForm() {
 
     const login = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setLoading(true);
         try {
+            setLoading(true);
             const res = await AuthService.login(FormData);
             console.log("The Response",res)
             AuthService.setToken(res.data.accessToken);
@@ -44,7 +44,6 @@ export default function LoginForm() {
             console.log("The Decoded Token",decodedToken)
             const role = decodedToken.user.role.role;
             notifySuccess("Logged In Successful");
-
             if (RouteService.getPrevRoute()) {
                 let link: any = RouteService.getPrevRoute();
                 RouteService.removePrevRoute();
@@ -71,6 +70,7 @@ export default function LoginForm() {
                 else
                     handleGoTo("/404");
             }
+            setLoading(false);
             setFormData(FormDummy);
 
         } catch (e: any) {
@@ -79,8 +79,8 @@ export default function LoginForm() {
             notifyError(ERROR_MESSAGE);
             setFormData(FormDummy);
         }
-
         setLoading(false);
+
     };
 
     return (

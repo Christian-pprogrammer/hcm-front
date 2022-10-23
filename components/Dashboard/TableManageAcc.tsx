@@ -5,9 +5,6 @@ import { FaCheck,FaEllipsisH,FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-
 import AddAccount from './Modals/AddAccount'
 import EditAccount from './Modals/EditAccount'
 import { GetServerSideProps } from 'next'
-import scheduleService from '../../services/schedules/schedule.service'
-import { notifyError } from '../alert'
-import groupAdminService from '../../services/users/group-admin.service'
 
 const TableManageAcc = (data:any) => {
     const [showModal,setModal] = useState<Boolean>(false)
@@ -53,7 +50,7 @@ const TableManageAcc = (data:any) => {
                             <FaPlus/>
                             <span>Add Account</span>
                         </button>
-                            <AddAccount addAccount={addAccount} onClose={()=>setAddAccount(false)} />
+                        <AddAccount addAccount={addAccount} onClose={()=>setAddAccount(false)} />
                     </div>
                 </div>
             </div>

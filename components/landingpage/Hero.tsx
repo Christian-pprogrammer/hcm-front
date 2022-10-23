@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Hero= () => {
@@ -8,7 +9,7 @@ const Hero= () => {
           <p className='text-2xl sm:text-4xl  lg:text-6xl font-semibold'>Time and health are two precious assets that we do not recognize and appreciate until they have been depleted.</p>
         </div>
         <div className='py-10'>
-          <button className='bg-white  hover:bg-backG hover:text-white duration-500 text-backG font-semibold md:p-6 md:px-10 text-[12px] p-4 px-5 md:text-[16px] rounded-full'>Book appointment</button>
+          <button className='bg-white  hover:bg-backG hover:text-white duration-500 text-backG font-semibold md:p-6 md:px-10 text-[12px] p-4 px-5 md:text-[16px] rounded-full'><Link href={'/auth/signup'}>Book Appointment</Link></button>
         </div>
     </div>
   )

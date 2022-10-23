@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
 import { FaArrowUp, FaCheck, FaHome } from 'react-icons/fa'
-import { CheckIcon } from '../../icons'
 import Chart from './Chart'
 import TableAdmin from './TableAdmin'
 import TopAccounts from './TopAccounts'

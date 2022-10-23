@@ -21,23 +21,23 @@ const Sidebar = () => {
     const VerifyUser = () => {
         if (role == "SUPER_ADMIN") {
             return SideBarAdmins;
-          } else if (role == "GROUP_ADMIN") {
+          } if (role == "GROUP_ADMIN") {
             return GroupAdminArr;
-          } else if (role == "GROUP_DIRECTOR") {
+          } if (role == "GROUP_DIRECTOR") {
             return GroupDirectorArr;
-          } else if (role == "HOSPITAL_ADMIN") {
+          } if (role == "HOSPITAL_ADMIN") {
             return HospitalAdminArr
-          } else if (role == "HOSPITAL_DIRECTOR") {
+          } if (role == "HOSPITAL_DIRECTOR") {
             return HospitalDirectorArr
-          } else if (role == "DOCTOR") {
+          } if (role == "DOCTOR") {
             return DoctorAdminArr
-          } else if (role == "PATIENT") {
+          } if (role == "PATIENT") {
             return PatientAdminArr;
-          } else if (role == "APPOINTMENT_MANAGER") {
+          } if (role == "APPOINTMENT_MANAGER") {
             return AppointmentManagerArr;
-          } else if (role == "SCHEDULE_MANAGER") {
+          } if (role == "SCHEDULE_MANAGER") {
             return ScheduleManagerArr
-          } else {
+          } else{
             return PatientAdminArr;
           }
             // return PatientAdminArr;
