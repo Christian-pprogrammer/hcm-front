@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import { AddAccountFormStructure, AddAccountData } from '../../../utils/ModalTypes';
 import {LoaderIcon} from '../../../icons/index';
+import UserService from '../../../services/users/user.service';
+import { FormDummy } from '../../../utils/FormData';
+import groupService from '../../../services/group/group.service';
+
 const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any}) => {
   const [isBrowser, setBrowser] = useState<Boolean>(false)
   const [FormDataAccount,setFormDataAccount] = useState<AddAccountFormStructure>(AddAccountData);
   const [ImageUploadValue,setImageUploadValue] = useState<string>();
   const [fileLoader,setFileloader] = useState<Boolean>(false);
+  
   useEffect(() => {
     setBrowser(true)
   }, [])
@@ -27,24 +32,27 @@ const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any})
       formData.append('upload_preset','hcm_app');
       formData.append('cloud_name','real-service-ltd');
       try{
-        const res = await fetch('https://api.cloudinary.com/v1_1/hcm_app/real-service-ltd',{
+        let response = await fetch('https://api.cloudinary.com/v1_1/hcm_app/real-service-ltd',{
           method: 'POST',
           body:formData
         })
-        const data = await res.json();
+        const data = await response.json();
         media.push(data.secure_url);
         setImageUploadValue(data.secure_url);
-        
         setFileloader(false);
+
       }catch(err:any){
         reportError(err);
       }
     }
     return media;
   }
-  const handleSubmit = (e :React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e :React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(ImageUploadValue);
+    let result = await groupService.createGroup(FormDataAccount);
+    console.log("The Post data",result);
+    setFormDataAccount(AddAccountData);
   }
   const ModalContent = addAccount ? (
     <div className="modal-portal bg-modalG h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
@@ -70,27 +78,6 @@ const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any})
                 Email
             </label>
             <input value={FormDataAccount?.email} onChange={(e)=>setFormDataAccount({...FormDataAccount,email:e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email" />
-            <small className='text-[12px] text-red-500'>Enter Valid info</small>
-          </div>
-          <div className="py-1">
-            <label className="block text-gray-700 text-sm font-bold">
-                Password
-            </label>
-            <input value={FormDataAccount?.password} onChange={(e)=>setFormDataAccount({...FormDataAccount,password:e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password" />
-            <small className='text-[12px] text-red-500'>Enter Valid info</small>
-          </div>
-          <div className="py-1">
-            <label className="block text-gray-700 text-sm font-bold">
-                New License Date
-            </label>
-            <input value={FormDataAccount?.NewLicenseDate} onChange={(e)=>setFormDataAccount({...FormDataAccount,NewLicenseDate:e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type="date" placeholder="Date" />
-            <small className='text-[12px] text-red-500'>Enter Valid info</small>
-          </div>
-          <div className="py-1">
-            <label className="block text-gray-700 text-sm font-bold">
-                Profile Image
-            </label>
-            <input onChange={()=> onImageChange} multiple className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="file-image" type="file" accept="image/*" />
             <small className='text-[12px] text-red-500'>Enter Valid info</small>
           </div>
         </div>
