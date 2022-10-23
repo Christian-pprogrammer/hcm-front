@@ -4,13 +4,13 @@ import { FaCheck } from 'react-icons/fa'
 const TableAdmin = () => {
     const STATUS = 'Active'
     return (
-        <table className='w-full table-auto'>
+        <table className='w-full table-auto overflow-scroll'>
         <thead className=''>
             <tr>
-            <th className='py-5 text-[#000000c8] text-sm'>Accounts</th>
-            <th className='py-5 text-[#000000c8] text-sm'>Status</th>
-            <th className='py-5 text-[#000000c8] text-sm'>Hospitals Registered</th>
-            <th className='py-5 text-[#000000c8] text-sm'>License Date</th>
+            <th className='py-3 text-[#000000c8] text-sm'>Accounts</th>
+            <th className='py-3 text-[#000000c8] text-sm'>Status</th>
+            <th className='py-3 text-[#000000c8] text-sm'>Hospitals Registered</th>
+            <th className='py-3 text-[#000000c8] text-sm'>License Date</th>
             </tr>
         </thead>
         <tbody className=''>
@@ -37,7 +37,7 @@ const TableAdmin = () => {
                 <td className='px-10 whitespace-nowrap '>
                     <span className='text-[#00000043]'>12/12/2021</span>
                 </td>
-               
+
             </tr>
             <tr className='bg-inputG  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
@@ -62,7 +62,7 @@ const TableAdmin = () => {
                 <td className='px-10 whitespace-nowrap '>
                     <span className='text-[#00000043]'>12/12/2021</span>
                 </td>
-                
+
             </tr>
             <tr className='bg-inputG  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
@@ -87,7 +87,7 @@ const TableAdmin = () => {
                 <td className='px-10 whitespace-nowrap '>
                     <span className='text-[#00000043]'>12/12/2021</span>
                 </td>
-            </tr>   
+            </tr>
         </tbody>
     </table>
 
