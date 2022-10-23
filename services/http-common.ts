@@ -12,7 +12,8 @@ const http = axios.create({
 
 http.interceptors.request.use(
   function (config: any) {
-    const token = AuthService.getEncToken();
+    const token = AuthService.getDecToken();
+    // console.log("The BAckend token",token)
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },

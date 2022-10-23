@@ -1,13 +1,11 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState ,useEffect } from 'react'
 import { FaBan, FaCheck, FaEllipsisH, FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
 import AddHospital from './Modals/AddHospital'
 import DeleteHospital from './Modals/DeleteHospital'
 import EditHospital from './Modals/EditHospital'
-import { GetServerSideProps } from "next";
 import ManageAdminModal from './Modals/ManageAdminModal'
 import hospitalService from '../../services/hospital/hospital.service'
-import { notifyError, notifySuccess } from '../alert'
 
 const ManageHospitalsGA = (data:any) => {
   const [DeleteModal,setDeleteModal] = useState<Boolean>(false)
@@ -16,8 +14,18 @@ const ManageHospitalsGA = (data:any) => {
     const [showListActions,setshowListActions] = useState<Boolean>(false);
     const [showManageAdmin,setManageAdmin] = useState<Boolean>(false)
     const [searchtext,setSearchText] = useState<string>(''); 
-  const STATUS ='Active'
+  const STATUS ='Active';
+  const [manageHospitalData,setmanageHospitalData] = useState<any>();
   console.log(data);
+  const fetchData = async () => {
+    let res = await hospitalService.getAllHospitals();
+    let data = res.data
+    setmanageHospitalData(data);
+    console.log("The manage Hospital Data",data)
+  }
+  useEffect(()=>{
+    fetchData();
+  })
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -152,25 +160,25 @@ const ManageHospitalsGA = (data:any) => {
     </div>
   )
 }
-export const getServerSideProps: GetServerSideProps = async ({
-    res
-  }) => {
-    try{
-        const data = await hospitalService.getAllHospitals();
-        if(data){
-            notifySuccess(data.data.message || "Hospital Data Retrieved Successfully")
-        }
-        return {
-            props : {data}
-        }
-    }catch(error:any){
-        res.statusCode = 404;
-        const Error_Message = error.message;
-        reportError(Error_Message);
-        notifyError(Error_Message);
-        return {
-            props : {}
-        }
-    }
-  };
+// export const getServerSideProps = async ({
+//     res
+//   }) => {
+//     try{
+//         const data = await hospitalService.getAllHospitals();
+//         if(data){
+//             notifySuccess(data.data.message || "Hospital Data Retrieved Successfully")
+//         }
+//         return {
+//             props : {data}
+//         }
+//     }catch(error:any){
+//         res.statusCode = 404;
+//         const Error_Message = error.message;
+//         reportError(Error_Message);
+//         notifyError(Error_Message);
+//         return {
+//             props : {}
+//         }
+//     }
+//   };
 export default ManageHospitalsGA

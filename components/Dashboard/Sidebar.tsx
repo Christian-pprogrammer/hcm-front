@@ -18,7 +18,9 @@ const Sidebar = () => {
   }, [AuthUser]);
 
 
-    if (role !== undefined) {clearTimeout()}
+    if (role !== undefined) {
+      clearTimeout(500)
+    }
 
     const VerifyUser = () => {
         if (role == "SUPER_ADMIN") {

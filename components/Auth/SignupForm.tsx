@@ -7,7 +7,7 @@ import SignupInfo from './SignupInfo'
 import { FormDummy, FormStructure } from '../../utils/FormData'
 import AuthService from "../../services/auth/auth.service";
 import { useRouter } from 'next/router';
-import LoaderCache from '../../pages/auth/LoaderCache';
+import LoaderCache from '../../pages/loaders/LoaderCache';
 import { notifyError, notifySuccess } from '../alert';
 
 const SignupForm = () => {

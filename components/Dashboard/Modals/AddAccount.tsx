@@ -34,6 +34,7 @@ const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any})
         const data = await res.json();
         media.push(data.secure_url);
         setImageUploadValue(data.secure_url);
+        
         setFileloader(false);
       }catch(err:any){
         reportError(err);

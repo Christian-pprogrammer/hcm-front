@@ -68,3 +68,11 @@ body {
      transform: rotate(180deg);
   }
 }
+::-webkit-scrollbar{
+  width:5px;
+  background: rgba(128, 128, 128, 0.347);
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 12px;
+  background: rgb(211, 210, 210);
+}
