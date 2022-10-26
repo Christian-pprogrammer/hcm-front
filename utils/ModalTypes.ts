@@ -1,55 +1,97 @@
-export interface AddAccountFormStructure{
-    username: string;
+export interface GroupDtoForm{
+    groupName: string;
     email:string;
-    password:string;
-    NewLicenseDate:string;
-    uploadFile:string;
 }
-export const AddAccountData: AddAccountFormStructure = {
-    username: "",
+export const GroupDtoDummy: GroupDtoForm = {
+    groupName: "",
     email:"",
-    password : "",
-    NewLicenseDate : "",
-    uploadFile: ""
 }
-export interface AddHospitalStructure{
-    hospitalName : string,
+export interface HospitalAdminDto{
+    confirmPassword:string;
+    fullName : string, // required
     email:string,
-    newlicenseDate: string,
-    location:string,
-    category:string,
-    district:string,
-    sector:string,
-    service:Object[];
+    gender: string,
+    hospitalId:string,
+    mobile:string, // required
+    password:string,
+    role:string,
 }
-export const AddHospitalData : AddHospitalStructure = {
-    hospitalName : "",
+export const HospitalAdminDummy : HospitalAdminDto = {
+    confirmPassword:"",
+    fullName : "", // required
     email:"",
-    newlicenseDate: "",
-    location:"",
-    category: "",
-    district:"",
-    sector:"",
-    service:[{}],
+    gender: "",
+    hospitalId:"",
+    mobile:"", // required
+    password:"",
+    role:"",
 }
-export interface NewService {
-    NewService : string;
-    NewServiceAbbr : string;
-    newlicenseDate:string;
+export interface HospitalCategory{
+    hospitalCategory : string, // required
+    hospital_category_id:string,
 }
-export const NewServiceData : NewService = {
-    NewService : "",
-    NewServiceAbbr : "",
-    newlicenseDate: "",
+export const HospitalCategoryDummy : HospitalCategory = {
+    hospitalCategory : "", // required
+    hospital_category_id:"",
 }
-export interface MapInterface {
+export interface CreateHospitalDto{
+    email:string;
+    hospitalCategoryId:string;
+    hospitalId:string;
     hospitalName:string;
-    status:string;
+    location:string;
+    licensedDate : string;
 }
-export const MapInterfaceData : MapInterface = {
-    hospitalName: "",
-    status: "",
+
+export const CreateHospitalDummy : CreateHospitalDto = {
+    email:"",
+    hospitalCategoryId:"",
+    hospitalId:"",
+    hospitalName:"",
+    location:"",
+    licensedDate : "",
 }
+export interface AddServiceToHospitalDto {
+    serviceId:string;
+    groupId:string;
+    fee:number;
+    hospitalId:string;
+    currency:string;
+}
+export const AddServiceToHospitalDummy : AddServiceToHospitalDto = {
+    serviceId:"",
+    groupId:"",
+    hospitalId:"",
+    fee:0,
+    currency:"",
+}
+export interface AddServiceToGroupDto {
+    service:string;
+}
+export const AddServiceToGroupDummy : AddServiceToGroupDto = {
+    service :""
+}
+
+export interface NewService {
+    service:string;
+    serviceAbbr:string;
+}
+export const NewServiceDummy : NewService = {
+    service :"",
+    serviceAbbr:"",
+}
+
+export interface NewServiceCost {
+    fee:number; // required
+    currency:string; // required
+    id:number;
+}
+export const NewServiceCostDummy : NewServiceCost = {
+    fee:0, // required
+    currency:"", // required
+    id:0,
+}
+
 export interface LanguagesType {
     newlanguageName:string;
     standardCode:string;
@@ -76,16 +118,7 @@ export const NewUserData:NewUserInterface={
     services:[],
     status:""
 }
-export interface NewPriceInterface {
-    serviceName:string;
-    fee:number;
-    newfee:number;
-}
-export const NewPriceData:NewPriceInterface = {
-    serviceName: "",
-    fee: 0,
-    newfee: 0,
-}
+
 export interface NewTemplateInterface {
     typeTemplate:string;
     description:string;

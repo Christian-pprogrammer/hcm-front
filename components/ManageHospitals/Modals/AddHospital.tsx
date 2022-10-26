@@ -1,7 +1,8 @@
-import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { AddHospitalData, AddHospitalStructure } from '../../../utils/ModalTypes';
+import hospitalService from '../../../services/hospital/hospital.service';
+import {  CreateHospitalDto, CreateHospitalDummy} from '../../../utils/ModalTypes';
+import { notifyError, notifySuccess } from '../../alert';
 import AdvancedInfo from './AdvancedInfo';
 import BasicInfo from './BasicInfo';
 
@@ -11,7 +12,7 @@ const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
     useEffect(() => {
         setBrowser(true)
     }, [])
-    const [FormData,setFormData] = useState<AddHospitalStructure>(AddHospitalData);
+    const [FormData,setFormData] = useState<CreateHospitalDto>(CreateHospitalDummy);
     const [FormPageNumber,setFormPageNumber] = useState<number>(0);
     const PageDisplayForm = () => {
         if(FormPageNumber == 0){
@@ -22,15 +23,23 @@ const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
     }
     const handleClose = () => {
         onClose()
-      
     }
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try{ 
-            
-        }catch(e){
-            reportError(e);
-        }
+        try{
+            console.log("The Form Data: ",FormData);
+            let result = await hospitalService.createNewHospital(FormData);
+            console.log("The Result",result);
+            if(result.status === 200){
+              notifySuccess("Successfully Created the Hospital");
+              setFormData(CreateHospitalDummy);
+              handleClose();
+            }
+          }catch(error:any){
+            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+            notifyError(ERROR_MESSAGE);
+            setFormData(CreateHospitalDummy);
+          }
 
     }
     const ModalContent = showModal ? (
@@ -44,20 +53,16 @@ const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
                         </button>
                     </div>
                     <form method="post" onSubmit={handleSubmit}>
-                        <div className="modal-body">
                             {PageDisplayForm()}
-                        </div>
-                        <div className="modal-footer flex py-2 gap-2 justify-between">
-                            {FormPageNumber == 0 ? <>
+                            {FormPageNumber == 0 ? <div className="modal-footer flex py-2 gap-2 justify-between">
                                 <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
                                 <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
-                            </>:
-                            <>
+                            </div>:
+                            <div className="modal-footer flex py-2 gap-2 justify-between">
                             <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
                             <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Add Account</button>
-                            </>
+                            </div>
                             }
-                        </div>
                     </form>
                 </div>
             </div>

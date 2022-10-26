@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { AddAccountFormStructure, AddAccountData } from '../../../utils/ModalTypes';
+import {  GroupDtoForm, GroupDtoDummy } from '../../../utils/ModalTypes';
 import {LoaderIcon} from '../../../icons/index';
-import UserService from '../../../services/users/user.service';
-import { FormDummy } from '../../../utils/FormData';
 import groupService from '../../../services/group/group.service';
+import { notifyError, notifySuccess } from '../../alert';
 
 const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any}) => {
   const [isBrowser, setBrowser] = useState<Boolean>(false)
-  const [FormDataAccount,setFormDataAccount] = useState<AddAccountFormStructure>(AddAccountData);
+  const [FormDataAccount,setFormDataAccount] = useState<GroupDtoForm>(GroupDtoDummy);
   const [ImageUploadValue,setImageUploadValue] = useState<string>();
   const [fileLoader,setFileloader] = useState<Boolean>(false);
   
@@ -49,17 +48,26 @@ const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any})
   }
   const handleSubmit = async (e :React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(ImageUploadValue);
-    let result = await groupService.createGroup(FormDataAccount);
-    console.log("The Post data",result);
-    setFormDataAccount(AddAccountData);
+    // console.log(ImageUploadValue);
+    try{
+      let result = await groupService.createGroup(FormDataAccount);
+      if(result.status === 200){
+        notifySuccess("Successfully Created the Hospitals group");
+        setFormDataAccount(GroupDtoDummy);
+        handleClose();
+      }
+    }catch(error:any){
+      const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+      notifyError(ERROR_MESSAGE);
+      setFormDataAccount(GroupDtoDummy);
+    }
   }
   const ModalContent = addAccount ? (
     <div className="modal-portal bg-modalG h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
     <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow  ">
       <div className="modal-content">
         <div className="modal-header py-2 flex justify-between">
-          <h5 className="modal-title font-bold text-backG">Add Account</h5>
+          <h5 className="modal-title font-bold text-backG">Add Group</h5>
           <button type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close" onClick={handleClose}>
             <span aria-hidden="true">&times;</span>
           </button>
@@ -68,9 +76,9 @@ const AddAccount = ({ addAccount,onClose } : {addAccount: Boolean,onClose: any})
         <div className="modal-body">
           <div className='py-1'>
             <label className="block text-gray-700 text-sm font-bold">
-                Username
+                Group Name
             </label>
-            <input value={FormDataAccount?.username} onChange={(e)=>setFormDataAccount({...FormDataAccount,username:e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
+            <input value={FormDataAccount?.groupName} onChange={(e)=>setFormDataAccount({...FormDataAccount,groupName:e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
             <small className='text-[12px] text-red-500'>Enter Valid info</small>
           </div>
           <div className="py-1">

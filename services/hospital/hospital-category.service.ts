@@ -2,11 +2,11 @@ import http from "../http-common";
 
 class HospitalCategoryService {
   getHospitalCategories() {
-    return http.get(`api/v2/hospital_category`);
+    return http.get(`/hospital_category`);
   }
 
   createHospitalCategory(data: any) {
-    return http.post(`api/v2/hospital_category`, data);
+    return http.post(`/hospital_category`, data);
   }
 }
 export default new HospitalCategoryService();

@@ -1,51 +1,36 @@
-import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import ManageService from '../../../pages/group-admin/manage-service';
-import ManageServicesService from '../../../services/services/services.service';
-import { NewService, NewServiceData } from '../../../utils/ModalTypes';
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
+import { useSelector } from 'react-redux';
+import servicesService from '../../../services/services/services.service';
+import { NewService, NewServiceDummy } from '../../../utils/ModalTypes';
+import { notifyError, notifySuccess } from '../../alert';
 
 const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
-    const [loading, setLoading] = React.useState(false);
-    const [alertData, setAlertData] = React.useState({
-        alert: false,
-        message: "",
-        class: "",
-    });
     const [isBrowser, setBrowser] = useState<Boolean>(false)
     useEffect(() => {
         setBrowser(true)
-    }, [])
-    interface SelectedData {
-        SelectedService: ServiceStructure;
-    }
-    const [FormData, setFormData] = useState<NewService>(NewServiceData);
+    }, []);
+    const [FormData, setFormData] = useState<NewService>(NewServiceDummy);
+    const authUser = useSelector((state: any) => state.authUser)
     const handleClose = () => {
         onClose();
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            console.log(FormData);
-            setLoading(true);
-            const res = await ManageServicesService.createService(FormData);
-            if (res.data.status === 200) {
-                setAlertData({
-                    alert: true,
-                    message: res.data.message || "Successfuly Created the service",
-                    class: "green"
-                });
-            } else {
-                setAlertData({
-                    alert: true,
-                    message: res.data.error || "Failure Check Provided Credentials",
-                    class: "red"
-                })
+        try{
+            console.log("The Formdata",FormData);
+            const groupId = authUser?.user?.group?.group_id;
+            console.log("The GroupId:", groupId);
+            let result = await servicesService.createService(FormData);
+            if(result.status === 200){
+              notifySuccess("Successfully Created the service");
+              setFormData(NewServiceDummy);
+              handleClose();
             }
-        }catch(error) {
-            reportError(error);
-        }
+          }catch(error:any){
+            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+            notifyError(ERROR_MESSAGE);
+          }
     }
     const ModalContent = showModal ? (
             <div className="modal-portal bg-modalG h-screen w-screen px-5 flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
@@ -77,21 +62,14 @@ const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
                                     <label className="block text-gray-700 text-sm font-bold">
                                         New Services Name
                                     </label>
-                                    <input value={FormData?.NewService} onChange={(e) => setFormData({ ...FormData, NewService: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type={'text'} placeholder="Enter your service name " />
-                                    <small className='text-[12px] text-red-500'>Enter Valid info</small>
+                                    <input value={FormData?.service} onChange={(e) => setFormData({ ...FormData, service: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type={'text'} placeholder="Enter your service name " />
+                                    {FormData?.service === "" ? <small className='text-[12px] text-red-500'>Enter Valid info</small> : ""}
                                 </div>
                                 <div className="py-1">
                                     <label className="block text-gray-700 text-sm font-bold">
                                         New Service Abbreviation
                                     </label>
-                                    <input value={FormData?.NewServiceAbbr} onChange={(e) => setFormData({ ...FormData, NewServiceAbbr: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type={'text'} placeholder="Enter your service Abbr " />
-                                    <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                                </div>
-                                <div className="py-1">
-                                    <label className="block text-gray-700 text-sm font-bold">
-                                        Issued On
-                                    </label>
-                                    <input value={FormData?.newlicenseDate} onChange={(e) => setFormData({ ...FormData, newlicenseDate: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date-image" type="date" placeholder="Date" />
+                                    <input value={FormData?.serviceAbbr} onChange={(e) => setFormData({ ...FormData, serviceAbbr: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type={'text'} placeholder="Enter your service Abbr " />
                                     <small className='text-[12px] text-red-500'>Enter Valid info</small>
                                 </div>
                             </div>

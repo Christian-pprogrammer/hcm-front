@@ -43,6 +43,7 @@ const SignupForm = () => {
         setAlertData({alert: false, message: "", class: ""});
         setLoading(true);
         try{
+            console.log("The Formdata",FormData)
             const res = await AuthService.signup(FormData);
             if(res.data.status == 200){
                 notifySuccess(res.data.message || "Successfully Registered")

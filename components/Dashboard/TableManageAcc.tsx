@@ -32,7 +32,7 @@ const TableManageAcc = () => {
     }
     useEffect(()=>{
         fetchData();
-    },[])
+    },[manageAccData])
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -65,7 +65,7 @@ const TableManageAcc = () => {
                 </div>
             </div>
         <div className=' w-full overflow-x-auto'>
-         <table className='w-full table-auto '>
+         <table className='w-full table- overflow-y-hidden'>
             <thead>
                 <tr>
                 <th className='py-5 text-[#000000c8] text-sm'>Accounts</th>
@@ -75,9 +75,9 @@ const TableManageAcc = () => {
                 <th className='py-5 text-[#000000c8] text-sm'>Actions</th>
                 </tr>
             </thead>
-            <tbody className='relative'>
+            <tbody className='relative '>
                 {manageAccData ? manageAccData.map((acc:any)=>(
-                <tr key={acc.id} className='bg-inputG relative  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
+                <tr key={acc.group_id} className='bg-inputG relative  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                     <td className='py-2  whitespace-nowrap lg:px-5 '>
                         <div className='flex px-2 gap-6'>
                             <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
@@ -112,9 +112,11 @@ const TableManageAcc = () => {
                     <EditAccount EditModal={EditModal} onClose={toggleEditAccount}/>
                 </tr>
                 )):
+                <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
                     <FetchDataLoader/>
+                    <p>Fetching the data...</p>
+                </tr>
                 }
-
             </tbody>
         </table>
         </div>
