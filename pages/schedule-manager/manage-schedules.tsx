@@ -21,22 +21,22 @@ const ManageSchedules = (data:any) => {
     </div>
     )
 }
-export const getServerSideProps: GetServerSideProps = async ({
-    res
-  }) => {
-    try{
-        const data = await scheduleService.getAllSchedules();
-        return {
-            props : {data}
-        }
-    }catch(error:any){
-        res.statusCode = 404;
-        const Error_Message = error.message;
-        reportError(Error_Message);
-        notifyError(Error_Message);
-        return {
-            props : {}
-        }
-    }
-  };
+// export const getServerSideProps: GetServerSideProps = async ({
+//     res
+//   }) => {
+//     try{
+//         const data = await scheduleService.getAllSchedules();
+//         return {
+//             props : {data}
+//         }
+//     }catch(error:any){
+//         res.statusCode = 404;
+//         const Error_Message = error.message;
+//         reportError(Error_Message);
+//         notifyError(Error_Message);
+//         return {
+//             props : {}
+//         }
+//     }
+//   };
 export default ManageSchedules

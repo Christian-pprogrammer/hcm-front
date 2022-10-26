@@ -77,16 +77,16 @@ export const AccountTypeArr: CategoryType[] = [
         id: 0
     }, {
         value: "Appointment-Manager",
-        text: "Appointment Manager",
+        text: "APPOINTMENT_MANAGER",
         id: 1
     },
     {
         value: "Schedule-Manager",
-        text: "Schedule Manager",
+        text: "SCHEDULE_MANAGER",
         id: 2
     }, {
         value: "Doctor",
-        text: "Doctor",
+        text: "DOCTOR",
         id: 3
     }
 ]

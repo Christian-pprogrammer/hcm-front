@@ -17,9 +17,9 @@ const BasicUserInfo = ({ FormData, setFormData }: { FormData: NewUserInterface, 
         <>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Account Type
+                    Role
                 </label>
-                <select value={FormData?.acctype} onChange={(e) => setFormData({ ...FormData, acctype: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Select the status">
+                <select value={FormData?.role} onChange={(e) => setFormData({ ...FormData, role: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Select the status">
                     {AccountTypeArr.map((option) => (
                         <option key={option.id} value={option.value}>{option.text}</option>
                     ))}
@@ -38,7 +38,7 @@ const BasicUserInfo = ({ FormData, setFormData }: { FormData: NewUserInterface, 
                 </select>
                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
             </div>
-            {FormData?.acctype=="Doctor"&&
+            {FormData?.role=="DOCTOR"&&
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
                     Services

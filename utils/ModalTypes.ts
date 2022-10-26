@@ -98,12 +98,14 @@ export interface LanguagesType {
     description:string;
 }
 export interface NewUserInterface{
+    confirmPassword:string;
     username:string;
+    fullName:string;
     email:string;
     password:string;
-    services:Object[];
     status:string;
-    acctype:string;
+    role:string;
+    services:string[];
 }
 export const LanguagesData : LanguagesType ={
     newlanguageName: "",
@@ -111,12 +113,14 @@ export const LanguagesData : LanguagesType ={
     description: "",
 }
 export const NewUserData:NewUserInterface={
+    confirmPassword:"",
     username:"",
-    acctype:"",
+    fullName:"",
     email:"",
     password:"",
+    status:"",
+    role:"",
     services:[],
-    status:""
 }
 
 export interface NewTemplateInterface {

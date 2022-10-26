@@ -1,17 +1,33 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { FaCheck, FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
+import scheduleService from '../../services/schedules/schedule.service'
+import { notifyError } from '../alert'
 import DeleteSchedule from './Modals/DeleteSchedule'
 import EditSchedule from './Modals/EditSchedule'
 import NewSchedule from './Modals/NewSchedule'
+import FetchDataLoader from '../../pages/loaders/FetchDataLoader'
 
 const ManageSchedulesTable = ({showAppFunc,data}:{ showAppFunc :any,data:any}) => {
     const [DeleteModal,setDeleteModal] = useState<Boolean>(false);
-    const [ScheduleData,setScheduleData] = useState();
+    const [ScheduleData,setScheduleData] = useState<any>(null);
     const [EditModal,setEditModal] = useState<Boolean>(false)
     const [NewScheduleModal,setNewScheduleModal] = useState<Boolean>(false)
     const [searchtext,setSearchText] = useState<string>(''); 
-  const STATUS ='Active'
+    const authUser = useSelector((state: any) => state.authUser)
+    async function fetchData() {
+        try {
+            const data = await scheduleService.getAllSchedules();
+            setScheduleData(data.data);
+        } catch (error: any) {
+            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
+            notifyError(ERROR_MESSAGE);
+        }
+    }
+    useEffect(() => {
+        fetchData();
+    }, [ScheduleData]);
   const handleShowApp = () => {
     showAppFunc();
   }
@@ -51,7 +67,6 @@ const ManageSchedulesTable = ({showAppFunc,data}:{ showAppFunc :any,data:any}) =
         <table className=' table-auto w-full  '>
         <thead>
             <tr>
-            <th className='py-5 text-[#000000c8] text-sm '>Services</th>
             <th className='py-5 text-[#000000c8] text-sm '>Status</th>
             <th className='py-5 text-[#000000c8] text-sm '>Appointment Date</th>
             <th className='py-5 text-[#000000c8] text-sm '>Waiting Appointments</th>
@@ -59,25 +74,25 @@ const ManageSchedulesTable = ({showAppFunc,data}:{ showAppFunc :any,data:any}) =
             </tr>
         </thead>
         <tbody>
-            <tr onClick={handleShowApp} className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
-                <td className='py-2  whitespace-nowrap lg:px-5 text-center'>
-                    <span className='text-black font-bold'>Dermatology Services</span>
-                </td>
+            {ScheduleData ? ScheduleData.map((schedule:any)=>(
+            <tr key={schedule.schedule_id} onClick={handleShowApp} className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
+               
                 <td className='px-10  whitespace-nowrap flex py-2  place-items-center align-middle justify-center'>
-                    {STATUS == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
+                    {schedule?.status?.scheduleStatus == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
                 </td>
                 <td className='px-10 whitespace-nowrap text-center'>
-                    <span className='text-[#00000043]'>12/12/2021</span>
+                    <span className='text-[#00000043]'>{schedule?.start_date}</span>
                 </td>
-                <td className='px-10 whitespace-nowrap text-center'>
-                    <span className='text-[#00000043]'>12</span>
-                </td>
+                
                 <td className='px-10 whitespace-nowrap flex gap-10 place-items-center text-center justify-center text-backG'>
                     <button onClick={()=>setEditModal(true)}><FaPencilAlt /></button><EditSchedule EditModal={EditModal} onClose={()=>setEditModal(false)}/>
                     <button onClick={()=>setDeleteModal(true)}> <FaTrash/></button> <DeleteSchedule showModal={DeleteModal} onClose={()=>setDeleteModal(false)}/>
                 </td>
             </tr>
-            
+            )):<tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
+            <FetchDataLoader />
+            <p>Fetching the data...</p>
+        </tr>}
         </tbody>
     </table>
         </div>
