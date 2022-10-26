@@ -34,7 +34,7 @@ const TableManageAcc = () => {
         fetchData();
     },[])
   return (
-    <div className="px-2 bg-[#F7F7F7] ">
+    <div className="px-2 bg-[#F7F7F7] overflow-scroll">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
                 <FaHome /><Link href='/HCM/Dashboard'>Manage Accounts / </Link>
         </div>
@@ -64,9 +64,9 @@ const TableManageAcc = () => {
                     </div>
                 </div>
             </div>
-        <div className=' w-full overflow-x-auto'>
+        <div className=' w-full overflow-auto'>
         {manageAccData ?
-         <table className='w-full table-auto '>
+         <table className='w-full table-auto'>
             <thead>
                 <tr>
                 <th className='py-5 text-[#000000c8] text-sm'>Accounts</th>
