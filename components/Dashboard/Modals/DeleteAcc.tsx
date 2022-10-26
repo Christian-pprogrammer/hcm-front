@@ -54,14 +54,14 @@ const DeleteAcc = ({ showModal, onClose } : {showModal: Boolean, onClose: any}) 
     <div className="modal-portal bg-modalG h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
     <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow w-full md:w-[30vw]">
       <div className="modal-content">
-        <div className="modal-header py-10 flex justify-between">
+        <div className="modal-header py-4 flex justify-between">
           <h5 className="modal-title font-bold">Delete Account</h5>
           <button type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close" onClick={handleClose}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <form method="post" onSubmit={handleDeleteSubmit}>
-        <div className="modal-bod py-10 text-center">
+        <div className="modal-bod py-2">
             <div className="py-1">
               <label className="block text-gray-700 text-sm font-bold">
                   Password
@@ -69,9 +69,9 @@ const DeleteAcc = ({ showModal, onClose } : {showModal: Boolean, onClose: any}) 
               <input value={password} onChange={(e)=>setPassword(e.target.value)} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Input password credentials" />
               <small className='text-[12px] text-red-500'>Enter Valid info</small>
             </div>
-          <p>Would you like to remove access the account will remove permanent access to the system.The system will remove the access to the system details and functionalities !!Are you sure you want to delete your account?</p>
+          <p className='py-5'>Would you like to remove access the account will remove permanent access to the system.The system will remove the access to the system details and functionalities !!Are you sure you want to delete your account?</p>
         </div>
-        <div className="modal-footer flex py-10 justify-between">
+        <div className="modal-footer flex py-2 justify-between">
           <button type="button" className="btn bg-slate-500 text-white px-10 py-4 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>
           <button type="submit" className="btn bg-backG text-white px-10 py-4 btn-secondary" data-dismiss="modal">Delete</button>
         </div>

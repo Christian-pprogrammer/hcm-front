@@ -32,7 +32,7 @@ const TableManageAcc = () => {
     }
     useEffect(()=>{
         fetchData();
-    },[])
+    },[manageAccData])
   return (
     <div className="px-2 bg-[#F7F7F7] overflow-scroll">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -114,9 +114,11 @@ const TableManageAcc = () => {
                     <EditAccount EditModal={EditModal} onClose={toggleEditAccount}/>
                 </tr>
                 )):
+                <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
                     <FetchDataLoader/>
+                    <p>Fetching the data...</p>
+                </tr>
                 }
-
             </tbody>
 
         </table>

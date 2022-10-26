@@ -6,8 +6,8 @@ export const getUserHref = (authUser: any) => {
         RouteService.removePrevRoute();
         return res;
     } else {
-        if (authUser.role) {
-            switch (authUser.role) {
+        if (authUser.user.role.role) {
+            switch (authUser.user.role.role) {
                 case "SUPER_ADMIN":
                     return "/super-admin/dashboard";
                 case "GROUP_ADMIN":

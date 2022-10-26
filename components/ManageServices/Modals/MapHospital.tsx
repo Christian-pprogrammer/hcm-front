@@ -1,21 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import { useSelector } from 'react-redux';
+import hospitalService from '../../../services/hospital/hospital.service';
+import servicesService from '../../../services/services/services.service';
 import ManageServicesService from '../../../services/services/services.service';
-import { MapInterface, MapInterfaceData } from '../../../utils/ModalTypes';
+import { AddServiceToHospitalDto, AddServiceToHospitalDummy } from '../../../utils/ModalTypes';
 import { HospitalValues, MapStatus } from '../../../utils/SelectOptions';
+import { notifyError, notifySuccess } from '../../alert';
 
 const MapHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
 
     const [isBrowser, setBrowser] = useState<Boolean>(false);
-    const [FormData, setFormData] = useState<MapInterface>(MapInterfaceData);
-    const [loading, setLoading] = React.useState(false);
-    const [alertData, setAlertData] = React.useState({
-        alert: false,
-        message: "",
-        class: "",
-    });
+    const [FormData, setFormData] = useState<AddServiceToHospitalDto>(AddServiceToHospitalDummy);
+    const [HospitalValues, setHospitalValues] = useState<any>(null);
+    const authUser = useSelector((state: any) => state.authUser)
     useEffect(() => {
-        setBrowser(true)
+        setBrowser(true);
+        async function fetchData() {
+            try {
+                const data = await hospitalService.getAllHospitals();
+                setHospitalValues(data.data);
+            } catch (error: any) {
+                const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
+                notifyError(ERROR_MESSAGE);
+            }
+        }
+        fetchData();
     }, [])
 
     const handleClose = () => {
@@ -24,24 +34,18 @@ const MapHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            console.log(FormData);
-            setLoading(true);
-            const res = await ManageServicesService.addServiceToHospital("adadf923lasdkuwe",FormData);
-            if (res.data.status === 200) {
-                setAlertData({
-                    alert: true,
-                    message: res.data.message || "Successfuly mapped the service",
-                    class: "green"
-                });
-            } else {
-                setAlertData({
-                    alert: true,
-                    message: res.data.error || "Failure Check Provided Credentials",
-                    class: "red"
-                })
+            const groupId = authUser?.group?.group_id;
+            FormData.groupId = groupId;
+            console.log("The Formdata", FormData);
+            let result = await servicesService.addServiceToHospital(FormData.hospitalId,FormData);
+            if (result.status === 200) {
+                notifySuccess("Successfully Created the service");
+                setFormData(AddServiceToHospitalDummy);
+                handleClose();
             }
-        }catch(error) {
-            reportError(error);
+        } catch (error: any) {
+            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+            notifyError(ERROR_MESSAGE);
         }
     }
     const ModalContent = showModal ? (
@@ -57,29 +61,31 @@ const MapHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
                     </div>
                     <form onSubmit={handleSubmit} method="post">
                         <div className="modal-body">
-                        <div className="py-1">
+                            <div className="py-1">
                                 <label className="block text-gray-700 text-sm font-bold">
                                     Hospital Name
                                 </label>
-                                <select onChange={(e)=>setFormData({...FormData,hospitalName: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Select your Hospital Name">
-                                   {HospitalValues.map((option)=>(
-                                       <option key={option.id} value={option.value}>{option.text}</option>
-                                   ))}
-                                </select>
-                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
-                            </div>
-                            <div className="py-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    The Service Status
-                                </label>
-                                <select onChange={(e)=>setFormData({...FormData,status:e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Select the Service Status">
-                                    {MapStatus.map((option)=>(
-                                    <option key={option.id} value={option.value}>{option.text}</option>
+                                <select onChange={(e) => setFormData({ ...FormData, hospitalId: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Select your Hospital Name">
+                                    {HospitalValues.map((option: any) => (
+                                        <option key={option.hospitalId} value={option.hospitalId}>{option.hospitalName}</option>
                                     ))}
                                 </select>
                                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
                             </div>
-
+                            <div className='py-1'>
+                                <label className="block text-gray-700 text-sm font-bold">
+                                    Currency
+                                </label>
+                                <input onChange={(e) => setFormData({ ...FormData, currency: e.target.value })} value={FormData?.currency} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" placeholder="Current text" />
+                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
+                            </div>
+                            <div className='py-1'>
+                                <label className="block text-gray-700 text-sm font-bold">
+                                    New Fee
+                                </label>
+                                <input onChange={(e) => setFormData({ ...FormData, fee: e.target.valueAsNumber })} value={FormData?.fee} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" placeholder="Fee" />
+                                <small className='text-[12px] text-red-500'>Enter Valid info</small>
+                            </div>
                         </div>
                         <div className="modal-footer flex py-2 gap-2 justify-between">
                             <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>

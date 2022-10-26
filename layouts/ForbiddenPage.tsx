@@ -11,7 +11,7 @@ interface Props {
 export const ForbiddenPage = ({children}: Props) => {
     const authUser = useSelector((state: any) => state.authUser)
     useEffect(() => {
-        if (authUser.role) {
+        if (authUser?.user?.role?.role) {
             Router.push(getUserHref(authUser)).then()
         }
     }, [authUser])

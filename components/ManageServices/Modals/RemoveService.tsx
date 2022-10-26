@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import servicesService from '../../../services/services/services.service';
+import { notifyError, notifySuccess } from '../../alert';
 
-const RemoveService = ({ showModal, onClose } : {showModal: Boolean, onClose: any}) => {
+const RemoveService = ({ showModal, onClose ,id } : {showModal: Boolean, onClose: any,id:string}) => {
   const [isBrowser, setBrowser] = useState<Boolean>(false)
   useEffect(() => {
     setBrowser(true)
@@ -9,8 +11,18 @@ const RemoveService = ({ showModal, onClose } : {showModal: Boolean, onClose: an
   const handleClose = () => {
     onClose() 
   }
-  const handleClick = (e :any) => {
+  const handleClick = async (e :any) => {
     e.preventDefault();
+    try{
+      let result = await servicesService.removeServiceFromHospital("adfa",id);
+      if(result.status === 200){
+        notifySuccess("Successfully deleted the service");
+        handleClose();
+      }
+    }catch(error:any){
+      const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+      notifyError(ERROR_MESSAGE);
+    }
   }
   const ModalContent = showModal ? (
     <div className="modal-portal bg-modalG h-screen w-screen flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
