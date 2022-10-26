@@ -15,7 +15,7 @@ const TableManageAcc = () => {
     const [EditModal,setEditModal] = useState<Boolean>(false);
     const [showListActions,setshowListActions] = useState<Boolean>(false);
     const [searchtext,setSearchText] = useState<string>('');
-    let [manageAccData,setmanageAccData] = useState<any>(null);
+    let [manageAccData,setmanageAccData] = useState<any>([]);
     const toggleModal = () =>{
         setModal(!showModal)
     }
@@ -36,7 +36,7 @@ const TableManageAcc = () => {
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/HCM/Dashboard'>Manage Accounts / </Link> 
+                <FaHome /><Link href='/HCM/Dashboard'>Manage Accounts / </Link>
         </div>
         <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
             <div className="flex px-5 place-items-center justify-between gap-6 py-5">
@@ -65,7 +65,8 @@ const TableManageAcc = () => {
                 </div>
             </div>
         <div className=' w-full overflow-x-auto'>
-         <table className='w-full table- overflow-y-hidden'>
+        {manageAccData ?
+         <table className='w-full table-auto '>
             <thead>
                 <tr>
                 <th className='py-5 text-[#000000c8] text-sm'>Accounts</th>
@@ -75,16 +76,17 @@ const TableManageAcc = () => {
                 <th className='py-5 text-[#000000c8] text-sm'>Actions</th>
                 </tr>
             </thead>
-            <tbody className='relative '>
+
+            <tbody className='relative'>
                 {manageAccData ? manageAccData.map((acc:any)=>(
                 <tr key={acc.group_id} className='bg-inputG relative  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
-                    <td className='py-2  whitespace-nowrap lg:px-5 '>
-                        <div className='flex px-2 gap-6'>
+                    <td className='py-2  whitespace-nowrap lg:px-5 flex px-2 gap-6'>
+                        {/* <div className=''> */}
                             <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
-                            <div className='flex flex-col text-center place-items-center justify-center'>
+                            {/* <div className='flex flex-col text-center place-items-center justify-center'> */}
                                 <h1 className='font-bold '>{acc.groupName}</h1>
-                            </div>
-                        </div>
+                            {/* </div> */}
+                        {/* </div> */}
                     </td>
                     <td className='px-10 whitespace-nowrap  py-2  place-items-center align-middle justify-center'>
                         {acc.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
@@ -100,13 +102,13 @@ const TableManageAcc = () => {
                         <span className='text-[#00000043]'>{acc.updatedAt}</span>
                     </td>
                     <td className='px-10 whitespace-nowrap justify-center flex gap-10 text-backG'>
-                        <button onClick={() => setshowListActions((prev)=>!prev)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> 
+                        <button onClick={() => setshowListActions((prev)=>!prev)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button>
                     </td>
-                    {showListActions && 
-                    <div className="group bg-white flex-col flex text-[12px] absolute top-2 right-[9em]">
+                    {showListActions &&
+                    <td className="group bg-white flex-col flex text-[12px] absolute top-2 right-[9em]">
                         <button className="btn  py-2 px-4 bg-zinc-100 border-2 border-white" onClick={toggleEditAccount}>Edit Account</button>
                         <button className="btn  py-2 px-4 hover:bg-zinc-100 hover:border-2 border-2 border-white hover:border-white duration-300" onClick={toggleModal}>Delete Account</button>
-                    </div>
+                    </td>
                     }
                     <DeleteAcc showModal={showModal} onClose={toggleModal}/>
                     <EditAccount EditModal={EditModal} onClose={toggleEditAccount}/>
@@ -118,14 +120,16 @@ const TableManageAcc = () => {
                 </tr>
                 }
             </tbody>
+
         </table>
+        : <h1 className='text-center'>No accounts registered so far!</h1>}
         </div>
         </div>
     </div>
   )
 }
 // export const getServerSideProps = async ({
-//     res 
+//     res
 //   }:any) => {
 //     try{
 //         const data = await groupService.getAllGroups();
