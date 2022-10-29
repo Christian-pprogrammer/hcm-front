@@ -11,6 +11,7 @@
     "serve:prod": "pm2 restart \"frontend_service\""
   },
   "dependencies": {
+    "@atlaskit/dynamic-table": "^14.8.3",
     "@reduxjs/toolkit": "^1.8.5",
     "@syncfusion/ej2-react-calendars": "^20.2.46",
     "axios": "^0.27.2",

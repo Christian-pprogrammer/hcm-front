@@ -70,6 +70,35 @@ export const NewUserStatusArr: CategoryType[] = [
         id: 2
     }
 ];
+export const GroupAdminCreate : CategoryType[] = [
+    {
+        value: "",
+        text:"Select Role",
+        id:0
+    },
+    {
+        value: "GROUP_ADMIN",
+        text:"Group Admin",
+        id:0
+    }
+]
+export const GenderOptions : CategoryType[] = [
+    {
+        value: "",
+        text:"Select Gender",
+        id:0
+    },
+    {
+        value: "MALE",
+        text: "MALE",
+        id: 1
+    },
+    {
+        value: "FEMALE",
+        text: "FEMALE",
+        id: 2
+    }
+]
 export const AccountTypeArr: CategoryType[] = [
     {
         value: "",

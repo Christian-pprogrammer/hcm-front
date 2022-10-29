@@ -18,7 +18,7 @@ const ManageServicesGA = () => {
     async function fetchData() {
         try {
             const groupId = authUser?.user?.group?.group_id;
-            const data = await servicesService.getGroupServices(groupId);
+            const data = await servicesService.getAllServices();
             setManageServicesData(data.data);
         } catch (error: any) {
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
@@ -62,38 +62,54 @@ const ManageServicesGA = () => {
                 </div>
                 <div className=' w-full overflow-x-auto'>
                     <table className=' table-auto w-full  '>
-                        <thead>
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th></th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Hospital Services</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Mapped Status</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Issued/Created On</th>
-                                {showAction &&
-                                    <th className='py-5 text-[#000000c8] text-sm '>Actions</th>
-                                }
+                                <th scope="col" className="p-4">
+                                    <div className="flex items-center">
+                                        <input onChange={() => setShowActions((prev) => !prev)}  id="checkbox-all-search" type="checkbox" className="w-4 h-4 text-gray-50 bg-blue-600 rounded-full" />
+                                        <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
+                                    </div>
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Hospital Services
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Mapped Status
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Issued/Created On
+                                </th>
+                                {showAction && 
+                                <th scope="col" className="py-3 px-6">
+                                    Action
+                                </th>
+        }   
                             </tr>
                         </thead>
                         <tbody>
                             {manageServicesData ? manageServicesData.map((service: any, index: number) => (
-                                <tr key={index} className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
-                                    <td className='py-2 text-center flex place-items-center  whitespace-nowrap  lg:px-5 '>
-                                        <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowActions((prev) => !prev)} />
+                                <tr key={index} className="bg-white hover:bg-inputG hover:cursor-pointer">
+                                    <td className="p-4 w-4">
+                                        <div className="flex items-center">
+                                            <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus: -blue-600 t-gray-800 focus:ring-2 0 y-600" />
+                                            <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
+                                        </div>
                                     </td>
-                                    <td className='py-2  whitespace-nowrap text-center lg:px-5 '>
+                                    <td scope="row" className="py-4 px-6 font-semibold text-center text-gray-900 whitespace-nowrap ">
                                         {service.service}
                                     </td>
-                                    <td className='px-10  whitespace-nowrap flex py-2  place-items-center align-middle justify-center'>
-                                        {service.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
+                                    <td scope="row" className="py-4 px-6 text-center flex justify-center font-medium text-gray-900 whitespace-nowrap ">
+                                        {(service.status == "Active") ? <div className='text-backG bg-linear w-10 h-10 border-2 border-backG flex justify-center place-items-center  rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] py-2 font-bold'>Inactive</span>}
                                     </td>
-                                    <td className='px-10 whitespace-nowrap text-[#00000043] text-center'>
+                                    <td className='px-6 text-center py-4'>
                                         {service.createdAt}
                                     </td>
                                     {showAction &&
-                                        <td className='px-10 whitespace-nowrap text-[#00000043] flex  justify-center'>
-                                            <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear w-32 h-10 border-2 border-backG flex justify-center place-items-center text-base rounded-lg font-bold '> Map </button>
-                                            <MapHospital showModal={MapHospitalModal} onClose={() => setMapHospitalModal(false)} />
+                                        <td className='px-10 whitespace-nowrap text-[#00000043] flex py-2 items-center justify-center'>
+                                            <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear h-10 px-6 border-2 border-backG text-[14px] rounded-md font-bold '> Map </button>
                                         </td>
                                     }
+                                    <MapHospital showModal={MapHospitalModal} onClose={() => setMapHospitalModal(false)} />
                                 </tr>
                             )) :
                                 <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">

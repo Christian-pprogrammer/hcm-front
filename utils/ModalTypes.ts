@@ -104,7 +104,9 @@ export interface NewUserInterface{
     email:string;
     password:string;
     status:string;
+    mobile:number;
     role:string;
+    gender:string;
     services:string[];
 }
 export const LanguagesData : LanguagesType ={
@@ -119,6 +121,8 @@ export const NewUserData:NewUserInterface={
     email:"",
     password:"",
     status:"",
+    mobile:0,
+    gender:"",
     role:"",
     services:[],
 }

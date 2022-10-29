@@ -35,7 +35,7 @@ const ManageSchedulesTable = ({showAppFunc,data}:{ showAppFunc :any,data:any}) =
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/HCM/Dashboard'>Manage Schedules / </Link> 
+                <FaHome /><Link href='/schedule-manager/schedules'>Manage Schedules / </Link> 
         </div>
         <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
             <div className="flex px-5 place-items-center justify-between gap-6 py-5">
@@ -57,7 +57,7 @@ const ManageSchedulesTable = ({showAppFunc,data}:{ showAppFunc :any,data:any}) =
                     <div>
                         <button onClick={()=>setNewScheduleModal(true)} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                             <FaPlus/>
-                            <span className=''>New Schedule</span>
+                            <span>New Schedule</span>
                         </button>
                         <NewSchedule NewScheduleModal={NewScheduleModal} onClose={()=>setNewScheduleModal(false)} />
                     </div>
