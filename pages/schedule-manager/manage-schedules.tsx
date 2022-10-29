@@ -5,13 +5,16 @@ import Navbar from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import AppointmentList from '../../components/ManageSchedules/AppointmentList'
 import ManageSchedulesTable from '../../components/ManageSchedules/ManageSchedulesTable'
+import RouteProtector from '../../middlewares/RouteProtector'
 import scheduleService from '../../services/schedules/schedule.service'
+import { system_users } from '../../utils/constants'
 
 const ManageSchedules = (data:any) => {
     const [showAppointmentModal,setShowModalApp] = useState<Boolean>(false);
     console.log("Schedule Manager",data);
-    
+
     return (
+      <RouteProtector only={system_users.SCHEDULE_MANAGER}>
     <div className='flex gap-0 bg-[#F7F7F7] '>
         <Sidebar/>
         <div className="lg:w-[80vw]  w-fu ll">
@@ -19,6 +22,7 @@ const ManageSchedules = (data:any) => {
             {showAppointmentModal ? <AppointmentList onClose={()=>setShowModalApp(false)}/> : <ManageSchedulesTable data={data} showAppFunc={()=>setShowModalApp(true)}/>}
         </div>
     </div>
+    </RouteProtector>
     )
 }
 // export const getServerSideProps: GetServerSideProps = async ({

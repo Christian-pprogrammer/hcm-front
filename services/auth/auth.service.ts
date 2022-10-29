@@ -6,82 +6,82 @@ import { LOCAL_STORAGE_TOKEN_KEY } from "../../utils/constants";
 import { useRouter } from 'next/router';
 
 class AuthService {
-    // public router = useRouter();
-    signup(data: any) {
-        return http.post("/auth/users/register", data);
-    }
-    login(data: any) {
-        return http.post('/auth/login', data);
-    }
+  // public router = useRouter();
+  signup(data: any) {
+    return http.post("/auth/users/register", data);
+  }
+  login(data: any) {
+    return http.post('/auth/login', data);
+  }
 
-    initiateResetPassword(data: any) {
-        return http.post('/auth/initiate-reset-password', data);
+  initiateResetPassword(data: any) {
+    return http.post('/auth/initiate-reset-password', data);
+  }
+
+  resetPassword(data: any) {
+    return http.post('/auth/reset-password', data);
+  }
+
+  resendToken(data: any) {
+    return http.post('/auth/reset-password/resend-email', data);
+  }
+
+
+  getEncToken() {
+    if (typeof window !== "undefined")
+      return localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+    return;
+  }
+
+  getDecToken() {
+    if (typeof window !== "undefined")
+      return decryptText(localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY), LOCAL_STORAGE_TOKEN_KEY);
+    return;
+  }
+
+  setToken(token: string) {
+    localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, encryptText(token));
+  }
+
+  isLoggedIn() {
+    const token = this.getDecToken();
+    if (!!token) {
+      try {
+        return jwt(token);
+      } catch (error) {
+        return false;
+      }
+    } else {
+      return false;
     }
+  }
 
-    resetPassword(data: any) {
-        return http.post('/auth/reset-password', data);
-    }
+  getExp() {
+    const token: any = this.isLoggedIn();
+    if (!token) return null;
 
-    resendToken(data: any) {
-        return http.post('/auth/reset-password/resend-email', data);
-    }
+    const date = new Date(0);
+    date.setUTCSeconds(token.exp);
 
+    return date;
+  }
 
-    getEncToken() {
-        if (typeof window !== "undefined")
-            return localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
-        return;
-    }
+  tokenExpired() {
+    const exp = this.getExp();
+    if (!exp) return null;
+    const expired = !(exp.valueOf() > new Date().valueOf());
+    if (expired) this.logout();
+    return expired;
+  }
 
-    getDecToken() {
-        if (typeof window !== "undefined")
-            return decryptText(localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY), LOCAL_STORAGE_TOKEN_KEY);
-        return;
-    }
-
-    setToken(token: string) {
-        localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, encryptText(token));
-    }
-
-    isLoggedIn() {
-        const token = this.getDecToken();
-        if (!!token) {
-            try {
-                return jwt(token);
-            } catch (error) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    getExp() {
-        const token: any = this.isLoggedIn();
-        if (!token) return null;
-
-        const date = new Date(0);
-        date.setUTCSeconds(token.exp);
-
-        return date;
-    }
-
-    tokenExpired() {
-        const exp = this.getExp();
-        if (!exp) return null;
-        const expired = !(exp.valueOf() > new Date().valueOf());
-        if (expired) this.logout();
-        return expired;
-    }
-
-    logout() {
-        this.removeToken();
-        return window.location.href = '/auth/login';
-        // return this.router.push('/auth/login');
-    }
-    removeToken() {
-        localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY)
-    }
+  logout() {
+    this.removeToken();
+    return window.location.href = '/auth/login';
+    // return this.router.push('/auth/login');
+  }
+  removeToken() {
+    localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY)
+  }
 }
 
 export default new AuthService();

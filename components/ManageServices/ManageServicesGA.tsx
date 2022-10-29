@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react'
 import { FaCheck, FaGlobe, FaPlus } from 'react-icons/fa'
 import { useSelector } from 'react-redux';
-import FetchDataLoader from '../../pages/loaders/FetchDataLoader';
+import FetchDataLoader from '../loaders/FetchDataLoader';
 import servicesService from '../../services/services/services.service';
 import { notifyError } from '../alert';
 import MapHospital from './Modals/MapHospital';
@@ -79,11 +79,11 @@ const ManageServicesGA = () => {
                                 <th scope="col" className="py-3 px-6">
                                     Issued/Created On
                                 </th>
-                                {showAction && 
+                                {showAction &&
                                 <th scope="col" className="py-3 px-6">
                                     Action
                                 </th>
-        }   
+        }
                             </tr>
                         </thead>
                         <tbody>

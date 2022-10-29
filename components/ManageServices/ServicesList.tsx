@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { FaCheck, FaGlobe } from 'react-icons/fa'
 import { useSelector } from 'react-redux';
-import FetchDataLoader from '../../pages/loaders/FetchDataLoader';
+import FetchDataLoader from '../loaders/FetchDataLoader';
 import servicesService from '../../services/services/services.service';
 import { notifyError, notifySuccess } from '../alert';
 import RemoveService from './Modals/RemoveService';

@@ -2,12 +2,10 @@ import React,{ useEffect, useState } from 'react'
 import Link from 'next/link'
 import DeleteAcc from './Modals/DeleteAcc'
 import { FaCheck,FaEllipsisH,FaHome, FaPlus } from 'react-icons/fa'
-import AddAccount from './Modals/AddAccount'
-import EditAccount from './Modals/EditAccount'
-import { GetServerSideProps } from 'next'
-import { notifyError } from '../alert'
+import AddAccount from './Modals/AddAccount';
+import EditAccount from './Modals/EditAccount';
 import groupService from '../../services/group/group.service'
-import FetchDataLoader from '../../pages/loaders/FetchDataLoader'
+import FetchDataLoader from '../loaders/FetchDataLoader'
 import CreateAdminAcc from './Modals/CreateAdmin'
 
 const TableManageAcc = () => {
@@ -18,7 +16,7 @@ const TableManageAcc = () => {
     const [showListActions,setshowListActions] = useState<Boolean>(false);
     const [searchtext,setSearchText] = useState<string>('');
     let [manageAccData,setmanageAccData] = useState<any>([]);
-    
+
     async function fetchData () {
         const data = await groupService.getAllGroups();
         setmanageAccData(data.data);
