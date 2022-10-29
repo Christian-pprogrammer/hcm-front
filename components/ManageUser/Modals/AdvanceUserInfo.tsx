@@ -6,9 +6,9 @@ const AdvanceUserInfo = ({ FormData, setFormData }: { FormData: NewUserInterface
         <>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Username
+                    Username/ FullName
                 </label>
-                <input value={FormData?.username} onChange={(e) => setFormData({ ...FormData, username: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Enter your username" />
+                <input value={FormData?.fullName} onChange={(e) => setFormData({ ...FormData, fullName: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Enter your username" />
                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
             </div>
             <div className="py-1">

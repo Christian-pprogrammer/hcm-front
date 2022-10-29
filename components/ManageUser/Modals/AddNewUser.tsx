@@ -2,16 +2,11 @@ import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import userService from '../../../services/users/user.service';
 import { NewUserData, NewUserInterface } from '../../../utils/ModalTypes';
+import { notifyError, notifySuccess } from '../../alert';
 import AdvanceUserInfo from './AdvanceUserInfo';
 import BasicUserInfo from './BasicUserInfo';
 
 const AddNewUser = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
-    const [loading, setLoading] = React.useState(false);
-    const [alertData, setAlertData] = React.useState({
-        alert: false,
-        message: "",
-        class: "",
-    });
     const [isBrowser, setBrowser] = useState<Boolean>(false)
     useEffect(() => {
         setBrowser(true)
@@ -32,26 +27,20 @@ const AddNewUser = ({ showModal, onClose }: { showModal: Boolean, onClose: any }
    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            console.log(FormData);
-            setLoading(true);
-            const res = await userService.create(FormData);
-            if (res.data.status === 200) {
-                setAlertData({
-                    alert: true,
-                    message: res.data.message || "Successfuly Created the service",
-                    class: "green"
-                });
-            } else {
-                setAlertData({
-                    alert: true,
-                    message: res.data.error || "Failure Check Provided Credentials",
-                    class: "red"
-                })
+        try{
+            console.log("The Form Data: ",FormData);
+            let result = await userService.create(FormData);
+            console.log("The Result",result);
+            if(result.status === 200){
+              notifySuccess("Successfully Created the Hospital");
+              setFormData(NewUserData);
+              handleClose();
             }
-        } catch (error) {
-            reportError(error);
-        }
+          }catch(error:any){
+            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+            notifyError(ERROR_MESSAGE);
+            setFormData(NewUserData);
+          }
     }
     const ModalContent = showModal ? (
         <div className="modal-portal bg-modalG h-screen w-screen px-5 flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
@@ -65,20 +54,16 @@ const AddNewUser = ({ showModal, onClose }: { showModal: Boolean, onClose: any }
                         </button>
                     </div>
                     <form method="post" onSubmit={handleSubmit}>
-                        <div className="modal-body">
                             {PageDisplayForm()}
-                        </div>
-                        <div className="modal-footer flex py-2 gap-2 justify-between">
-                        {FormPageNumber == 0 ? <>
-                                <button className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
-                                <button className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
-                            </>:
-                            <>
-                            <button className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
+                        {FormPageNumber == 0 ? <div className="modal-footer flex py-2 gap-2 justify-between">
+                                <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
+                                <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
+                            </div>:
+                            <div className="modal-footer flex py-2 gap-2 justify-between">
+                            <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
                             <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Add User</button>
-                            </>
+                            </div>
                             }
-                        </div>
                     </form>
                 </div>
             </div>

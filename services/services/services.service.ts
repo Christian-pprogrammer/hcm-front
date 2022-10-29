@@ -5,6 +5,9 @@ class ManageServicesService {
     return http.post(`/services`, data);
   }
 
+  getAllServices() {
+    return http.get(`/services`);
+  }
   getGroupServices(groupId: string) {
     return http.get(`/services/group/${groupId}`);
   }

@@ -70,6 +70,35 @@ export const NewUserStatusArr: CategoryType[] = [
         id: 2
     }
 ];
+export const GroupAdminCreate : CategoryType[] = [
+    {
+        value: "",
+        text:"Select Role",
+        id:0
+    },
+    {
+        value: "GROUP_ADMIN",
+        text:"Group Admin",
+        id:0
+    }
+]
+export const GenderOptions : CategoryType[] = [
+    {
+        value: "",
+        text:"Select Gender",
+        id:0
+    },
+    {
+        value: "MALE",
+        text: "MALE",
+        id: 1
+    },
+    {
+        value: "FEMALE",
+        text: "FEMALE",
+        id: 2
+    }
+]
 export const AccountTypeArr: CategoryType[] = [
     {
         value: "",
@@ -77,16 +106,16 @@ export const AccountTypeArr: CategoryType[] = [
         id: 0
     }, {
         value: "Appointment-Manager",
-        text: "Appointment Manager",
+        text: "APPOINTMENT_MANAGER",
         id: 1
     },
     {
         value: "Schedule-Manager",
-        text: "Schedule Manager",
+        text: "SCHEDULE_MANAGER",
         id: 2
     }, {
         value: "Doctor",
-        text: "Doctor",
+        text: "DOCTOR",
         id: 3
     }
 ]

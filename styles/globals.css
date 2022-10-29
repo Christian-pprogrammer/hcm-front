@@ -76,3 +76,6 @@ body {
   border-radius: 12px;
   background: rgb(211, 210, 210);
 }
+input[type="checkbox"]{
+  color: #1a73e8;
+}

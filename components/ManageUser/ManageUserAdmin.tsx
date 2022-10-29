@@ -73,8 +73,8 @@ const ManageUserAdmin = () => {
                         </thead>
                         <tbody>
                             {manageUserData ? manageUserData.map((user: any) => (
-                                <tr key={user.id} className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
-                                    <td className='py-2  whitespace-nowrap text-center lg:px-5 '>
+                                <tr key={user.id} className='bg-inputG hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-6'>
+                                    <td className='py-6  whitespace-nowrap text-center lg:px-5 '>
                                         <span className='text-[#00000043]'>{user.username || user.fullName}</span>
                                     </td>
                                     <td className='px-10  whitespace-nowrap flex py-2  place-items-center align-middle justify-center'>
@@ -87,7 +87,7 @@ const ManageUserAdmin = () => {
                                     <span className='text-[#00000043]'>Pediatry</span>
                                 </td> */}
                                     <td className='px-10 whitespace-nowrap text-center'>
-                                        <span className='text-[#00000043]'>{user.createAt}</span>
+                                        <span className='text-[#00000043]'>{user.createdAt}</span>
                                     </td>
                                     <td className='px-10 whitespace-nowrap flex gap-10 text-backG'>
                                         <button onClick={() => setEditModal(true)}><FaPencilAlt /></button><EditUserModal showModal={EditModal} onClose={() => setEditModal(false)} />
