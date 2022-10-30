@@ -34,7 +34,10 @@ const AdvancedInfo = ({FormData,setFormData}:{FormData:CreateHospitalDto, setFor
                 </label>
                 <select onChange={(e)=>setFormData({...FormData,hospitalCategoryId: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Enter your Location">
                    {CategoryArr ? CategoryArr.map((category:any,i:any)=>(
-                        <option key={i} value={category.hospital_category_id}>{category.hospitalCategory}</option>
+                    <>
+                       <option value="">Select The Value</option>
+                        <option value={category.hospital_category_id}>{category.hospitalCategory}</option>
+                        </>
                    )):
                     <span>Category Not found</span>
                    }

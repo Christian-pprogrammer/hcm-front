@@ -33,14 +33,8 @@ const SignupForm = () => {
 
     }
     const [loading, setLoading] = useState<Boolean>(false);
-    const [alertData, setAlertData] = useState({
-    alert: false,
-    message: "",
-    class: "",
-});
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setAlertData({alert: false, message: "", class: ""});
         setLoading(true);
         try{
             console.log("The Formdata",FormData)

@@ -9,13 +9,11 @@ import { notifyError, notifySuccess } from '../alert'
 import AddNewUser from './Modals/AddNewUser'
 import DeleteUserModal from './Modals/DeleteUserModal'
 import EditUserModal from './Modals/EditUserModal'
+import ManageUsersFetch from './tables/manage-users-fetch'
 
 const ManageUserAdmin = () => {
-    const [DeleteModal, setDeleteModal] = useState<Boolean>(false)
     const [AddUserModal, setAddUserModal] = useState<Boolean>(false)
-    const [EditModal, setEditModal] = useState<Boolean>(false)
     const [searchtext, setSearchText] = useState<string>('');
-    const authUser = useSelector((state: any) => state.authUser);
     const [manageUserData, setmanageUserData] = useState<any>(null);
     async function fetchData() {
         try {
@@ -60,7 +58,7 @@ const ManageUserAdmin = () => {
                         </div>
                     </div>
                 </div>
-                <div className=' w-full overflow-x-auto'>
+                <div className=' w-full overflow-y-auto h-[65vh]'>
                     <table className=' table-auto w-full  '>
                         <thead>
                             <tr>
@@ -71,29 +69,9 @@ const ManageUserAdmin = () => {
                                 <th className='py-5 text-[#000000c8] text-sm '>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className='overflow-y-auto'>
                             {manageUserData ? manageUserData.map((user: any) => (
-                                <tr key={user.id} className='bg-inputG hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-6'>
-                                    <td className='py-6  whitespace-nowrap text-center lg:px-5 '>
-                                        <span className='text-[#00000043]'>{user.username || user.fullName}</span>
-                                    </td>
-                                    <td className='px-10  whitespace-nowrap flex py-2  place-items-center align-middle justify-center'>
-                                        {user.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
-                                    </td>
-                                    <td className='px-10 whitespace-nowrap text-center'>
-                                        <span className='text-[#00000043]'>{user?.role?.role}</span>
-                                    </td>
-                                    {/* <td className='px-10 whitespace-nowrap text-center'>
-                                    <span className='text-[#00000043]'>Pediatry</span>
-                                </td> */}
-                                    <td className='px-10 whitespace-nowrap text-center'>
-                                        <span className='text-[#00000043]'>{user.createdAt}</span>
-                                    </td>
-                                    <td className='px-10 whitespace-nowrap flex gap-10 text-backG'>
-                                        <button onClick={() => setEditModal(true)}><FaPencilAlt /></button><EditUserModal showModal={EditModal} onClose={() => setEditModal(false)} />
-                                        <button onClick={() => setDeleteModal(true)}> <FaTrash /></button> <DeleteUserModal showModal={DeleteModal} onClose={() => setDeleteModal(false)} />
-                                    </td>
-                                </tr>
+                               <ManageUsersFetch user={user} key={user.id} />
                             )) :
                                 <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
                                     <FetchDataLoader />

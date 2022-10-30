@@ -54,12 +54,15 @@ const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
                     </div>
                     <form method="post" onSubmit={handleSubmit}>
                             {PageDisplayForm()}
-                            {FormPageNumber == 0 ? <div className="modal-footer flex py-2 gap-2 justify-between">
-                                <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
-                                <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
-                            </div>:
+                            {FormPageNumber == 0 &&
                             <div className="modal-footer flex py-2 gap-2 justify-between">
-                            <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
+                                <button type="button" className=" bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 -secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
+                                <button type="button" className=" bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" onClick={()=>setFormPageNumber(1)}>Next</button>
+                            </div>
+                            }
+                            {FormPageNumber ==1 &&
+                            <div className="modal-footer flex py-2 gap-2 justify-between">
+                            <button type="button" className=" bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
                             <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Add Account</button>
                             </div>
                             }

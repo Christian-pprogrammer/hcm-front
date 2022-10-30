@@ -109,11 +109,7 @@ export interface NewUserInterface{
     gender:string;
     services:string[];
 }
-export const LanguagesData : LanguagesType ={
-    newlanguageName: "",
-    standardCode: "",
-    description: "",
-}
+
 export const NewUserData:NewUserInterface={
     confirmPassword:"",
     username:"",
@@ -127,6 +123,36 @@ export const NewUserData:NewUserInterface={
     services:[],
 }
 
+export interface HospitalAdminNew{
+    confirmPassword:string;
+    username:string;
+    fullName:string;
+    email:string;
+    password:string;
+    status:string;
+    mobile:number;
+    role:string;
+    gender:string;
+    hospitalId:string;
+}
+
+export const NewHospitalAdminDummy:HospitalAdminNew={
+    confirmPassword:"",
+    username:"",
+    fullName:"",
+    email:"",
+    password:"",
+    status:"",
+    mobile:0,
+    gender:"",
+    role:"",
+    hospitalId:"",
+}
+export const LanguagesData : LanguagesType ={
+    newlanguageName: "",
+    standardCode: "",
+    description: "",
+}
 export interface NewTemplateInterface {
     typeTemplate:string;
     description:string;

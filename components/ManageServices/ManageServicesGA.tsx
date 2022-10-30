@@ -68,7 +68,7 @@ const ManageServicesGA = () => {
                                     <div className="flex items-center">
                                         <input onChange={() => setShowActions((prev) => !prev)}  id="checkbox-all-search" type="checkbox" className="w-4 h-4 text-gray-50 bg-blue-600 rounded-full" />
                                         <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
-                                    </div>
+                                  </div>
                                 </th>
                                 <th scope="col" className="py-3 px-6">
                                     Hospital Services

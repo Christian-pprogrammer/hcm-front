@@ -1,16 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import hospitaladminService from '../../../services/hospital-admin/hospitaladmin.service';
+import userService from '../../../services/users/user.service';
+import { HospitalAdminDummy, HospitalAdminNew, NewHospitalAdminDummy, NewUserData, NewUserInterface } from '../../../utils/ModalTypes';
+import { notifyError, notifySuccess } from '../../alert';
+import AdvancedInfoAdmin from './AdvancedAdminInfo';
+import BasicAdminInfo from './BasicAdminInfo';
 
-const ManageAdminModal = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
+const ManageAdminModal = ({ showModal, onClose ,id}: { showModal: Boolean, onClose: any ,id:any }) => {
     const [isBrowser, setBrowser] = useState<Boolean>(false)
+    const [FormDataAdmin, setFormDataAdmin] = useState<HospitalAdminNew>(NewHospitalAdminDummy);
+    const [FormPageNumber, setFormPageNumber] = useState<number>(0);
+    const PageDisplayForm = () => {
+        if (FormPageNumber == 0) {
+            return <BasicAdminInfo FormDataAdmin={FormDataAdmin} setFormDataAdmin={setFormDataAdmin} />
+        } else {
+            return <AdvancedInfoAdmin FormDataAdmin={FormDataAdmin} setFormDataAdmin={setFormDataAdmin} />
+        }
+    }
     useEffect(() => {
         setBrowser(true)
     }, [])
     const handleClose = () => {
         onClose()
     }
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
+        FormDataAdmin.hospitalId = id;
+        console.log(FormDataAdmin);
+        try {
+            let result = await hospitaladminService.createHospitalAdmin(FormDataAdmin);
+            if (result.status === 200) {
+                notifySuccess("Successfully Created the Hospitals Admin");
+                setFormDataAdmin(NewHospitalAdminDummy);
+                handleClose();
+            }
+        } catch (error: any) {
+            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+            notifyError(ERROR_MESSAGE);
+        }
     }
     const ModalContent = showModal ? (
         <div className="modal-portal bg-modalG h-screen w-screen px-5 flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
@@ -23,13 +51,21 @@ const ManageAdminModal = ({ showModal, onClose }: { showModal: Boolean, onClose:
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div className="modal-bod py-5 text-center">
-                        <p>Would you like to permanent retrieve access the director account will remove permanent access to the system.The system will remove the access to the system details and functionalities !!Are you sure you want to delete your account?</p>
-                    </div>
-                    <div className="modal-footer flex py-2 gap-2  justify-between">
-                        <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose} >Close</button>
-                        <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleSubmit}>Save</button>
-                    </div>
+                    <form method="post" onSubmit={handleSubmit}>
+                    {PageDisplayForm()}
+                        {FormPageNumber == 0 &&
+                            <div className="modal-footer flex py-2 gap-2 justify-between">
+                                <button type="button" className=" bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 -secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
+                                <button type="button" className=" bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" onClick={() => setFormPageNumber(1)}>Next</button>
+                            </div>
+                        }
+                        {FormPageNumber == 1 &&
+                            <div className="modal-footer flex py-2 gap-2 justify-between">
+                                <button type="button" className=" bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={() => setFormPageNumber(0)}>Previous</button>
+                                <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Create Admin</button>
+                            </div>
+                        }
+                    </form>
                 </div>
             </div>
         </div>

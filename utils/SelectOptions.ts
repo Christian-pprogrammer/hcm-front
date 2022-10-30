@@ -82,6 +82,18 @@ export const GroupAdminCreate : CategoryType[] = [
         id:0
     }
 ]
+export const HospitalAdminCreate : CategoryType[] = [
+    {
+        value: "",
+        text:"Select Role",
+        id:0
+    },
+    {
+        value: "HOSPITAL_ADMIN",
+        text:"Hospital Admin",
+        id:1
+    }
+]
 export const GenderOptions : CategoryType[] = [
     {
         value: "",

@@ -10,20 +10,18 @@ import hospitalCategoryService from '../../services/hospital/hospital-category.s
 import { notifyError, notifyInfo } from '../alert'
 import FetchDataLoader from '../../pages/loaders/FetchDataLoader'
 import { useSelector } from 'react-redux'
+import ManageHospitalsFetch from './tables/manage-hospital-fetchdata'
 
 const ManageHospitalsGA = () => {
-    const [DeleteModal, setDeleteModal] = useState<Boolean>(false)
     const [AddHospitalModal, setAddHospital] = useState<Boolean>(false)
-    const [EditModal, setEditModal] = useState<Boolean>(false);
-    const [showListActions, setshowListActions] = useState<Boolean>(false);
-    const [showManageAdmin, setManageAdmin] = useState<Boolean>(false)
     const [searchtext, setSearchText] = useState<string>('');
     const [manageHospitalData, setmanageHospitalData] = useState<any>(null);
     const authUser = useSelector((state: any) => state.authUser)
     async function fetchData () {
         try {
             const groupId = authUser?.user?.group?.group_id;
-            const data = await hospitalService.getGroupHospitals(groupId);
+            console.log("The Group ID",groupId);
+            const data = await hospitalService.getAllHospitals();
             setmanageHospitalData(data.data);
         }catch(error:any){
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
@@ -77,39 +75,7 @@ const ManageHospitalsGA = () => {
                         </thead>
                         <tbody>
                             {manageHospitalData ? manageHospitalData.map((hospital:any)=>(
-                            <tr key={hospital.hospitalId} className='bg-inputG relative hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
-                                <td className='py-2  whitespace-nowrap lg:px-5 '>
-                                    <div className='flex px-2 gap-6'>
-                                        <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
-                                        <div>
-                                            <h1 className='font-bold '>{hospital.hospitalName}</h1>
-                                            <span className='text-[#00000073]'>{hospital.location}</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className='px-10  whitespace-nowrap flex py-2  place-items-center align-middle flex-col  justify-center'>
-                                    {hospital.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold text-center'>Inactive</span>}
-                                </td>
-                                <td className='px-10 whitespace-nowrap text-center'>
-                                    <span className='text-[#00000043]'>{hospital.email}</span>
-                                </td>
-                                <td className='px-10 whitespace-nowrap text-center'>
-                                    <span className='text-[#00000043]'>{hospital.createdAt}</span>
-                                </td>
-                                <td className='px-10 whitespace-nowrap justify-center flex text-center place-items-center gap-10 text-backG'>
-                                    <button onClick={() => setshowListActions((prev) => !prev)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button>
-                                </td>
-                                {showListActions &&
-                                    <td className="group bg-white flex-col  flex text-[12px] absolute top-2 right-[14em]">
-                                        <button className="btn  py-2 px-4 bg-zinc-100 border-2 border-white" onClick={() => setEditModal(true)}>Edit Hospital</button>
-                                        <button className="btn  py-2 px-4 hover:bg-zinc-100 hover:border-2 border-2 border-white hover:border-white duration-300" onClick={() => setDeleteModal(true)}>Delete Hospital</button>
-                                        <button className="btn  py-2 px-4 hover:bg-zinc-100 hover:border-2 border-2 border-white hover:border-white duration-300" onClick={() => setManageAdmin(true)}>Manage Director</button>
-                                    </td>
-                                }
-                                <EditHospital EditModal={EditModal} onClose={() => setEditModal(false)} />
-                                <DeleteHospital showModal={DeleteModal} onClose={() => setDeleteModal(false)} />
-                                <ManageAdminModal showModal={showManageAdmin} onClose={() => setManageAdmin(false)} />
-                            </tr>
+                                <ManageHospitalsFetch hospital={hospital} key={hospital.hospitalId}/>
                             )) : <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
                             <FetchDataLoader/>
                             <p>Fetching the data...</p>
