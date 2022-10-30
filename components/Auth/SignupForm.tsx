@@ -7,7 +7,7 @@ import SignupInfo from './SignupInfo'
 import { FormDummy, FormStructure } from '../../utils/FormData'
 import AuthService from "../../services/auth/auth.service";
 import { useRouter } from 'next/router';
-import LoaderCache from '../../pages/loaders/LoaderCache';
+import LoaderCache from '../loaders/LoaderCache';
 import { notifyError, notifySuccess } from '../alert';
 
 const SignupForm = () => {
@@ -16,13 +16,13 @@ const SignupForm = () => {
     const router = useRouter();
     const PageDisplay = () => {
         if (FormPage == 0) {
-            return <SignupInfo 
+            return <SignupInfo
             FormData={FormData}
             setFormData={setFormData}
          />;
         }
         else if (FormPage == 1) {
-            return <PersonalInfo 
+            return <PersonalInfo
             FormData={FormData}
             setFormData={setFormData}/>
         }
@@ -57,7 +57,7 @@ const SignupForm = () => {
     }
     return (
         <>
-        {loading ? <LoaderCache/> : 
+        {loading ? <LoaderCache/> :
         <div className="bg-white h-screen flex-row-reverse flex ">
             <div className="relative overflow-y-hidden md:flex hidden  auth-image">
                 <div className="absolute text-[12px] flex gap-4 top-0 p-5">

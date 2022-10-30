@@ -11,7 +11,7 @@ import {KeyIcon, EyeNoShowIcon, EyeShowIcon, EmailIcon } from '../../icons';
 import { FormDummy, FormLoginStructure, LoginFormData } from '../../utils/FormData';
 import ForbiddenPage from '../../layouts/ForbiddenPage';
 import { UrlObject } from 'url';
-import LoaderCache from '../../pages/loaders/LoaderCache';
+import LoaderCache from '../loaders/LoaderCache';
 import jwtDecode from 'jwt-decode';
 
 export default function LoginForm() {

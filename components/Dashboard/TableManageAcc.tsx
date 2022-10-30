@@ -8,14 +8,14 @@ import ManageAccountsFetchData from './tablesdata/manage-accounts'
 import { GetServerSideProps } from 'next'
 import { notifyError } from '../alert'
 import groupService from '../../services/group/group.service'
-import FetchDataLoader from '../../pages/loaders/FetchDataLoader'
+import FetchDataLoader from '../loaders/FetchDataLoader'
 import CreateAdminAcc from './Modals/CreateAdmin'
 
 const TableManageAcc = () => {
     const [addAccount,setAddAccount] = useState<Boolean>(false)
     const [searchtext,setSearchText] = useState<string>('');
     let [manageAccData,setmanageAccData] = useState<any>([]);
-    
+
     async function fetchData () {
         const data = await groupService.getAllGroups();
         setmanageAccData(data.data);
@@ -24,7 +24,7 @@ const TableManageAcc = () => {
         fetchData();
     },[manageAccData])
   return (
-    <div className="px-2 bg-[#F7F7F7] ">
+    <div className="px-2 bg-[#F7F7F7] overflow-scroll">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
                 <FaHome /><Link href='/HCM/Dashboard'>Manage Accounts / </Link>
         </div>
@@ -54,9 +54,9 @@ const TableManageAcc = () => {
                     </div>
                 </div>
             </div>
-        <div className=' w-full overflow-x-auto'>
+        <div className=' w-full overflow-auto'>
         {manageAccData ?
-         <table className='w-full table-auto '>
+         <table className='w-full table-auto'>
             <thead>
                 <tr>
                 <th className='py-5 text-[#000000c8] text-sm'>Accounts</th>
