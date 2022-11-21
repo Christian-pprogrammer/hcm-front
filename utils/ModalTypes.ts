@@ -213,9 +213,11 @@ export const PatientInterfaceData: PatientInterface = {
 export interface NewPriceInterface {
   serviceName: string;
   fee: number;
+  newfee: number;
 }
 
 export const NewPriceData: NewPriceInterface = {
   fee: 0,
-  serviceName: ""
+  serviceName: "",
+  newfee: 0
 }

@@ -6,4 +6,4 @@ class ScheduleManagerService {
   }
 }
 
-doexport default new ScheduleManagerService();
+export default new ScheduleManagerService();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import LanguageService from '../../../services/users/language.service';
+import LanguageService from '../../../services/users/Language.service';
 import { LanguagesData, LanguagesType } from '../../../utils/ModalTypes';
 
 const AddLanguage = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
