@@ -159,7 +159,7 @@ export default function LoginForm() {
                         </div>
                     </form>
                     <div className='px-2 md:px-10 py-2 text-left text-[12px]'>
-                        <span>Do not Have an Account?</span> <Link className='text-backG ' href='/auth/signuppage'>Sign Up </Link>
+                        <span>Do not Have an Account?</span> <Link className='text-backG ' href='/auth/signup'>Sign Up </Link>
                     </div>
                 </div>
             </div>

@@ -8,8 +8,8 @@ import authService from '../../services/auth/auth.service';
 import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
-  const AuthUser = useSelector((state: any) => state.authUser);
   const [role, setRole] = useState("");
+  const AuthUser = useSelector((state: any) => state.authUser);
 
   useEffect(() => {
     setTimeout(() => {
@@ -19,7 +19,7 @@ const Sidebar = () => {
 
 
     if (role !== undefined) {
-      clearTimeout(500)
+      clearTimeout(500);
     }
 
     const VerifyUser = () => {
