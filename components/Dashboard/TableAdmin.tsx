@@ -18,7 +18,7 @@ const TableAdmin = () => {
             <tr className='bg-inputG  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
                     <div className='flex px-2 gap-6'>
-                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
+                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/favicon_io/logo.png" alt="" width="300" height="300"/>
                         <div>
                             <h1 className='font-bold '>MINISANTE</h1>
                             <span className='text-[#00000073]'>Rwanda</span>
@@ -43,7 +43,7 @@ const TableAdmin = () => {
             <tr className='bg-inputG  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
                     <div className='flex px-2 gap-6'>
-                    <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
+                    <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/favicon_io/logo.png" alt="" width="300" height="300"/>
                         <div>
                             <h1 className='font-bold '>Ministry of Health Uganda</h1>
                             <span className='text-[#00000073]'>Uganda</span>
@@ -68,7 +68,7 @@ const TableAdmin = () => {
             <tr className='bg-inputG  hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
                     <div className='flex px-2 gap-6'>
-                    <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
+                    <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/favicon_io/logo.png" alt="" width="300" height="300"/>
                         <div>
                             <h1 className='font-bold '>Private Accounts</h1>
                             <span className='text-[#00000073]'>Rwanda</span>

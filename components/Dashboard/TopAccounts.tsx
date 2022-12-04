@@ -11,7 +11,7 @@ const TopAccounts = () => {
                     <div className=' px-2'>
                     <div className='text-center  hover:bg-inputG group duration-300  hover:cursor-pointer w-full bg-white  rounded-lg flex py-10 md:py-8 flex-row justify-center gap-6 place-items-center'>
                         <div className=' flex justify-center place-items-center rounded-full bg-white'>
-                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
+                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/favicon_io/logo.png" alt="" width="300" height="300"/>
                         </div>
                         <div className='flex flex-col justify-center place-items-center'>
                             <h1 className='font-bold'>RWANDA Health Ministry (Minisante)</h1>
@@ -22,7 +22,7 @@ const TopAccounts = () => {
                     <div className='absolute bottom-0 gap-4 flex flex-col h-1/2 w-full px-2 bg-inputG'>
                     <div className='text-center  hover:bg-backG group duration-300 hover:text-white hover:cursor-pointer w-full bg-white  rounded-lg flex py-5 md:py-8 flex-row justify-center gap-6 place-items-center'>
                         <div className=' flex justify-center place-items-center rounded-full bg-white'>
-                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
+                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/favicon_io/logo.png" alt="" width="300" height="300"/>
                         </div>
                         <div className='flex flex-col justify-center place-items-center'>
                             <h1 className='font-bold'>UGANDAN Health Ministry </h1>
@@ -31,7 +31,7 @@ const TopAccounts = () => {
                     </div>
                     <div className='text-center hover:bg-backG group duration-300 hover:text-white hover:cursor-pointer w-full bg-white  rounded-lg flex py-5 md:py-8 flex-row justify-center gap-6 place-items-center'>
                         <div className=' flex justify-center place-items-center rounded-full bg-white'>
-                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
+                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/favicon_io/logo.png" alt="" width="300" height="300"/>
                         </div>
                         <div className='flex flex-col justify-center place-items-center'>
                             <h1 className='font-bold'>Private Administration (Rwanda) </h1>
