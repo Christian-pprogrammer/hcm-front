@@ -3,12 +3,18 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
-    locales: ['en-US'],
-    defaultLocale: 'en-US',
+    locales: ['en-us', 'pt-BR', 'fr', 'rw', 'sw'],
+    defaultLocale: 'en-us',
   },
 
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: ['avatars.githubusercontent.com', 'www.moh.gov.rw'],
+    // remotePatterns: [
+    //   {
+    //     protocol: 'https',
+    //     hostname: 'www.moh.gov.rw',
+    //   }
+    // ]
   },
 
   poweredByHeader: false,

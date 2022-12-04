@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { NewPriceData, NewPriceInterface } from '../../utils/ModalTypes';
-import { PriceArr } from '../../utils/Prices';
+
+import { NewPriceInt, NewPriceStructure, PriceArr } from '../../utils/Prices';
 
 const SettingsNewPrice = ({ showModal , onClose}: { showModal: Boolean ,onClose: any}) => {
     
     const [isBrowser, setBrowser] = useState<Boolean>(false)
-    const [FormData, setFormData] = useState<NewPriceInterface>(NewPriceData);
+    const [FormData, setFormData] = useState<NewPriceInt>(NewPriceStructure);
     useEffect(() => {
         setBrowser(true)
     }, [])

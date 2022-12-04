@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import SettingsService from '../../../services/settings/Settings.service';
-import { NewPriceData, NewPriceInterface } from '../../../utils/ModalTypes';
-import { PriceArr, ServiceStructure } from '../../../utils/Prices';
+import { NewPriceInt, NewPriceStructure, PriceArr, ServiceStructure } from '../../../utils/Prices';
 
 const ChangeServiceFee = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
 
@@ -19,7 +18,7 @@ const ChangeServiceFee = ({ showModal, onClose }: { showModal: Boolean, onClose:
     interface SelectedData {
         SelectedService: ServiceStructure;
     }
-    const [FormData, setFormData] = useState<NewPriceInterface>(NewPriceData);
+    const [FormData, setFormData] = useState<NewPriceInt>(NewPriceStructure);
     const handleClose = () => {
         onClose();
     }

@@ -10,8 +10,8 @@
             "links":{
                 "homedata":"HOME",
                 "about":"ABOUT",
-                "Showcase":"SHOWCASE",
-                "Appointment":"APPOINTMENT"
+                "showcase":"SHOWCASE",
+                "appointment":"APPOINTMENT"
             }
         },
         "welcome": "Welcome to HCM Appointment System",

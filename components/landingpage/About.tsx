@@ -1,17 +1,17 @@
 import React from 'react'
-
+import Image from 'next/image'
+import { ArrowSvg } from '../../icons'
 const  About = () => {
     return (
         <div className="min-h-screen pt-[14em] lg:pt-[8em] bg-white px-8 lg:px-[8em]" id="about">
             <div>
                 <div className="text-backG py-10 lg:py-0 flex gap-6 ">
-                    <img src="/assets/arrow.svg"  alt="" /><span>About HCM System</span>
+                    <ArrowSvg/><span>About HCM System</span>
                 </div>
                 <h1 className="font-semibold text-center text-xl ">About HCM Appointment System</h1>
             </div>
             <div className="flex md:flex-col py-[5em] lg:flex-row md:py-2 lg:py-[5em] gap-2 md:gap-6 justify-around">
-                
-                    <img className='rounded-lg hidden  md:flex md:px-2 sm:py-5 object-cover' src="https://media.istockphoto.com/photos/female-doctor-talking-with-earphone-while-explaining-medical-to-a-picture-id1314931058?b=1&k=20&m=1314931058&s=170667a&w=0&h=A3RbUHf2-twRXh85ltwPAPJasdhl-UOmu6j9NOoqQq0=" alt="" />
+                <Image className='rounded-lg hidden  md:flex md:px-2 sm:py-5 object-cover' src="/static/doctorsystem.jpg" alt="" width="3800" height="1800"/>
                 <div className='md:px-10 px-4 flex flex-col gap-8'>
                     <h1 className="font-semibold ">HCM Appointment System Basis</h1>
                     <p className='sm:text-[12px] text-[14px]'>

@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export const DashBoardLogo = () => {
     return (
         <div className="flex gap-6 p-5 pt-10">
