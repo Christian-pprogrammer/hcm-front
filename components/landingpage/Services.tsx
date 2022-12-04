@@ -1,12 +1,13 @@
 import React from 'react'
 import { FaCalendarAlt, FaDatabase } from 'react-icons/fa'
+import { ArrowSvg } from '../../icons'
 
 const Services=()=> {
     return (
         <div className="min-h-screen  bg-white px-8 lg:px-[8em]" id='services'>
             <div className="flex justify-center place-items-center ">
                 <div className="text-backG flex py-10 lg:py-10  gap-6 ">
-                    <img src="/assets/arrow.svg" alt="" /><span>Our Services</span>
+                <ArrowSvg/><span>Our Services</span>
                 </div>
                 <div className="text-center flex-auto  ">
                     <h1 className="font-semibold text-center text-[14px] align-center flex justify-center text-xl ">Different Services that we offer</h1>

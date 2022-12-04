@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React,{ useState} from 'react'
 import { FaCheck, FaEllipsisH } from 'react-icons/fa';
 import DeleteHospital from '../Modals/DeleteHospital';
@@ -13,7 +14,7 @@ const ManageHospitalsFetch = ({hospital}:{hospital:any}) => {
     <tr key={hospital.hospitalId} className='bg-inputG relative hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
     <td className='py-2  whitespace-nowrap lg:px-5 '>
         <div className='flex px-2 gap-6'>
-            <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
+        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
             <div>
                 <h1 className='font-bold '>{hospital.hospitalName}</h1>
                 <span className='text-[#00000073]'>{hospital.location}</span>

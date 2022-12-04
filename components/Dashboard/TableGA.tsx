@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 
@@ -17,7 +18,7 @@ const TableGA = () => {
             <tr className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
                     <div className='flex px-2 gap-6'>
-                        <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
+                    <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
                         <div>
                             <h1 className='font-bold '>CHUK</h1>
                             <span className='text-[#00000073]'>Kigali</span>
@@ -37,7 +38,7 @@ const TableGA = () => {
             <tr className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
                     <div className='flex px-2 gap-6'>
-                        <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
+                    <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
                         <div>
                             <h1 className='font-bold '>King Faisal</h1>
                             <span className='text-[#00000073]'>Kigali</span>
@@ -57,7 +58,7 @@ const TableGA = () => {
             <tr className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                 <td className='py-2  whitespace-nowrap lg:px-5 '>
                     <div className='flex px-2 gap-6'>
-                        <img className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="https://www.moh.gov.rw/fileadmin/Minaffet/resources/public/images/Coat_of_arms_of_Rwanda.svg" alt="" />
+                    <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/static/doctorsystem.jpg" alt="" width="300" height="300"/>
                         <div>
                             <h1 className='font-bold '>CHUB</h1>
                             <span className='text-[#00000073]'>Huye</span>

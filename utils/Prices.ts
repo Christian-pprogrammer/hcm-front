@@ -44,3 +44,13 @@ export const ServicesArr :ServiceStructure[]=[{
     ServiceName: "Dermatology"
 }
 ]
+export interface NewPriceInt {
+    serviceName:string;
+    fee:number;
+    newfee:number;
+}
+export const NewPriceStructure : NewPriceInt = {
+    serviceName: "",
+    fee:0,
+    newfee:0
+}
