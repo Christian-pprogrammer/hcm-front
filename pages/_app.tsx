@@ -133,7 +133,7 @@ function AppMeta() {
             "You no longer have to worry about missing treatment from hospitals. You have to go knowing even when you'll be treated"
           }
         />
-        <meta property={"og:title"} content={"Medical Appointment System"} />
+        <meta property={"og:title"} content={"Hospital Appointment System"} />
         <link rel="icon" href={app_config.APP_LOGO} />
         <meta
           name="keywords"
@@ -188,7 +188,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       // Also an explicit time zone is helpful to ensure dates render the
       // same way on the client as on the server, which might be located
       // in a different time zone.
-      timeZone="Austria/Vienna"   getMessageFallback={getMessageFallback} onError={onError}>
+      timeZone="Austria/Vienna" getMessageFallback={getMessageFallback} onError={onError}>
           <ToastContainer style={{ fontSize: "0.8em" }} />
           <AppMeta />
           <Component {...pageProps} />

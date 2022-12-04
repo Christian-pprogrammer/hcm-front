@@ -2,7 +2,7 @@ import axios from "axios";
 import Router from "next/router";
 import AuthService from './auth/auth.service';
 
-export const domain = "https://hcm-backend-service.herokuapp.com";
+export const domain = "https://buukads.com:8088/hcmobile-v2";
 
 
 const http = axios.create({
@@ -27,7 +27,7 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   function (response) {
     // console.log(response);
-    return Promise.resolve(response)
+    return Promise.resolve(response);
   },
   function (error) {
     let res = error.response;
