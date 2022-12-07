@@ -15,6 +15,7 @@ const ManageServicesGA = () => {
     const [manageServicesData, setManageServicesData] = useState<any>(null);
     const [showAction, setShowActions] = useState<Boolean>(false)
     const authUser = useSelector((state: any) => state.authUser)
+    useEffect(() => {
     async function fetchData() {
         try {
             const groupId = authUser?.user?.group?.group_id;
@@ -25,9 +26,8 @@ const ManageServicesGA = () => {
             notifyError(ERROR_MESSAGE);
         }
     }
-    useEffect(() => {
-        fetchData();
-    }, [manageServicesData]);
+
+    }, [authUser?.user?.group?.group_id, manageServicesData]);
     const STATUS = 'Active'
     return (
         <div className="px-2 bg-[#F7F7F7] ">

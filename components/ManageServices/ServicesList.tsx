@@ -14,6 +14,7 @@ const ServicesList = () => {
     const authUser = useSelector((state: any) => state.authUser);
     const [showAction, setShowActions] = useState<Boolean>(false);
     const [manageHospitalServices, setmanageHospitalServices] = useState<any>(null);
+    useEffect(() => {
     async function fetchData() {
         try {
             console.log("Auth User Hospital Admin", authUser);
@@ -25,9 +26,9 @@ const ServicesList = () => {
             notifyError(ERROR_MESSAGE);
         }
     }
-    useEffect(() => {
+
         fetchData();
-    }, [manageHospitalServices]);
+    }, [authUser, manageHospitalServices]);
 
     return (
         <div className="px-2 bg-[#F7F7F7] ">

@@ -27,7 +27,7 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   function (response) {
     // console.log(response);
-    return Promise.resolve(response);
+    return Promise.resolve(response)
   },
   function (error) {
     let res = error.response;

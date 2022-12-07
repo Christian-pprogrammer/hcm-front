@@ -16,6 +16,7 @@ const ManageHospitalsGA = () => {
     const [searchtext, setSearchText] = useState<string>('');
     const [manageHospitalData, setmanageHospitalData] = useState<any>(null);
     const authUser = useSelector((state: any) => state.authUser)
+    useEffect(()=>{
     async function fetchData () {
         try {
             const groupId = authUser?.user?.group?.group_id;
@@ -27,9 +28,9 @@ const ManageHospitalsGA = () => {
             notifyError(ERROR_MESSAGE);
           }
     }
-    useEffect(()=>{
+
         fetchData();
-    },[manageHospitalData])
+    },[authUser?.user?.group?.group_id, manageHospitalData])
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
