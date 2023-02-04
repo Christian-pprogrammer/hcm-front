@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState , useMemo } from 'react'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { DashBoardLogo } from '../Logo'
 import SideBarAdmins, { AppointmentManagerArr, DoctorAdminArr, GroupAdminArr, GroupDirectorArr, HospitalAdminArr, HospitalDirectorArr, PatientAdminArr, ScheduleManagerArr, system_users } from '../../utils/constants'
@@ -10,18 +10,11 @@ import { useSelector } from 'react-redux';
 const Sidebar = () => {
   const AuthUser = useSelector((state: any) => state.authUser);
   const [role, setRole] = useState("");
-
   useEffect(() => {
-    setTimeout(() => {
-      setRole(AuthUser?.user?.role?.role);
-    }, 500);
-  }, [AuthUser]);
-
-
-    if (role !== undefined) {
-      clearTimeout(500)
+    if (!role && AuthUser?.user?.role?.role) {
+      setRole(AuthUser.user.role.role);
     }
-
+  }, [AuthUser, role]);
     const VerifyUser = () => {
         if (role == "SUPER_ADMIN") {
             return SideBarAdmins;
@@ -44,8 +37,6 @@ const Sidebar = () => {
           } else{
             return PatientAdminArr;
           }
-            // return PatientAdminArr;
-
     }
 
     const ChangeHeader = (path: string) => {

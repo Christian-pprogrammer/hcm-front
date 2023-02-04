@@ -1,15 +1,15 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import {  FaHome, FaPlus } from 'react-icons/fa'
-import AddHospital from './Modals/AddHospital'
-import hospitalService from '../../services/hospital/hospital.service'
-import { notifyError } from '../alert'
-import FetchDataLoader from '../loaders/FetchDataLoader'
 import { useSelector } from 'react-redux'
-import ManageHospitalsFetch from './tables/manage-hospital-fetchdata'
+import hospitalService from '../../../services/hospital/hospital.service'
+import { notifyError } from '../../alert'
+import FetchDataLoader from '../../loaders/FetchDataLoader'
+import ManageAdminModal from '../Modals/ManageAdminModal'
+import ManageHospitalsFetch from '../tables/manage-hospital-fetchdata'
 
-const ManageHospitalsGA = () => {
-    const [AddHospitalModal, setAddHospital] = useState<Boolean>(false)
+const ManageAdminHospitalPage = ({name,id}:{name:string,id:any}) => {
+    const [AddHospitalAdmin, setAddHospitalAdmin] = useState<Boolean>(false)
     const [searchtext, setSearchText] = useState<string>('');
     const [manageHospitalData, setmanageHospitalData] = useState<any>(null);
     const authUser = useSelector((state: any) => state.authUser)
@@ -19,19 +19,18 @@ const ManageHospitalsGA = () => {
             const groupId = authUser?.user?.group?.group_id;
             console.log("The Group ID",groupId);
             const data = await hospitalService.getAllHospitals();
-            setmanageHospitalData(data.data);
+            // setmanageHospitalData(data.data);
         }catch(error:any){
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
             notifyError(ERROR_MESSAGE);
           }
     }
-
         fetchData();
     },[authUser?.user?.group?.group_id, manageHospitalData])
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/HCM/Dashboard'>Manage Hospitals / </Link>
+            <FaHome /><Link href='/group-admin/manage-hospitals'>{`Manage Hospitals / ${name}`}</Link>
             </div>
             <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
                 <div className="flex px-5 place-items-center justify-between gap-6 py-5">
@@ -51,11 +50,11 @@ const ManageHospitalsGA = () => {
                             <input type="text" onChange={(e) => setSearchText(e.target.value)} value={searchtext} className="form-control rounded-lg outline-none border-none text-backG py-4 px-20 bg-inputG" placeholder="Search Account Name" />
                         </div>
                         <div>
-                            <button onClick={() => setAddHospital(true)} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
+                            <button onClick={() => setAddHospitalAdmin(true)} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                                 <FaPlus />
-                                <span>New Hospital</span>
+                                <span>New Admin</span>
                             </button>
-                            <AddHospital showModal={AddHospitalModal} onClose={() => setAddHospital(false)} />
+                            <ManageAdminModal id={id} showModal={AddHospitalAdmin} onClose={() => setAddHospitalAdmin(false)} />
                         </div>
                     </div>
                 </div>
@@ -63,7 +62,7 @@ const ManageHospitalsGA = () => {
                     <table className=' table-auto w-full  '>
                         <thead>
                             <tr>
-                                <th className='py-5 text-[#000000c8] text-sm '>Accounts</th>
+                                <th className='py-5 text-[#000000c8] text-sm '>Admin Name</th>
                                 <th className='py-5 text-[#000000c8] text-sm '>Status</th>
                                 <th className='py-5 text-[#000000c8] text-sm '>Email</th>
                                 <th className='py-5 text-[#000000c8] text-sm '>Issued On</th>
@@ -85,4 +84,4 @@ const ManageHospitalsGA = () => {
         </div>
     )
 }
-export default ManageHospitalsGA
+export default ManageAdminHospitalPage

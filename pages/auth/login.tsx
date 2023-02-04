@@ -14,6 +14,7 @@ import { UrlObject } from 'url';
 import jwtDecode from 'jwt-decode';
 import LoaderCache from '../../components/loaders/LoaderCache';
 import Image from 'next/image';
+import PageLogo from '../../components/PageLogo';
 
 export default function Login() {
 
@@ -96,8 +97,8 @@ export default function Login() {
                     </Head>
                 <div className="relative md:flex hidden auth-image bg-backG">
                     <div className="absolute text-[12px] flex gap-4 top-0 p-5">
-                        <div className=' flex justify-center place-items-center rounded-full '>
-                            <Image className='h-14 w-14 bg-white rounded-full object-contain' src={`${app_config.APP_LOGO}`} alt="" width="16" height="16" />
+                        <div className=' flex bg-white justify-center place-items-center w-16 h-16 shadow-md'>
+                            <PageLogo/>
                         </div>
                         <div className=' justify-center'>
                             <h1 className='text-xl font-semibold '>HCM Corp</h1>
@@ -112,10 +113,10 @@ export default function Login() {
                         <p>Copyright @ 2022 - International UN </p>
                     </div>
                 </div>
-                <div className="bg-white mx-auto md:min-w-[50vw] lg:min-w-1/2 lg:px-20 text-black p-5">
+                <div className="bg-white mx-auto w-full sm:px-10 md:min-w-[50vw] lg:min-w-1/2 lg:px-20 text-black p-5">
                     <div className='flex py-5 flex-col justify-center gap-4 place-items-center'>
-                        <div className=' flex justify-center place-items-center rounded-full bg-white'>
-                        <Image className='h-12 w-12 rounded-full p-0 bg-white object-cover' src="/favicon_io/logo.png" alt="" width="64" height="64"/>
+                        <div className=' flex justify-center place-items-center rounded-full '>
+                            <PageLogo/>
                         </div>
                         <div className='flex flex-col justify-center  font-semibold place-items-center'>
                             <h1>HCM Appointment System</h1>

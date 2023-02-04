@@ -1,17 +1,15 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaCheck, FaEllipsisH } from 'react-icons/fa'
-import CreateAdminAcc from '../Modals/CreateAdmin'
 import DeleteAcc from '../Modals/DeleteAcc'
 import EditAccount from '../Modals/EditAccount'
 
-const ManageAccountsFetchData = ({ acc }: { acc: any }) => {
+const ManageAdminsGA = ({ acc }: { acc: any }) => {
     const [showModal, setModal] = useState<Boolean>(false)
     const [EditModal, setEditModal] = useState<Boolean>(false);
-    const [createAdmin, setcreateAdmin] = useState<Boolean>(false);
     const [showListActions, setshowListActions] = useState<Boolean>(false);
     return (
-        <tr className='bg-inputG relative overflow-auto z-0 hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white h-4'>
+        <tr className='bg-inputG rlative overflow-auto z-0 hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white h-4'>
             <td className='py-2  whitespace-nowrap lg:px-5 flex px-2 gap-6 justify-center place-items-center text-center'>
                 <h1 className='font-bold '>{acc.groupName}</h1>
             </td>
@@ -53,4 +51,4 @@ const ManageAccountsFetchData = ({ acc }: { acc: any }) => {
     )
 }
 
-export default ManageAccountsFetchData
+export default ManageAdminsGA

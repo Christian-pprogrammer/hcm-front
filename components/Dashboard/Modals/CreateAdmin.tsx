@@ -25,7 +25,7 @@ const CreateAdminAcc = ({ createAdminModal, onClose, id }: { createAdminModal: B
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(FormDataAdmin);
+        console.log("FormDataAdmin",FormDataAdmin);
         try {
             let result = await groupAdminService.createGroupAdmin(id, FormDataAdmin);
             if (result.status === 200) {

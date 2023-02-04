@@ -8,7 +8,7 @@ const nextConfig = {
   },
 
   images: {
-    domains: ['avatars.githubusercontent.com', 'www.moh.gov.rw'],
+    domains: ['avatars.githubusercontent.com', 'www.moh.gov.rw','www.researchluxembourg.org'],
     // remotePatterns: [
     //   {
     //     protocol: 'https',

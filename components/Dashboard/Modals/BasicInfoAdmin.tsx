@@ -16,7 +16,7 @@ const BasicInfoAdmin =  ({FormDataAdmin, setFormDataAdmin}:{FormDataAdmin:NewUse
                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                         <KeyIcon />
                     </div>
-                    <input value={FormDataAdmin.password} onChange={(e) => setFormDataAdmin({ ...FormDataAdmin, password: e.target.value })} className={`place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={!showPassword ? "password" : "text"} min={6} placeholder="••••••••••••••••" />
+                    <input value={FormDataAdmin.password} onChange={(e) => setFormDataAdmin({ ...FormDataAdmin, password: e.target.value })} className={`place-items-center w-full px-2 py-4 bg-inputG outline-none rounded-r-md text-backG`} type={!showPassword ? "password" : "text"} min={6} placeholder="••••••••••••••••" />
                     <div className='flex rounded-r-md place-items-center justify-center bg-inputG p-2'>
                         <button type='button' onClick={() => setShowPasswords((prev) => !prev)}>{!showPassword ? <EyeShowIcon /> : <EyeNoShowIcon />}</button>
                     </div>

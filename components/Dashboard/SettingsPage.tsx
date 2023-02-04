@@ -17,7 +17,7 @@ const SettingsPage = () => {
   return (
     <div className="px-2 bg-white">
       <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
-        <FaHome/><Link href='/SuperAdmin/Dashboard'>Settings / </Link>
+        <FaHome/><Link href='/super-admin/settings'>Settings / </Link>
       </div>
       <div className="flex flex-col lg:flex-row ">
         <div className='flex flex-col gap-2'>

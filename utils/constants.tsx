@@ -76,25 +76,25 @@ export default SideBarAdmins;
 export const GroupAdminArr : SideBarInterface[] = [
 {
     id:1,
-    IconName: <FaChartPie/>,
+    IconName: <DashboardIcon />,
     LinkName: "Dashboard",
     Linkurl:"/group-admin/dashboard"
 },
 {
     id:2,
-    IconName: <FaChartPie/>,
+    IconName: <ManageAccIcon/>,
     LinkName: "Manage Hospitals",
     Linkurl:"/group-admin/manage-hospitals"
 },
 {
     id:3,
-    IconName: <FaChartPie/>,
+    IconName: <ManageAccIcon/>,
     LinkName: "Manage Services",
     Linkurl:"/group-admin/manage-service"
 },
 {
     id:4,
-    IconName: <FaChartPie/>,
+    IconName: <AuditIcon />,
     LinkName: "Audit Logs",
     Linkurl:"/group-admin/auditlog-ga"
 },
