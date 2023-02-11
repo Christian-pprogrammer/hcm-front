@@ -3,12 +3,11 @@ import jwt from 'jwt-decode';
 import http from "../http-common";
 import { encryptText, decryptText, decryptTextV2 } from "../../utils/encryption-decryption";
 import { LOCAL_STORAGE_TOKEN_KEY } from "../../utils/constants";
-import { useRouter } from 'next/router';
 
 class AuthService {
   // public router = useRouter();
   signup(data: any) {
-    return http.post("/auth/users/register", data);
+    return http.post("/users/register", data);
   }
   login(data: any) {
     return http.post('/auth/login', data);
