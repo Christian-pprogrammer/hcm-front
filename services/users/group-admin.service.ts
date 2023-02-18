@@ -4,12 +4,12 @@ class GroupAdmin {
   getAllGroupsAdmins() {
     return http.get(`/group-admin`);
   }
-  createGroupAdmin(groupId: string,data: any) {
-    return http.post(`/group-admin/${groupId}`,data);
+  createGroupAdmin(groupId: string, data: any) {
+    return http.post(`/group-admin/${groupId}`, data);
   }
   //Route Not Yet Checked
   checkGroupAdminPass(password: string) {
-    return http.post(`/group-admin/password/verify/${password}`)
+    return http.post(`/group-admin/password/verify/${password}`);
   }
   // Route Unchecked
   deleteHospitalGroupAdmin(id: string) {

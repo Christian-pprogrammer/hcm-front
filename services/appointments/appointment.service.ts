@@ -5,8 +5,8 @@ class AppointmentService {
     return http.put(`/api/v2/appointments/${appointmentId}`, data);
   }
 
-  createAppointment(schedule_id: string, data: any) {
-    return http.post(`/api/v2/appointments/${schedule_id}/`, data);
+  createAppointment(scheduleId: string, data: any) {
+    return http.post(`/api/v2/appointments/${scheduleId}/`, data);
   }
 
   appointmentManagerEditAppointment(appointmentId: string, data: any) {

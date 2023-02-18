@@ -2,6 +2,7 @@ import axios from "axios";
 import Router from "next/router";
 import AuthService from './auth/auth.service';
 
+// export const domain = "http://localhost:8000";
 export const domain = "https://buukads.com:8088/hcmobile-v2/v2";
 
 

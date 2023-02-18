@@ -12,5 +12,13 @@ class HospitalService {
   getGroupHospitals(groupId: string) {
     return http.get(`/hospitals/group/${groupId}`);
   }
+
+  editHospital(hospitalId: string, data: any) {
+    return http.put(`/hospitals/${hospitalId}`, data);
+  }
+
+  deleteHospital(hospitalId: string) {
+    return http.delete(`/hospitals/${hospitalId}`);
+  }
 }
 export default new HospitalService();
