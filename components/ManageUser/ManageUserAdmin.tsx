@@ -1,24 +1,22 @@
-import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { FaCheck, FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
 import FetchDataLoader from '../loaders/FetchDataLoader'
 import userService from '../../services/users/user.service'
-import { notifyError, notifySuccess } from '../alert'
+import { notifyError } from '../alert'
 import AddNewUser from './Modals/AddNewUser'
-import DeleteUserModal from './Modals/DeleteUserModal'
-import EditUserModal from './Modals/EditUserModal'
 import ManageUsersFetch from './tables/manage-users-fetch'
+import { IUser } from '../../utils/ModalTypes'
+import { system_users } from '../../utils/constants'
 
 const ManageUserAdmin = () => {
     const [AddUserModal, setAddUserModal] = useState<Boolean>(false)
     const [searchtext, setSearchText] = useState<string>('');
-    const [manageUserData, setmanageUserData] = useState<any>(null);
+    let [manageUserData, setmanageUserData] = useState<IUser[]>([]);
     async function fetchData() {
         try {
             const data = await userService.getAll();
-            setmanageUserData(data.data);
+            setmanageUserData(data.data?.filter((user: IUser) => (user.role !== system_users.SUPER_ADMIN && user.role !== system_users.GROUP_ADMIN && user.role !== system_users.HOSPITAL_ADMIN)));
         } catch (error: any) {
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
             notifyError(ERROR_MESSAGE);
@@ -50,7 +48,7 @@ const ManageUserAdmin = () => {
                             <input type="text" onChange={(e) => setSearchText(e.target.value)} value={searchtext} className="form-control rounded-lg outline-none border-none text-backG py-4 px-20 bg-inputG" placeholder="Search Account Name" />
                         </div>
                         <div>
-                            <button onClick={() => setAddUserModal(true)} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
+                            <button onClick={() => setAddUserModal(true)} className='py-4 ripple text-[14px] bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                                 <FaPlus />
                                 <span>New User</span>
                             </button>
@@ -61,21 +59,21 @@ const ManageUserAdmin = () => {
                 <div className=' w-full overflow-y-auto h-[65vh]'>
                     <table className=' table-auto w-full  '>
                         <thead>
-                            <tr>
-                                <th className='py-5 text-[#000000c8] text-sm '>Account Username</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Status</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Account Category</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Issued on</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Actions</th>
+                            <tr className='text-left'>
+                                <th className='py-5 text-[#000000c8] text-sm px-10'>Account Username</th>
+                                <th className='py-5 text-[#000000c8] text-sm px-10'>Status</th>
+                                <th className='py-5 text-[#000000c8] text-sm px-10'>Account Category</th>
+                                <th className='py-5 text-[#000000c8] text-sm px-10'>Issued on</th>
+                                <th className='py-5 text-[#000000c8] text-sm px-10'>Actions</th>
                             </tr>
                         </thead>
                         <tbody className='overflow-y-auto'>
                             {manageUserData ? manageUserData.map((user: any) => (
-                               <ManageUsersFetch user={user} key={user.id} />
+                                <ManageUsersFetch user={user} key={user.id} />
                             )) :
                                 <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
                                     <FetchDataLoader />
-                                    <p>Fetching the data...</p>
+                                    <td>Fetching the data...</td>
                                 </tr>}
                         </tbody>
                     </table>
@@ -85,25 +83,4 @@ const ManageUserAdmin = () => {
     )
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({
-//     res
-// }) => {
-//     try {
-//         // const data = await hospitalAdmin.getAllUsers("askdfsadk21i3usdafaskldfjasdlf");
-//         if (res.statusCode == 200) {
-//             notifySuccess("Successfully Pulled the Services");
-//         }
-//         return {
-//             props: {}
-//         }
-//     } catch (error: any) {
-//         res.statusCode = 404;
-//         const Error_Message = error.message;
-//         reportError(Error_Message);
-//         notifyError(Error_Message);
-//         return {
-//             props: {}
-//         }
-//     }
-// };
 export default ManageUserAdmin;

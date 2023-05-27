@@ -1,14 +1,13 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { FaCheck, FaEllipsisH } from 'react-icons/fa'
-import CreateAdminAcc from '../Modals/CreateAdmin'
 import DeleteAcc from '../Modals/DeleteAcc'
 import EditAccount from '../Modals/EditAccount'
+import { IGroup } from '../../../utils/ModalTypes'
 
-const ManageAccountsFetchData = ({ acc }: { acc: any }) => {
+const ManageAccountsFetchData = ({ acc }: { acc: IGroup }) => {
     const [showModal, setModal] = useState<Boolean>(false)
     const [EditModal, setEditModal] = useState<Boolean>(false);
-    const [createAdmin, setcreateAdmin] = useState<Boolean>(false);
     const [showListActions, setshowListActions] = useState<Boolean>(false);
     return (
         <tr className='bg-inputG relative overflow-auto z-0 hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white h-4'>
@@ -39,7 +38,7 @@ const ManageAccountsFetchData = ({ acc }: { acc: any }) => {
                         <Link href={
                             {
                                 pathname: `/super-admin/admindetail/${acc.group_id}`,
-                                query:{
+                                query: {
                                     groupName: acc.groupName
                                 }
                             }
@@ -47,7 +46,7 @@ const ManageAccountsFetchData = ({ acc }: { acc: any }) => {
                     </button>
                 </td>
             }
-            <DeleteAcc showModal={showModal} onClose={() => setModal(false)} />
+            <DeleteAcc showModal={showModal} onClose={() => setModal(false)} id={acc.group_id} />
             <EditAccount EditModal={EditModal} onClose={() => setEditModal(false)} />
         </tr>
     )

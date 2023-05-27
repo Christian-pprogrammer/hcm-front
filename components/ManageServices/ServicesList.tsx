@@ -1,35 +1,33 @@
-import { GetServerSideProps } from 'next';
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
-import { FaCheck, FaGlobe } from 'react-icons/fa'
+import { FaGlobe } from 'react-icons/fa'
 import { useSelector } from 'react-redux';
 import FetchDataLoader from '../loaders/FetchDataLoader';
 import servicesService from '../../services/services/services.service';
-import { notifyError, notifySuccess } from '../alert';
-import RemoveService from './Modals/RemoveService';
+import { notifyError } from '../alert';
+import ServicesFetchHA from './ServicesFetchHA';
+import { IService } from '../../utils/Prices';
+import RemoveAllService from './Modals/RemoveAllService';
 
 const ServicesList = () => {
     const [searchtext, setSearchText] = useState<string>('');
-    const [RemoveServiceModal, setRemoveServiceModal] = useState<Boolean>(false)
     const authUser = useSelector((state: any) => state.authUser);
-    const [showAction, setShowActions] = useState<Boolean>(false);
-    const [manageHospitalServices, setmanageHospitalServices] = useState<any>(null);
+    const [showAction, setShowActions] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false)
+    let [manageHospitalServices, setmanageHospitalServices] = useState<IService[]>([]);
+    const hospitalId = authUser.user.hospital.hospitalId
     useEffect(() => {
-    async function fetchData() {
-        try {
-            console.log("Auth User Hospital Admin", authUser);
-            // const groupId = authUser?.user?.group?.group_id;
-            const data = await servicesService.getHospitalServices("asdf");
-            setmanageHospitalServices(data.data);
-        } catch (error: any) {
-            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
-            notifyError(ERROR_MESSAGE);
+        async function fetchData() {
+            try {
+                const data = await servicesService.getHospitalServices(hospitalId);
+                setmanageHospitalServices(data.data);
+            } catch (error: any) {
+                const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
+                notifyError(ERROR_MESSAGE);
+            }
         }
-    }
-
         fetchData();
-    }, [authUser, manageHospitalServices]);
-
+    }, [hospitalId, manageHospitalServices]);
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -53,50 +51,47 @@ const ServicesList = () => {
                             <input type="text" onChange={(e) => setSearchText(e.target.value)} value={searchtext} className="form-control rounded-lg outline-none border-none text-backG py-4 px-20 bg-inputG" placeholder="Search Account Name" />
                         </div>
                         <div>
-                            <button className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
-                                <span >Remove All</span>
+                            <button onClick={() => setShowModal(true)} className='ripple py-4 text-[14px] bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
+                                <span>Remove All</span>
                             </button>
+                            <RemoveAllService showModal={showModal} onClose={() => setShowModal(false)} />
                         </div>
                     </div>
                 </div>
                 <div className=' w-full overflow-x-auto'>
                     <table className=' table-auto w-full  '>
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Hospital Services</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Mapped Status</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Issued/Created On</th>
+                            <tr className='font-semibold text-left'>
+                                <th scope="col" className="py-4 px-10">
+                                    <div className="flex items-center">
+                                        <input onChange={() => setShowActions((prev) => !prev)} id="checkbox-all-search" type="checkbox" className="w-4 h-4 text-gray-50 bg-blue-600 rounded-full" />
+                                        <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
+                                    </div>
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Hospital Services
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Mapped Status
+                                </th>
+                                <th scope="col" className="py-3 px-6">
+                                    Issued/Created On
+                                </th>
                                 {showAction &&
-                                    <th className='py-5 text-[#000000c8] text-sm '>Actions</th>
+                                    <th scope="col" className="py-3">
+                                        Action
+                                    </th>
                                 }
                             </tr>
                         </thead>
                         <tbody>
-                            {manageHospitalServices ? manageHospitalServices.map((service:any) => (
-                                <tr key={service.service_id} className='bg-inputG  hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
-                                    <td className='py-2 text-center flex place-items-center  whitespace-nowrap  lg:px-5 '>
-                                        <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowActions((prev) => !prev)} />
-                                    </td>
-                                    <td className='py-2  whitespace-nowrap text-center lg:px-5 '>
-                                        {service}
-                                    </td>
-                                    <td className='px-10  whitespace-nowrap flex py-2  place-items-center align-middle justify-center'>
-                                        {service.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
-                                    </td>
-                                    <td className='px-10 whitespace-nowrap text-[#00000043] text-center'>
-                                        {service.createdAt}
-                                    </td>
-                                    {showAction &&
-                                    <td>
-                                        <button onClick={() => setRemoveServiceModal(true)} className='text-backG bg-linear w-32 h-10 border-2 border-backG flex justify-center place-items-center text-base rounded-lg font-bold '> Remove </button>
-                                        <RemoveService id={service.service_id} showModal={RemoveServiceModal} onClose={() => setRemoveServiceModal(false)} />
-                                    </td>
-                                    }
-                                </tr>
-                            )) : <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
-                                <FetchDataLoader />
-                                <p>Fetching the data...</p>
+                            {manageHospitalServices ? manageHospitalServices.map((service: IService) => (
+                                <ServicesFetchHA service={service} showModal={showAction} key={service.service_id} />
+                            )) : <tr>
+                                <td className='py-2 pl-10'>
+                                    <FetchDataLoader />
+                                </td>
+                                <td className='font-bold animate-pulse'>Fetching the data...</td>
                             </tr>
                             }
 
@@ -107,25 +102,4 @@ const ServicesList = () => {
         </div>
     )
 }
-export const getServerSideProps: GetServerSideProps = async ({
-    res
-}) => {
-    try {
-        const data = await servicesService.getHospitalServices("askdfsadk21i3usdafaskldfjasdlf");
-        if (res.statusCode == 200) {
-            notifySuccess("Successfully Pulled the Services");
-        }
-        return {
-            props: { data }
-        }
-    } catch (error: any) {
-        res.statusCode = 404;
-        const Error_Message = error.message;
-        reportError(Error_Message);
-        notifyError(Error_Message);
-        return {
-            props: {}
-        }
-    }
-};
 export default ServicesList

@@ -1,52 +1,67 @@
-import React,{ useState } from 'react'
-import { NewUserInterface } from '../../../utils/ModalTypes'
-import { AccountTypeArr, NewUserStatusArr } from '../../../utils/SelectOptions'
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
-import Multiselect from 'multiselect-react-dropdown';
+import React from 'react'
+import { IUser } from '../../../utils/ModalTypes'
 
-const BasicUserInfo = ({ FormData, setFormData }: { FormData: NewUserInterface, setFormData: any }) => {
-    interface SelectedData {
-        SelectedService: ServiceStructure;
+const BasicUserInfo = ({ FormData, setFormData }: { FormData: IUser, setFormData: React.Dispatch<React.SetStateAction<IUser>> }) => {
+    const errors: string[] = [];
+
+    if (!FormData.fullName) {
+        errors.push("The fullname should be provided");
     }
-    const [selectData, setSelectData] = useState<SelectedData[]>([]);
-    const handleOnServiceSelect = (e: React.FormEvent<HTMLFormElement> | any) => {
-        setSelectData(e);
-        setFormData({ ...FormData, services: selectData });
+    if (!FormData.email) {
+        errors.push("The email should be provided");
     }
+    if (!FormData.mobile) {
+        errors.push("The telephone should be provided");
+    }
+    if (!FormData.password) {
+        errors.push("The Password should be provided");
+    }
+    if (FormData.password !== FormData.confirmPassword) {
+        errors.push("The Password Should match the confirm password");
+    }
+
     return (
         <>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Role
+                    Username/ FullName
                 </label>
-                <select value={FormData?.role} onChange={(e) => setFormData({ ...FormData, role: e.target.value })} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Select the status">
-                    {AccountTypeArr.map((option) => (
-                        <option key={option.id} value={option.value}>{option.text}</option>
-                    ))}
-                </select>
-                <small className='text-[12px] text-red-500'>Enter Valid info</small>
+                <input value={FormData?.fullName} onChange={(e) => setFormData({ ...FormData, fullName: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Enter your username" />
             </div>
-
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Working Status
+                    Email
                 </label>
-                <select onChange={(e)=>setFormData({...FormData,status: e.target.value})} className="shadow appearance-none bg-inputG border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Select the status">
-                    {NewUserStatusArr.map((option) => (
-                        <option key={option.id} value={option.value}>{option.text}</option>
-                    ))}
-                </select>
-                <small className='text-[12px] text-red-500'>Enter Valid info</small>
+                <input value={FormData?.email} onChange={(e) => setFormData({ ...FormData, email: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Enter your email" />
             </div>
-            {FormData?.role=="DOCTOR"&&
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Services
+                    Mobile
                 </label>
-                <Multiselect onSelect={handleOnServiceSelect} loading={false} options={ServicesArr} displayValue={"ServiceName"} className="shadow appearance-none bg-inputG border rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" placeholder="Select " />
-                <small className='text-[12px] text-red-500'>Enter Valid info</small>
+                <input value={FormData?.mobile} onChange={(e) => setFormData({ ...FormData, mobile: e.target.valueAsNumber })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" placeholder="Enter your number" />
             </div>
-            }
+            <div className="py-1">
+                <label className="block text-gray-700 text-sm font-bold">
+                    Password
+                </label>
+                <input value={FormData?.password} onChange={(e) => setFormData({ ...FormData, password: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Enter password" />
+            </div>
+            <div className="py-1">
+                <label className="block text-gray-700 text-sm font-bold">
+                    Confirm Password
+                </label>
+                <input value={FormData?.confirmPassword} onChange={(e) => setFormData({ ...FormData, confirmPassword: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="confirm-password" type="password" placeholder="Re-enter password" />
+            </div>
+            {errors.length > 0 && (
+                <div className='py-2'>
+                    <ul>
+                        {errors.map((error: string, index: number) => (
+                            <li key={index} className='flex text-[10px] place-items-center gap-6 text-red-500'>
+                                <span aria-hidden="true">&times;</span><span>{error}</span></li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </>
     )
 }

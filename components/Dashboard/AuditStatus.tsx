@@ -67,7 +67,7 @@ const AuditStatus = () => {
                 <th className='py-5 text-[#000000c8] text-sm'>View</th>
                 </tr>
             </thead>
-            <tbody className=''>
+            <tbody className='text-[14px]'>
                 <tr className='bg-inputG group hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
                     <td className='py-2 text-[#0000006c] whitespace-nowrap text-center lg:px-5'>
                         Doctor account

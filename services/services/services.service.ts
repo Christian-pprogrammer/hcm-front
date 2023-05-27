@@ -1,7 +1,9 @@
+import { IHospital, IServiceHospitalMap } from "../../utils/ModalTypes";
+import { IService } from "../../utils/Prices";
 import http from "../http-common";
 
 class ManageServicesService {
-  createService(data: any) {
+  createService(data: IService) {
     return http.post(`/services`, data);
   }
 
@@ -16,8 +18,8 @@ class ManageServicesService {
     return http.get(`/services/hospital/${hospitalId}`)
   }
 
-  addServiceToGroup(groupId: string, data: any) {
-    return http.post(`/services/group/${groupId}/add-service`, data);
+  addServiceToGroup(data: IService) {
+    return http.post(`/services/group/add-service`, data);
   }
 
   addServiceToHospital(hospitalId: string, data: any) {

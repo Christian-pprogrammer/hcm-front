@@ -55,7 +55,7 @@ const SettingsPageComp = () => {
                     <div className='py-1  place-items-center  flex pr-5  justify-between'>
                         <h1 className='font-bold'>Message Templates</h1>
                         <div>
-                            <button onClick={() => setNewMessageModal(true)} className='p-5 bg-backG text-white rounded-full border-none outline-none '><FaPlus /></button>
+                            <button onClick={() => setNewMessageModal(true)} className='p-5 bg-backG ripple text-[14px] text-white rounded-full border-none outline-none '><FaPlus /></button>
                             <NewMessageTemplate onClose={() => setNewMessageModal(false)} NewMessageModal={NewMessageModal} />
                         </div>
                     </div>

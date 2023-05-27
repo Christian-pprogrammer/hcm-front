@@ -1,12 +1,12 @@
+import { IUser } from '../../utils/ModalTypes';
 import http from '../http-common';
 
 class DoctorService {
-  createDoctor(data: any) {
-    return http.post(`/api/v2/doctors`, data);
+  createDoctor(data: IUser) {
+    return http.post(`/doctors`, data);
   }
-
   deleteDoctor(doctorId: string) {
-    return http.delete(`/api/v2/doctors/${doctorId}`);
+    return http.delete(`/doctors/${doctorId}`);
   }
 }
 export default new DoctorService();

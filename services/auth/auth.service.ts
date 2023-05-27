@@ -76,7 +76,6 @@ class AuthService {
   logout() {
     this.removeToken();
     return window.location.href = '/auth/login';
-    // return this.router.push('/auth/login');
   }
   removeToken() {
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY)

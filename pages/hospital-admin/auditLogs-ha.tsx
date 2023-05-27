@@ -8,14 +8,14 @@ import { system_users } from '../../utils/constants'
 const AuditLogGA = () => {
   return (
     <RouteProtector only={system_users.HOSPITAL_ADMIN}>
-    <div className="flex">
-    <Sidebar/>
-    <div className="lg:w-[80vw] w-full">
-    <Navbar/>
-    <AuditStatus/>
-    </div>
-</div>
-</RouteProtector>
+      <div className="flex">
+        <Sidebar />
+        <div className="lg:w-[80vw] w-full">
+          <Navbar />
+          <AuditStatus />
+        </div>
+      </div>
+    </RouteProtector>
   )
 }
 

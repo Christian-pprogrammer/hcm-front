@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import scheduleService from '../../../services/schedules/schedule.service';
-import { NewScheduleData, NewScheduleInterface } from '../../../utils/ModalTypes';
 import AdvancedScheduleInfo from './AdvancedScheduleInfo';
 import BasicScheduleInfo from './BasicScheduleInfo';
+import { ISchedule } from '../../../utils/ModalTypes';
+import { notifyError, notifySuccess } from '../../alert';
+import { useSelector } from 'react-redux';
 
-const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean, onClose: any }) => {
+const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: boolean, onClose: () => void }) => {
     const [loading, setLoading] = React.useState(false);
-    const [alertData, setAlertData] = React.useState({
-        alert: false,
-        message: "",
-        class: "",
-    });
-    const [isBrowser, setBrowser] = useState<Boolean>(false);
-    const [FormData,setFormData] = useState<NewScheduleInterface>(NewScheduleData);
+    const [isBrowser, setBrowser] = useState<boolean>(false);
+    const [FormData, setFormData] = useState<ISchedule>({});
+    const authUser = useSelector((state: any) => state.authUser);
+    const hospitalId = authUser.user.hospital.hospitalId
     useEffect(() => {
         setBrowser(true)
     }, [])
@@ -21,11 +20,11 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean,
     const handleClose = () => {
         onClose()
     }
-    const [FormPageNumber,setFormPageNumber] = useState<number>(0);
+    const [FormPageNumber, setFormPageNumber] = useState<number>(0);
     const PageDisplayForm = () => {
-        if(FormPageNumber == 0){
+        if (FormPageNumber == 0) {
             return <BasicScheduleInfo FormData={FormData} setFormData={setFormData} />
-        }else{
+        } else {
             return <AdvancedScheduleInfo FormData={FormData} setFormData={setFormData} />
         }
     }
@@ -33,23 +32,17 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean,
         e.preventDefault();
         try {
             setLoading(true);
+            FormData.hospital_id = hospitalId;
             console.log(FormData);
             const res = await scheduleService.createSchedule(FormData);
-            if (res.data.status === 200) {
-                setAlertData({
-                    alert: true,
-                    message: res.data.message || "Successfuly Created the service",
-                    class: "green"
-                });
-            } else {
-                setAlertData({
-                    alert: true,
-                    message: res.data.error || "Failure Check Provided Credentials",
-                    class: "red"
-                })
+            if (res.status === 200) {
+                notifySuccess('Successfully created the schedule.')
+                setFormData({});
             }
-        }catch(error) {
-            reportError(error);
+        } catch (error: any) {
+            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+            notifyError(ERROR_MESSAGE);
+            setFormData({});
         }
     }
     const ModalContent = NewScheduleModal ? (
@@ -58,29 +51,27 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: Boolean,
                 <div className="modal-content">
                     <div className="modal-header py-2 flex justify-between">
                         <h5 className="modal-title font-bold text-backG ">New Schedule </h5>
-                        <button onClick={handleClose} type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close">
+                        <button onClick={handleClose} type="button" className="close text-backG hover:scale-125 duration-300 text-xl " aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form method="post" onSubmit={handleSubmit}>
-                        <div className="modal-body"> 
-                            {PageDisplayForm()}
+                        {PageDisplayForm()}
+                        {FormPageNumber == 0 && <div className="modal-footer flex py-2 gap-2 justify-between">
+                            <button type="button" className="btn ripple bg-slate-500 text-white py-2 px-6 lg:px-6 rounded-sm shadow-lg lg:py-2 text-[14px] btn-secondary" id='bt' onClick={handleClose}>Cancel</button>
+                            <button type="button" className="btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg text-[14px] btn-secondary" id='bt' onClick={() => setFormPageNumber((prev) => prev + 1)}>Continue</button>
                         </div>
-                        <div className="modal-footer flex py-2 gap-2 justify-between">
-                        {FormPageNumber == 0 ? <>
-                                <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
-                                <button type="button" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber((prev)=>prev+1)}>Next</button>
-                            </>:
-                            <>
-                            <button type="button" className="btn bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
-                            <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">New Schedule</button>
-                            </>
-                            }
-                        </div>
+                        }
+                        {FormPageNumber == 1 &&
+                            <div className="modal-footer flex py-2 gap-2 text-[14px] justify-between">
+                                <button type="button" className="btn ripple bg-slate-500 text-white py-2 px-6 lg:px-6 rounded-sm shadow-lg lg:py-2 btn-secondary" onClick={() => setFormPageNumber(0)}>Previous</button>
+                                <button type="submit" className="btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary">Create Schedule</button>
+                            </div>
+                        }
                     </form>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     ) : null
     if (isBrowser) {
         return ReactDOM.createPortal(ModalContent, document.getElementById('modal-root') as HTMLElement)

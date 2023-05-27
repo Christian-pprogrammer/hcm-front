@@ -39,7 +39,9 @@
     "react-toastify": "^9.0.8",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
-    "swiper": "^8.3.2"
+    "swiper": "^8.3.2",
+    "tailwindcss-plugins": "^0.3.0",
+    "tw-elements": "^1.0.0-beta2"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.4.0",

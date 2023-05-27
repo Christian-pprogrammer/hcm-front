@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaChartPie, FaConnectdevelop, FaLanguage, FaNotesMedical, FaReacteurope } from 'react-icons/fa'
+import { FaChartPie, FaConnectdevelop, FaFileCsv, FaLanguage, FaNotesMedical, FaReacteurope, FaUsers } from 'react-icons/fa'
 import { AuditIcon, DashboardIcon, ManageAccIcon, SettingsIcon } from '../icons';
 export const system_users = {
     SUPER_ADMIN: "SUPER_ADMIN",
@@ -38,13 +38,13 @@ export const PREV_LINK_LOCAL_STORAGE_KEY =
 export const DEVICE_DETAILS_LOCAL_STORAGE_KEY =
     "U2FsdGVkX18VgmL9lt/jkldfjklsjfdau3rWg1q6h4lsc=";
 
-export interface SideBarInterface{
+export interface ISidebar{
     id : number;
     IconName: any;
     LinkName: string;
     Linkurl : string;
 }
-const SideBarAdmins : SideBarInterface[] = [
+const SideBarAdmins : ISidebar[] = [
 {
     id: 1,
     IconName: <DashboardIcon />,
@@ -73,7 +73,7 @@ const SideBarAdmins : SideBarInterface[] = [
 export default SideBarAdmins;
 
 
-export const GroupAdminArr : SideBarInterface[] = [
+export const GroupAdminArr : ISidebar[] = [
 {
     id:1,
     IconName: <DashboardIcon />,
@@ -107,7 +107,7 @@ export const GroupAdminArr : SideBarInterface[] = [
 ]
 
 
-export const HospitalAdminArr : SideBarInterface[] = [
+export const HospitalAdminArr : ISidebar[] = [
 {
     id:1,
     IconName: <FaChartPie/>,
@@ -116,19 +116,19 @@ export const HospitalAdminArr : SideBarInterface[] = [
 },
 {
     id:2,
-    IconName: <FaChartPie/>,
+    IconName: <FaUsers/>,
     LinkName: "Manage Users",
     Linkurl:"/hospital-admin/manage-users-ha"
 },
 {
     id:3,
-    IconName: <FaChartPie/>,
+    IconName: <ManageAccIcon/>,
     LinkName: "Manage Services",
     Linkurl:"/hospital-admin/manage-services-ha"
 },
 {
     id:4,
-    IconName: <FaChartPie/>,
+    IconName: <FaFileCsv/>,
     LinkName: "Audit Logs",
     Linkurl:"/hospital-admin/auditLogs-ha"
 },
@@ -141,7 +141,7 @@ export const HospitalAdminArr : SideBarInterface[] = [
 ]
 
 
-export const DoctorAdminArr : SideBarInterface[] = [
+export const DoctorAdminArr : ISidebar[] = [
 {
     id:1,
     IconName: <FaChartPie/>,
@@ -162,7 +162,7 @@ export const DoctorAdminArr : SideBarInterface[] = [
 }
 ]
 
-export const PatientAdminArr : SideBarInterface[] = [{
+export const PatientAdminArr : ISidebar[] = [{
     id:1,
     IconName: <FaChartPie/>,
     LinkName: "Appointments",
@@ -170,7 +170,7 @@ export const PatientAdminArr : SideBarInterface[] = [{
 }]
 
 
-export const AppointmentManagerArr : SideBarInterface[] = [
+export const AppointmentManagerArr : ISidebar[] = [
 {
     id:1,
     IconName: <FaChartPie/>,
@@ -192,7 +192,7 @@ export const AppointmentManagerArr : SideBarInterface[] = [
 ]
 
 
-export const ScheduleManagerArr : SideBarInterface[] = [
+export const ScheduleManagerArr : ISidebar[] = [
 {
     id:1,
     IconName: <FaChartPie/>,
@@ -201,13 +201,13 @@ export const ScheduleManagerArr : SideBarInterface[] = [
 },
 {
     id:2,
-    IconName: <FaChartPie/>,
+    IconName: <ManageAccIcon/>,
     LinkName: "Schedules",
     Linkurl:"/schedule-manager/manage-schedules"
 }
 ]
 
-export const GroupDirectorArr : SideBarInterface[] = [
+export const GroupDirectorArr : ISidebar[] = [
 {
     id:1,
     IconName: <FaChartPie/>,
@@ -233,7 +233,7 @@ export const GroupDirectorArr : SideBarInterface[] = [
     Linkurl:"/group-director/auditlog-ga"
 }]
 
-export const HospitalDirectorArr : SideBarInterface[] = [
+export const HospitalDirectorArr : ISidebar[] = [
 {
     id:1,
     IconName: <FaChartPie/>,

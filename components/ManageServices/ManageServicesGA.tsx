@@ -4,31 +4,30 @@ import { FaCheck, FaGlobe, FaPlus } from 'react-icons/fa'
 import { useSelector } from 'react-redux';
 import FetchDataLoader from '../loaders/FetchDataLoader';
 import servicesService from '../../services/services/services.service';
-import { notifyError } from '../alert';
-import MapHospital from './Modals/MapHospital';
 import NewServices from './Modals/NewServices';
+import { IService } from '../../utils/Prices';
+import ManageServiceFetch from './ManageServiceFetch';
 
 const ManageServicesGA = () => {
     const [searchtext, setSearchText] = useState<string>('');
     const [NewServiceModal, setNewServiceModal] = useState<Boolean>(false)
     const [MapHospitalModal, setMapHospitalModal] = useState<Boolean>(false)
-    const [manageServicesData, setManageServicesData] = useState<any>(null);
-    const [showAction, setShowActions] = useState<Boolean>(false)
+    let [manageServicesData, setManageServicesData] = useState<IService[]>([]);
+    const [showAction, setShowActions] = useState<boolean>(false)
     const authUser = useSelector((state: any) => state.authUser)
+    const id = authUser.user?.group?.group_id
     useEffect(() => {
-    async function fetchData() {
-        try {
-            const groupId = authUser?.user?.group?.group_id;
-            const data = await servicesService.getAllServices();
-            setManageServicesData(data.data);
-        } catch (error: any) {
-            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
-            notifyError(ERROR_MESSAGE);
+        async function fetchData() {
+            try {
+                const data = await servicesService.getGroupServices(id);
+                setManageServicesData(data.data);
+            } catch (error: any) {
+                const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Failure, try again!" : error.error;
+                reportError(ERROR_MESSAGE);
+            }
         }
-    }
-
-    }, [authUser?.user?.group?.group_id, manageServicesData]);
-    const STATUS = 'Active'
+        fetchData()
+    }, [id, manageServicesData]);
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -52,7 +51,7 @@ const ManageServicesGA = () => {
                             <input type="text" onChange={(e) => setSearchText(e.target.value)} value={searchtext} className="form-control rounded-lg outline-none border-none text-backG py-4 px-20 bg-inputG" placeholder="Search Account Name" />
                         </div>
                         <div>
-                            <button onClick={() => setNewServiceModal(true)} className='py-4 bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
+                            <button onClick={() => setNewServiceModal(true)} className='ripple py-4 text-[14px] bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                                 <FaPlus />
                                 <span>New Service</span>
                             </button>
@@ -60,15 +59,15 @@ const ManageServicesGA = () => {
                         </div>
                     </div>
                 </div>
-                <div className=' w-full overflow-x-auto'>
+                <div className='w-full overflow-x-auto'>
                     <table className=' table-auto w-full  '>
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                            <tr>
-                                <th scope="col" className="p-4">
+                        <thead className="text-xs text-gray-700 bg-gray-100 uppercase">
+                            <tr className='font-semibold text-left'>
+                                <th scope="col" className="py-4 px-10">
                                     <div className="flex items-center">
-                                        <input onChange={() => setShowActions((prev) => !prev)}  id="checkbox-all-search" type="checkbox" className="w-4 h-4 text-gray-50 bg-blue-600 rounded-full" />
+                                        <input onChange={() => setShowActions((prev) => !prev)} id="checkbox-all-search" type="checkbox" className="w-4 h-4 text-gray-50 bg-blue-600 rounded-full" />
                                         <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
-                                  </div>
+                                    </div>
                                 </th>
                                 <th scope="col" className="py-3 px-6">
                                     Hospital Services
@@ -80,41 +79,21 @@ const ManageServicesGA = () => {
                                     Issued/Created On
                                 </th>
                                 {showAction &&
-                                <th scope="col" className="py-3 px-6">
-                                    Action
-                                </th>
-        }
+                                    <th scope="col" className="py-3">
+                                        Action
+                                    </th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
-                            {manageServicesData ? manageServicesData.map((service: any, index: number) => (
-                                <tr key={index} className="bg-white hover:bg-inputG hover:cursor-pointer">
-                                    <td className="p-4 w-4">
-                                        <div className="flex items-center">
-                                            <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus: -blue-600 t-gray-800 focus:ring-2 0 y-600" />
-                                            <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
-                                        </div>
-                                    </td>
-                                    <td scope="row" className="py-4 px-6 font-semibold text-center text-gray-900 whitespace-nowrap ">
-                                        {service.service}
-                                    </td>
-                                    <td scope="row" className="py-4 px-6 text-center flex justify-center font-medium text-gray-900 whitespace-nowrap ">
-                                        {(service.status == "Active") ? <div className='text-backG bg-linear w-10 h-10 border-2 border-backG flex justify-center place-items-center  rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] py-2 font-bold'>Inactive</span>}
-                                    </td>
-                                    <td className='px-6 text-center py-4'>
-                                        {service.createdAt}
-                                    </td>
-                                    {showAction &&
-                                        <td className='px-10 whitespace-nowrap text-[#00000043] flex py-2 items-center justify-center'>
-                                            <button onClick={() => setMapHospitalModal(true)} className='text-backG bg-linear h-10 px-6 border-2 border-backG text-[14px] rounded-md font-bold '> Map </button>
-                                        </td>
-                                    }
-                                    <MapHospital showModal={MapHospitalModal} onClose={() => setMapHospitalModal(false)} />
-                                </tr>
+                            {manageServicesData ? manageServicesData.map((service: IService) => (
+                                <ManageServiceFetch service={service} key={service.service_id} showModal={showAction} />
                             )) :
-                                <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
-                                    <FetchDataLoader />
-                                    <p>Fetching the data...</p>
+                                <tr>
+                                    <td className='px-10 py-4'>
+                                        <FetchDataLoader />
+                                    </td>
+                                    <td className='font-bold animate-pulse'>Fetching the data...</td>
                                 </tr>
                             }
                         </tbody>
@@ -124,25 +103,4 @@ const ManageServicesGA = () => {
         </div>
     )
 }
-// export const getServerSideProps: GetServerSideProps = async ({
-//     res
-//   }) => {
-//     try{
-//         const data = await servicesService.getHospitalServices("askdfsadk21i3usdafaskldfjasdlf");
-//         if(res.statusCode == 200){
-//             notifySuccess("Successfully Pulled the Group Admin Services");
-//         }
-//         return {
-//             props : {data}
-//         }
-//     }catch(error:any){
-//         res.statusCode = 404;
-//         const Error_Message = error.message;
-//         reportError(Error_Message);
-//         notifyError(Error_Message);
-//         return {
-//             props : {}
-//         }
-//     }
-//   };
 export default ManageServicesGA

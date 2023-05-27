@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
-import {  FaHome, FaPlus } from 'react-icons/fa'
+import { FaHome, FaPlus } from 'react-icons/fa'
 import AddHospital from './Modals/AddHospital'
 import hospitalService from '../../services/hospital/hospital.service'
 import { notifyError } from '../alert'
@@ -13,21 +13,19 @@ const ManageHospitalsGA = () => {
     const [searchtext, setSearchText] = useState<string>('');
     const [manageHospitalData, setmanageHospitalData] = useState<any>(null);
     const authUser = useSelector((state: any) => state.authUser)
-    useEffect(()=>{
-    async function fetchData () {
-        try {
-            const groupId = authUser?.user?.group?.group_id;
-            console.log("The Group ID",groupId);
-            const data = await hospitalService.getAllHospitals();
-            setmanageHospitalData(data.data);
-        }catch(error:any){
-            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
-            notifyError(ERROR_MESSAGE);
-          }
-    }
-
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const groupId = authUser?.user?.group?.group_id;
+                const data = await hospitalService.getAllHospitals();
+                setmanageHospitalData(data.data);
+            } catch (error: any) {
+                const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Failure, try again!" : error.error;
+                reportError(ERROR_MESSAGE);
+            }
+        }
         fetchData();
-    },[authUser?.user?.group?.group_id, manageHospitalData])
+    }, [authUser?.user?.group?.group_id, manageHospitalData])
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -59,24 +57,26 @@ const ManageHospitalsGA = () => {
                         </div>
                     </div>
                 </div>
-                <div className=' min-h-[60vh] w-full overflow-x-auto'>
-                    <table className=' table-auto w-full  '>
+                <div className='min-h-[60vh] w-full overflow-x-auto'>
+                    <table className='table-auto w-full  '>
                         <thead>
-                            <tr>
-                                <th className='py-5 text-[#000000c8] text-sm '>Accounts</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Status</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Email</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Issued On</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Actions</th>
+                            <tr className='text-left'>
+                                <th className='py-5 text-[#000000c8] text-sm px-10'>Accounts</th>
+                                <th className='py-5 text-[#000000c8] text-sm px-10'>Status</th>
+                                <th className='py-5 text-[#000000c8] text-sm'>Email</th>
+                                <th className='py-5 text-[#000000c8] text-sm'>Issued On</th>
+                                <th className='py-5 text-[#000000c8] text-sm px-10'>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {manageHospitalData ? manageHospitalData.map((hospital:any)=>(
-                                <ManageHospitalsFetch hospital={hospital} key={hospital.hospitalId}/>
+                            {manageHospitalData ? manageHospitalData.map((hospital: any) => (
+                                <ManageHospitalsFetch hospital={hospital} key={hospital.hospitalId} />
                             )) : <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
-                            <FetchDataLoader/>
-                            <p>Fetching the data...</p>
-                        </tr>
+                                <td>
+                                    <FetchDataLoader />
+                                </td>
+                                <td>Fetching the data...</td>
+                            </tr>
                             }
                         </tbody>
                     </table>

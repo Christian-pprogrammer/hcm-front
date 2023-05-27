@@ -1,11 +1,18 @@
+import { IGroup, IUser } from "../../utils/ModalTypes";
 import http from "../http-common";
 
 class GroupAdmin {
   getAllGroupsAdmins() {
     return http.get(`/group-admin`);
   }
-  createGroupAdmin(groupId: string, data: any) {
+  getGroupAdminsByGroup(groupId: string) {
+    return http.get(`/group-admin/${groupId}`);
+  }
+  createGroupAdmin(groupId: string, data: IUser) {
     return http.post(`/group-admin/${groupId}`, data);
+  }
+  deleteGroupAdmin(groupAdminId: string){
+    return http.delete(`/group-admin/${groupAdminId}`)
   }
   //Route Not Yet Checked
   checkGroupAdminPass(password: string) {

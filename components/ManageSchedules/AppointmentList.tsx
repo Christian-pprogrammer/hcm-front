@@ -44,7 +44,7 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
                                 <FaMap className='text-backG' />
                                 <span>Map Appointment</span>
                             </button>
-                            <button onClick={() => setSendAppModal(true)} className='py-4 bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4  rounded-lg  gap-6'>
+                            <button onClick={() => setSendAppModal(true)} className='py-4 ripple text-[14px] bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4  rounded-lg  gap-6'>
                                 <FaPaperPlane className='text-backG' />
                                 <span>Send Appointment</span>
                             </button>

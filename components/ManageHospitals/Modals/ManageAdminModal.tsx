@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import hospitaladminService from '../../../services/hospital-admin/hospitaladmin.service';
-import userService from '../../../services/users/user.service';
-import { HospitalAdminDummy, HospitalAdminNew, NewHospitalAdminDummy, NewUserData, NewUserInterface } from '../../../utils/ModalTypes';
+import { IHospitalAdmin, IHospitalAdminDummy } from '../../../utils/ModalTypes';
 import { notifyError, notifySuccess } from '../../alert';
 import AdvancedInfoAdmin from './AdvancedAdminInfo';
 import BasicAdminInfo from './BasicAdminInfo';
 
-const ManageAdminModal = ({ showModal, onClose ,id}: { showModal: Boolean, onClose: any ,id:any }) => {
+const ManageAdminModal = ({ showModal, onClose, id }: { showModal: Boolean, onClose: () => void, id: string }) => {
     const [isBrowser, setBrowser] = useState<Boolean>(false)
-    const [FormDataAdmin, setFormDataAdmin] = useState<HospitalAdminNew>(NewHospitalAdminDummy);
+    const [FormDataAdmin, setFormDataAdmin] = useState<IHospitalAdmin>(IHospitalAdminDummy);
     const [FormPageNumber, setFormPageNumber] = useState<number>(0);
+    const [isValid, setIsValid] = useState<boolean>()
     const PageDisplayForm = () => {
         if (FormPageNumber == 0) {
             return <BasicAdminInfo FormDataAdmin={FormDataAdmin} setFormDataAdmin={setFormDataAdmin} />
@@ -24,15 +24,15 @@ const ManageAdminModal = ({ showModal, onClose ,id}: { showModal: Boolean, onClo
     const handleClose = () => {
         onClose()
     }
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         FormDataAdmin.hospitalId = id;
-        console.log(FormDataAdmin);
         try {
             let result = await hospitaladminService.createHospitalAdmin(FormDataAdmin);
+            console.log("The result", result)
             if (result.status === 200) {
                 notifySuccess("Successfully Created the Hospitals Admin");
-                setFormDataAdmin(NewHospitalAdminDummy);
+                setFormDataAdmin(IHospitalAdminDummy);
                 handleClose();
             }
         } catch (error: any) {
@@ -52,17 +52,17 @@ const ManageAdminModal = ({ showModal, onClose ,id}: { showModal: Boolean, onClo
                         </button>
                     </div>
                     <form method="post" onSubmit={handleSubmit}>
-                    {PageDisplayForm()}
+                        {PageDisplayForm()}
                         {FormPageNumber == 0 &&
-                            <div className="modal-footer flex py-2 gap-2 justify-between">
-                                <button type="button" className=" bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 -secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
-                                <button type="button" className=" bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" onClick={() => setFormPageNumber(1)}>Next</button>
+                            <div className="modal-footer flex py-2 gap-2 text-[14px] justify-between">
+                                <button type="button" className="btn ripple bg-slate-500 text-white py-2 px-6 lg:px-6 rounded-sm shadow-lg lg:py-2 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
+                                <button type="button" className="btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary" onClick={() => setFormPageNumber(1)}>Next</button>
                             </div>
                         }
                         {FormPageNumber == 1 &&
-                            <div className="modal-footer flex py-2 gap-2 justify-between">
-                                <button type="button" className=" bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={() => setFormPageNumber(0)}>Previous</button>
-                                <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Create Admin</button>
+                            <div className="modal-footer flex py-2 gap-2 text-[14px] justify-between">
+                                <button type="button" className="btn ripple bg-slate-500 text-white py-2 px-6 lg:px-6 rounded-sm shadow-lg lg:py-2 btn-secondary" data-dismiss="modal" onClick={() => setFormPageNumber(0)}>Previous</button>
+                                <button type="submit" className="btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary" data-dismiss="modal">Create Admin</button>
                             </div>
                         }
                     </form>

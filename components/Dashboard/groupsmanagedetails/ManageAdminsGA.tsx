@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import { FaCheck, FaEllipsisH } from 'react-icons/fa'
 import DeleteAcc from '../Modals/DeleteAcc'
 import EditAccount from '../Modals/EditAccount'
+import { IGroup } from '../../../utils/ModalTypes'
 
-const ManageAdminsGA = ({ acc }: { acc: any }) => {
+const ManageAdminsGA = ({ acc }: { acc: IGroup }) => {
     const [showModal, setModal] = useState<Boolean>(false)
     const [EditModal, setEditModal] = useState<Boolean>(false);
     const [showListActions, setshowListActions] = useState<Boolean>(false);
@@ -37,7 +38,7 @@ const ManageAdminsGA = ({ acc }: { acc: any }) => {
                         <Link href={
                             {
                                 pathname: `/super-admin/admindetail/${acc.group_id}`,
-                                query:{
+                                query: {
                                     groupName: acc.groupName
                                 }
                             }
@@ -45,7 +46,7 @@ const ManageAdminsGA = ({ acc }: { acc: any }) => {
                     </button>
                 </td>
             }
-            <DeleteAcc showModal={showModal} onClose={() => setModal(false)} />
+            <DeleteAcc showModal={showModal} onClose={() => setModal(false)} id={acc.group_id} />
             <EditAccount EditModal={EditModal} onClose={() => setEditModal(false)} />
         </tr>
     )

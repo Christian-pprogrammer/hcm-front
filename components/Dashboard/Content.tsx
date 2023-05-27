@@ -1,29 +1,38 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaArrowUp, FaCheck, FaHome } from 'react-icons/fa'
 import Chart from './Chart'
 import TableAdmin from './TableAdmin'
 import TopAccounts from './TopAccounts'
 import TopReviews from './TopReviews'
+import roleService from '../../services/role/role.service'
 
 const Content = () => {
+    useEffect(() => {
+        async function handleRoleFetch() {
+            const roles = await roleService.getAllRoles();
+            console.log("The roles:", roles)
+        }
+        handleRoleFetch()
+    }, [])
+
     return (
         <div className="px-2 bg-[#F7F7F7] py-4 w-[80vw]">
             <div className="content-link pb-4 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/HCM/Dashboard' > Dasboard/ </Link>
+                <FaHome /><Link href='/HCM/Dashboard' > Dashboard/ </Link>
             </div>
             <div className="flex  gap-2">
                 <div className="chart-data min-w-[55vw] sm:max-h-[85vh] bg-white rounded-lg py-5 px-2 lg:p-5 border-2 border-[#0000003]">
                     <div className="flex justify-between">
-                    <h1 className='font-bold '>Account Statistics</h1>
-                    <div className="px-2 ">
-                        <select name="" id="" className='bg-white border-2 border-[#00000020]  rounded-2xl outline-none px-2 py-1'>
-                            <option defaultValue="today">Today</option>
-                            <option defaultValue="today">Yesterday</option>
-                            <option defaultValue="today">Week</option>
-                            <option defaultValue="today">Month</option>
-                        </select>
-                    </div>
+                        <h1 className='font-bold '>Account Statistics</h1>
+                        <div className="px-2 ">
+                            <select name="" id="" className='bg-white border-2 border-[#00000020]  rounded-2xl outline-none px-2 py-1'>
+                                <option defaultValue="today">Today</option>
+                                <option defaultValue="today">Yesterday</option>
+                                <option defaultValue="today">Week</option>
+                                <option defaultValue="today">Month</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div className='flex lg:gap-8 gap-2 py-5 flex-col md:flex-row'>

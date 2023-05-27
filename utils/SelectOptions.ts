@@ -1,9 +1,9 @@
-interface CategoryType {
+export interface ISelectData {
     value: string;
     text: string;
     id: number;
 }
-export const CategoryArr: CategoryType[] = [
+export const CategoryArr: ISelectData[] = [
     {
         value: "District Based",
         text: "District Based",
@@ -23,7 +23,7 @@ export const CategoryArr: CategoryType[] = [
         id: 4
     },
 ]
-export const HospitalValues: CategoryType[] = [
+export const HospitalValues: ISelectData[] = [
     {
         value: "CHUB",
         text: "CHUB",
@@ -38,7 +38,7 @@ export const HospitalValues: CategoryType[] = [
         id: 3
     }
 ]
-export const MapStatus: CategoryType[] = [
+export const MapStatus: ISelectData[] = [
     {
         value: "Establishment Phase",
         text: "Establishment Phase",
@@ -54,7 +54,7 @@ export const MapStatus: CategoryType[] = [
         id: 2
     }
 ];
-export const NewUserStatusArr: CategoryType[] = [
+export const NewUserStatusArr: ISelectData[] = [
     {
         value: "Establishment Phase",
         text: "Establishment Phase",
@@ -70,35 +70,11 @@ export const NewUserStatusArr: CategoryType[] = [
         id: 2
     }
 ];
-export const GroupAdminCreate : CategoryType[] = [
+export const GenderOptions: ISelectData[] = [
     {
         value: "",
-        text:"Select Role",
-        id:0
-    },
-    {
-        value: "GROUP_ADMIN",
-        text:"Group Admin",
-        id:0
-    }
-]
-export const HospitalAdminCreate : CategoryType[] = [
-    {
-        value: "",
-        text:"Select Role",
-        id:0
-    },
-    {
-        value: "HOSPITAL_ADMIN",
-        text:"Hospital Admin",
-        id:1
-    }
-]
-export const GenderOptions : CategoryType[] = [
-    {
-        value: "",
-        text:"Select Gender",
-        id:0
+        text: "Select Gender",
+        id: 0
     },
     {
         value: "MALE",
@@ -111,27 +87,7 @@ export const GenderOptions : CategoryType[] = [
         id: 2
     }
 ]
-export const AccountTypeArr: CategoryType[] = [
-    {
-        value: "",
-        text: "Select Acc Type",
-        id: 0
-    }, {
-        value: "Appointment-Manager",
-        text: "APPOINTMENT_MANAGER",
-        id: 1
-    },
-    {
-        value: "Schedule-Manager",
-        text: "SCHEDULE_MANAGER",
-        id: 2
-    }, {
-        value: "Doctor",
-        text: "DOCTOR",
-        id: 3
-    }
-]
-export const MessageType: CategoryType[] = [
+export const MessageType: ISelectData[] = [
     {
         value: "",
         text: "Select Message Template",

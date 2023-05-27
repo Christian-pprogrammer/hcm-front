@@ -1,211 +1,186 @@
-export interface GroupDtoForm{
+export interface IGroup {
     groupName: string;
-    email:string;
-}
-export const GroupDtoDummy: GroupDtoForm = {
-    groupName: "",
-    email:"",
-}
-export interface HospitalAdminDto{
-    confirmPassword:string;
-    fullName : string, // required
-    email:string,
-    gender: string,
-    hospitalId:string,
-    mobile:string, // required
-    password:string,
-    role:string,
-}
-export const HospitalAdminDummy : HospitalAdminDto = {
-    confirmPassword:"",
-    fullName : "", // required
-    email:"",
-    gender: "",
-    hospitalId:"",
-    mobile:"", // required
-    password:"",
-    role:"",
-}
-export interface HospitalCategory{
-    hospitalCategory : string, // required
-    hospital_category_id:string,
-}
-export const HospitalCategoryDummy : HospitalCategory = {
-    hospitalCategory : "", // required
-    hospital_category_id:"",
-}
-export interface CreateHospitalDto{
-    email:string;
-    hospitalCategoryId:string;
-    hospitalId:string;
-    hospitalName:string;
-    location:string;
-    licensedDate : string;
+    groupEmail: string;
+    group_id: string;
+    status?: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
-export const CreateHospitalDummy : CreateHospitalDto = {
-    email:"",
-    hospitalCategoryId:"",
-    hospitalId:"",
-    hospitalName:"",
-    location:"",
-    licensedDate : "",
+enum hospital_category_enum {
+    DISTRICTBASED, INTERNATIONAL, POSTEDESANTE, PRIVATE, REFERRAL
 }
-export interface AddServiceToHospitalDto {
-    serviceId:string;
-    groupId:string;
-    fee:number;
-    hospitalId:string;
-    currency:string;
+export interface ICategory {
+    description: string;
+    hospitalCategory: hospital_category_enum;
+    hospital_category_id?: string,
+
 }
-export const AddServiceToHospitalDummy : AddServiceToHospitalDto = {
-    serviceId:"",
-    groupId:"",
-    hospitalId:"",
-    fee:0,
-    currency:"",
+export interface IHospital {
+    email: string;
+    hospitalCategoryId: string;
+    hospitalId: string;
+    hospitalName: string;
+    location: string;
+    licensedDate: string;
+    status?: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
+
+export const IHospitalDummy: IHospital = {
+    email: "",
+    hospitalCategoryId: "",
+    hospitalId: "",
+    hospitalName: "",
+    location: "",
+    licensedDate: "",
+}
+export interface IServiceHospitalMap {
+    serviceId: string;
+    groupId?: string;
+    fee?: number;
+    hospitalId: string;
+    currency?: string;
+}
+
 export interface AddServiceToGroupDto {
-    service:string;
+    service: string;
 }
-export const AddServiceToGroupDummy : AddServiceToGroupDto = {
-    service :""
-}
-
-export interface NewService {
-    service:string;
-    serviceAbbr:string;
-}
-export const NewServiceDummy : NewService = {
-    service :"",
-    serviceAbbr:"",
+export const AddServiceToGroupDummy: AddServiceToGroupDto = {
+    service: ""
 }
 
 export interface NewServiceCost {
-    fee:number; // required
-    currency:string; // required
-    id:number;
+    fee: number; // required
+    currency: string; // required
+    id: number;
 }
-export const NewServiceCostDummy : NewServiceCost = {
-    fee:0, // required
-    currency:"", // required
-    id:0,
-}
-
-export interface LanguagesType {
-    newlanguageName:string;
-    standardCode:string;
-    description:string;
-}
-export interface NewUserInterface{
-    confirmPassword:string;
-    username:string;
-    fullName:string;
-    email:string;
-    password:string;
-    status:string;
-    mobile:number;
-    role:string;
-    gender:string;
-    services:string[];
+export const NewServiceCostDummy: NewServiceCost = {
+    fee: 0, // required
+    currency: "", // required
+    id: 0,
 }
 
-export const NewUserData:NewUserInterface={
-    confirmPassword:"",
-    username:"",
-    fullName:"",
-    email:"",
-    password:"",
-    status:"",
-    mobile:0,
-    gender:"",
-    role:"",
-    services:[],
+export interface ILanguage {
+    language_name: string;
+    language_id: string;
+    language_description: string;
+    status?: string;
+    language_standard_code: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+export interface IUser {
+    id?: string;
+    confirmPassword: string;
+    username: string;
+    fullName: string;
+    email: string;
+    password: string;
+    status: string;
+    mobile: number | string;
+    role: string;
+    gender: string;
+    services?: string[];
+    hospitalId?: string;
+    createdAt?: string;
+}
+export type TUserErrors = {
+    [K in keyof IUser]: string;
+};
+export const IUserImpl: IUser = {
+    confirmPassword: "",
+    username: "",
+    fullName: "",
+    email: "",
+    password: "",
+    status: "",
+    mobile: 0,
+    gender: "",
+    role: "",
+    services: [],
 }
 
-export interface HospitalAdminNew{
-    confirmPassword:string;
-    username:string;
-    fullName:string;
-    email:string;
-    password:string;
-    status:string;
-    mobile:number;
-    role:string;
-    gender:string;
-    hospitalId:string;
+export interface IHospitalAdmin {
+    confirmPassword: string;
+    username: string;
+    fullName: string;
+    email: string;
+    password: string;
+    status: string;
+    mobile: number;
+    role: string;
+    gender: string;
+    hospitalId: string;
 }
 
-export const NewHospitalAdminDummy:HospitalAdminNew={
-    confirmPassword:"",
-    username:"",
-    fullName:"",
-    email:"",
-    password:"",
-    status:"",
-    mobile:0,
-    gender:"",
-    role:"",
-    hospitalId:"",
+export const IHospitalAdminDummy: IHospitalAdmin = {
+    confirmPassword: "",
+    username: "",
+    fullName: "",
+    email: "",
+    password: "",
+    status: "",
+    mobile: 0,
+    gender: "",
+    role: "",
+    hospitalId: "",
 }
-export const LanguagesData : LanguagesType ={
-    newlanguageName: "",
-    standardCode: "",
-    description: "",
+
+export interface IRole {
+    description: string;
+    role: string;
+    role_id: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 export interface NewTemplateInterface {
-    typeTemplate:string;
-    description:string;
+    typeTemplate: string;
+    description: string;
 }
-export const NewTemplateArr:NewTemplateInterface = {
-    typeTemplate:"",
-    description:""
+export const NewTemplateArr: NewTemplateInterface = {
+    typeTemplate: "",
+    description: ""
 }
-export interface NewScheduleInterface{
-    doctorName:string;
-    doctorEmail:string;
-    services:Object[];
-    scheduleDate:string;
-    startHour:string;
-    endHour:string;
-}
-export const NewScheduleData:NewScheduleInterface = {
-    doctorName: "",
-    doctorEmail:"",
-    services:[],
-    scheduleDate: "",
-    startHour:"",
-    endHour:"",
+export interface ISchedule {
+    doctorId?: string;
+    end_date?: string;
+    end_time?: string;
+    hospital_id?: string;
+    service_id?: string;
+    start_date?: string;
+    start_time?: string;
 }
 export interface SendAppointmentInterface {
-    patientName:string;
-    services:Object[];
-    scheduleDate:string;
-    patientRecordNumber:string;
-    appointmentHr:string;
-    patientTel:number;
+    patientName: string;
+    services: Object[];
+    scheduleDate: string;
+    patientRecordNumber: string;
+    appointmentHr: string;
+    patientTel: number;
 }
-export const SendAppointmentDataArr : SendAppointmentInterface = {
-    patientName:"",
-    services:[],
-    scheduleDate:"",
-    patientRecordNumber:"",
-    appointmentHr:"",
-    patientTel:0
+export const SendAppointmentDataArr: SendAppointmentInterface = {
+    patientName: "",
+    services: [],
+    scheduleDate: "",
+    patientRecordNumber: "",
+    appointmentHr: "",
+    patientTel: 0
 }
 export interface PatientInterface {
-    patientName:string;
-    patientNumber:string;
-    patientTel:number;
-    doctorName:string;
-    phoneNumber:string;
-    email:string;
+    patientName: string;
+    patientNumber: string;
+    patientTel: number;
+    doctorName: string;
+    phoneNumber: string;
+    email: string;
 }
-export const PatientInterfaceData:PatientInterface= {
-    patientName :"",
-    patientNumber:"",
-    patientTel:0,
-    doctorName:"",
-    phoneNumber:"",
-    email:""
+export const PatientInterfaceData: PatientInterface = {
+    patientName: "",
+    patientNumber: "",
+    patientTel: 0,
+    doctorName: "",
+    phoneNumber: "",
+    email: ""
 }

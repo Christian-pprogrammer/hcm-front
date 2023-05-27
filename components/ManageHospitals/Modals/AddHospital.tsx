@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import hospitalService from '../../../services/hospital/hospital.service';
-import {  CreateHospitalDto, CreateHospitalDummy} from '../../../utils/ModalTypes';
 import { notifyError, notifySuccess } from '../../alert';
 import AdvancedInfo from './AdvancedInfo';
 import BasicInfo from './BasicInfo';
+import { IHospital, IHospitalDummy } from '../../../utils/ModalTypes';
 
-const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any }) => {
+const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: () => void }) => {
 
     const [isBrowser, setBrowser] = useState<Boolean>(false)
     useEffect(() => {
         setBrowser(true)
     }, [])
-    const [FormData,setFormData] = useState<CreateHospitalDto>(CreateHospitalDummy);
-    const [FormPageNumber,setFormPageNumber] = useState<number>(0);
+    const [FormData, setFormData] = useState<IHospital>(IHospitalDummy);
+    const [FormPageNumber, setFormPageNumber] = useState<number>(0);
+    const [isValid, setIsValid] = useState<boolean>(false)
     const PageDisplayForm = () => {
-        if(FormPageNumber == 0){
-            return <BasicInfo FormData={FormData} setFormData={setFormData} />
-        }else{
-            return <AdvancedInfo FormData={FormData} setFormData={setFormData} />
+        if (FormPageNumber == 0) {
+            return <BasicInfo FormData={FormData} setFormData={setFormData} setIsValid={setIsValid} />
+        } else {
+            return <AdvancedInfo FormData={FormData} setFormData={setFormData} setIsValid={setIsValid} />
         }
     }
     const handleClose = () => {
@@ -26,20 +27,19 @@ const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try{
-            console.log("The Form Data: ",FormData);
+        try {
+            console.log("the formdata:", FormData)
             let result = await hospitalService.createNewHospital(FormData);
-            console.log("The Result",result);
-            if(result.status === 200){
-              notifySuccess("Successfully Created the Hospital");
-              setFormData(CreateHospitalDummy);
-              handleClose();
+            if (result.status === 200) {
+                notifySuccess("Successfully Created the Hospital");
+                setFormData(IHospitalDummy);
+                handleClose();
             }
-          }catch(error:any){
+        } catch (error: any) {
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
             notifyError(ERROR_MESSAGE);
-            setFormData(CreateHospitalDummy);
-          }
+            setFormData(IHospitalDummy);
+        }
 
     }
     const ModalContent = showModal ? (
@@ -53,19 +53,19 @@ const AddHospital = ({ showModal, onClose }: { showModal: Boolean, onClose: any 
                         </button>
                     </div>
                     <form method="post" onSubmit={handleSubmit}>
-                            {PageDisplayForm()}
-                            {FormPageNumber == 0 &&
-                            <div className="modal-footer flex py-2 gap-2 justify-between">
-                                <button type="button" className=" bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 -secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
-                                <button type="button" className=" bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" onClick={()=>setFormPageNumber(1)}>Next</button>
+                        {PageDisplayForm()}
+                        {FormPageNumber == 0 &&
+                            <div className="modal-footer flex py-2 gap-2 text-[14px] justify-between">
+                                <button type="button" className="btn ripple bg-slate-500 text-white py-2 px-6 lg:px-6 rounded-sm shadow-lg lg:py-2 btn-secondary" data-dismiss="modal" onClick={handleClose}>Cancel</button>
+                                <button type="button" className="btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary" onClick={() => setFormPageNumber(1)}>Next</button>
                             </div>
-                            }
-                            {FormPageNumber ==1 &&
-                            <div className="modal-footer flex py-2 gap-2 justify-between">
-                            <button type="button" className=" bg-slate-500 text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal" onClick={()=>setFormPageNumber(0)}>Previous</button>
-                            <button type="submit" className="btn bg-backG text-white py-2 px-4 lg:px-10 lg:py-3 btn-secondary" data-dismiss="modal">Add Account</button>
+                        }
+                        {FormPageNumber == 1 &&
+                            <div className="modal-footer flex py-2 gap-2 text-[14px] justify-between">
+                                <button type="button" className="btn ripple bg-slate-500 text-white py-2 px-6 lg:px-6 rounded-sm shadow-lg lg:py-2 btn-secondary" data-dismiss="modal" onClick={() => setFormPageNumber(0)}>Previous</button>
+                                <button type="submit" disabled={!isValid ? true : false} className="btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary" data-dismiss="modal">Add Account</button>
                             </div>
-                            }
+                        }
                     </form>
                 </div>
             </div>
