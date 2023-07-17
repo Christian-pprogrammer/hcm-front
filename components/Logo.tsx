@@ -14,7 +14,7 @@ export const DashBoardLogo = () => {
                     </defs>
                 </svg>
             </div>
-            <div>
+            <div className="hidden lg:flex flex-col">
                 <h1 className="font-bold pt-1 ">HCM Appointment System</h1>
                 <span className="text-[#ffffff80] text-[12px]">HCM Corp</span>
             </div>

@@ -33,6 +33,7 @@ const BasicScheduleInfo = ({ FormData, setFormData }: { FormData: ISchedule, set
             try {
                 const data = await servicesService.getHospitalServices(hospitalId);
                 const doctor_arr_data = await userService.getAll();
+                console.log(data)
                 setServiceArr(data.data);
                 setDoctorArr(doctor_arr_data.data);
             } catch (error: any) {
