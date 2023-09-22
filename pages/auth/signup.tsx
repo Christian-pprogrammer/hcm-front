@@ -22,40 +22,47 @@ const Signup = () => {
             setFormData={setFormData}
          />;
         }
-        else if (FormPage == 1) {
+        else{
             return <PersonalInfo
             FormData={FormData}
             setFormData={setFormData}/>
         }
-        else {
-            return <LocalInfo  FormData={FormData}
-            setFormData={setFormData} />;
-        }
+        // else if (FormPage == 1) {
+        //     return <PersonalInfo
+        //     FormData={FormData}
+        //     setFormData={setFormData}/>
+        // }
+        // else {
+        //     return <LocalInfo  FormData={FormData}
+        //     setFormData={setFormData} />;
+        // }
 
     }
     const [loading, setLoading] = useState<Boolean>(false);
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        FormData.confirmPassword = FormData.password;
         try{
             console.log("The Formdata",FormData)
             const res = await AuthService.signup(FormData);
-            if(res.data.status == 200){
+
+            console.log(res.status);
+
+            if(res.status == 200){
                 notifySuccess(res.data.message || "Successfully Registered")
-                router.push('/auth/login');
+                localStorage.setItem('verification-email', FormData.email)
+                router.push('/auth/verification');
                 setLoading(false);
-            }else{
-                notifyError(res.data.message || "Credentials Failed")
-                router.reload();
-                setFormData(FormDummy);
             }
         }catch(e:any){
-            const ERROR_MESSAGE = e.response ? e.message : 'Response Error';
-            setFormData(FormDummy);
+            const ERROR_MESSAGE = e.response ? e.response?.data?.message : e.message;
             notifyError(ERROR_MESSAGE);
+            if(ERROR_MESSAGE == "Email already registered") {
+                setFormPage(0);
+            }
         }
         setLoading(false);
+        console.log("form data after loading", FormData);
     }
     return (
         <>
@@ -98,9 +105,9 @@ const Signup = () => {
                     <div className="z-20">
                         <button className={`btn ${FormPage >= 1 && 'bg-backG text-white'} hover:scale-110 hover:bg-backG hover:text-white duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-inputG text-backG font-bold`} onClick={()=>setFormPage(1)}>2</button>
                     </div>
-                    <div className="z-20">
+                    {/* <div className="z-20">
                         <button className={`btn hover:scale-110 hover:bg-backG hover:text-white duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-inputG text-backG font-bold1 ${FormPage == 2 && 'bg-backG text-white'}`} onClick={()=>setFormPage(2)}>3</button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='md:px-10 px-2 py-2 md:py-0'>
                     <h1 className='font-bold text-base'>Sign Up</h1>
@@ -108,17 +115,12 @@ const Signup = () => {
                 <form className={`px-2 md:px-10 `} method="post" onSubmit={handleSubmit}>
                     {PageDisplay()}
                     {FormPage == 0 &&
-                        <div className='pt-4'>
-                            <button type="button" className='py-5 bg-backG text-white w-full' onClick={() => { setFormPage((prev) => prev + 1) }}>Next</button>
-                        </div>
-                    }
-                    {FormPage == 1 &&
                         <div className='flex gap-6 py-1'>
                             <button type="button" className='py-4 bg-zinc-600 text-white w-full ' onClick={() => { setFormPage((prev) => prev - 1) }}>Previous</button>
                             <button type="button" className='py-4 bg-backG text-white w-full ' onClick={() => { setFormPage((prev) => prev + 1) }}>Next</button>
                         </div>
                     }
-                    {FormPage == 2 &&
+                    {FormPage == 1 &&
                         <div className='pt-2'>
                             <button type='submit' className='py-5 bg-backG text-white w-full'>Register</button>
                         </div>

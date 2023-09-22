@@ -12,7 +12,7 @@ export const FormDummy : FormStructure = {
     password : '',
     mobile : '',
     fullName : '',
-    gender: '',
+    gender: 'MALE',
     confirmPassword: '',
     nationality: []
 }
@@ -23,4 +23,12 @@ export interface FormLoginStructure{
 export const LoginFormData : FormLoginStructure = {
     email: '',
     password : ''
+}
+
+export interface FormVerificationStructure {
+    code: string;
+}
+
+export const VerificationFormData: FormVerificationStructure = {
+    code: '',
 }
