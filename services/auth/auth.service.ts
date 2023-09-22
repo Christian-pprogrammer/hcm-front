@@ -80,6 +80,18 @@ class AuthService {
   removeToken() {
     localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY)
   }
+  verifyEmail(data: any) {
+    let email = localStorage.getItem('verification-email');
+    if(email) {
+      return http.post('/users/verification', {
+        ...data,
+        email: email
+      });
+    }else {
+      throw new Error("Unable to verify user, please contact us");
+    }
+    
+  }
 }
 
 export default new AuthService();
