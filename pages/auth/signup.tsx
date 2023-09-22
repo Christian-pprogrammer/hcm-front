@@ -37,6 +37,7 @@ const Signup = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
+        FormData.confirmPassword = FormData.password;
         try{
             console.log("The Formdata",FormData)
             const res = await AuthService.signup(FormData);
@@ -50,7 +51,7 @@ const Signup = () => {
                 setFormData(FormDummy);
             }
         }catch(e:any){
-            const ERROR_MESSAGE = e.response ? 'Response Error' : e.message;
+            const ERROR_MESSAGE = e.response ? e.message : 'Response Error';
             setFormData(FormDummy);
             notifyError(ERROR_MESSAGE);
         }
@@ -108,7 +109,7 @@ const Signup = () => {
                     {PageDisplay()}
                     {FormPage == 0 &&
                         <div className='pt-4'>
-                            <button type="button" className='py-5 bg-backG text-white w-full' onClick={() => { setFormPage((prev) => prev + 1) }}>Register</button>
+                            <button type="button" className='py-5 bg-backG text-white w-full' onClick={() => { setFormPage((prev) => prev + 1) }}>Next</button>
                         </div>
                     }
                     {FormPage == 1 &&
