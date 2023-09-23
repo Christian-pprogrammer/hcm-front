@@ -1,6 +1,6 @@
 import { StringColorFormat } from "@faker-js/faker";
 
-interface PriceStructure {
+export interface PriceStructure {
     id: number;
     serviceName: string;
     servicePrice: number;

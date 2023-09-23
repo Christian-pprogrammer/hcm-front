@@ -20,7 +20,10 @@ export default function RouteProtector({ children, only }: any) {
     }, [])
 
     if (loading) return <div/>
-    if (!only.includes(jwtDecode<any>(AuthService.getDecToken() as string).user.role.role)) return <NotFound />
+
+    const stringRoles = jwtDecode<any>(AuthService.getDecToken() as string).user.roles.map((role:any)=>role.role);
+
+    if (!stringRoles.includes(only)) return <NotFound />
 
     return children
 }

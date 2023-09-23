@@ -137,7 +137,7 @@ export const KeyShifyIcon = () => {
 }
 export const LineSvg = () => {
     return (
-        <svg width="100" height="3" viewBox="0 0 198 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="180" height="3" viewBox="0 0 198 3" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.5 1.5H197.5" stroke="#1A73E8" strokeWidth="3" />
         </svg>
     )

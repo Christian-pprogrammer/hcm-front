@@ -16,6 +16,7 @@ const TableManageAcc = () => {
         async function fetchData() {
             try {
                 const data = await groupService.getAllGroups();
+                console.log("data...", data)
                 setmanageAccData(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Failure, try again!" : error.error;
@@ -23,7 +24,7 @@ const TableManageAcc = () => {
             }
         }
         fetchData();
-    }, [manageAccData]);
+    }, []);
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4"><FaHome /><Link href='/super-admin/manage-accounts'>Manage Accounts / </Link>

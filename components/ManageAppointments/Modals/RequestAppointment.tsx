@@ -4,7 +4,6 @@ import * as ReactDOM from 'react-dom';
 import { LineSvg } from '../../../icons';
 import AppointmentService from '../../../services/appointments/appointment.service';
 import { PatientInterface, PatientInterfaceData } from '../../../utils/ModalTypes';
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
 import ConfirmRequestModal from './ConfirmRequestModal';
 import PersonalInfo from './PersonalInfo'
 import TransactionModeInfo from './TransactionModeInfo'

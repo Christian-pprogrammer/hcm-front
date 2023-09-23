@@ -5,7 +5,10 @@ export interface FormStructure{
     fullName: string;
     gender: string;
     confirmPassword: string;
-    nationality: string[];
+    province: string;
+    district: string;
+    sector: string;
+    nationality: String[]
 }
 export const FormDummy : FormStructure = {
     email: '',
@@ -14,7 +17,10 @@ export const FormDummy : FormStructure = {
     fullName : '',
     gender: 'MALE',
     confirmPassword: '',
-    nationality: []
+    province: '',
+    district: '',
+    sector: '',
+    nationality: ['+93']
 }
 export interface FormLoginStructure{
     email: string;

@@ -23,7 +23,7 @@ const LanguagesTable = () => {
             }
         }
         fetchData()
-    }, [languagesArr]);
+    }, []);
     const STATUS = 'Active'
     return (
         <div className="px-2 bg-[#F7F7F7] ">

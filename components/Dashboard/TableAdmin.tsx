@@ -12,7 +12,7 @@ const TableAdmin = () => {
     }
     useEffect(()=>{
         fetchData();
-    },[manageAccData])
+    },[])
     return (
         <>
         {manageAccData ?
