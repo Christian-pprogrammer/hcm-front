@@ -23,7 +23,7 @@ const ManageAdminHospitalPage = ({ name, id }: { name: string, id: any }) => {
             }
         }
         fetchData();
-    }, [id, manageHospitalAdmin])
+    }, [id])
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">

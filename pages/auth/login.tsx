@@ -15,6 +15,7 @@ import jwtDecode from 'jwt-decode';
 import LoaderCache from '../../components/loaders/LoaderCache';
 import Image from 'next/image';
 import PageLogo from '../../components/PageLogo';
+import Modal from '../../components/Common/Modal';
 
 export default function Login() {
 
@@ -22,6 +23,9 @@ export default function Login() {
     const [FormData, setFormData] = useState<FormLoginStructure>(LoginFormData);
     const [isEmailValid,setEmailValid] = useState(true);
     const [isPassValid,setPassValid] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [availableRoles, setAvailableRoles] = useState([]);
+    const [selectedRole, setSelectedRole] = useState('');
 
     const [loading, setLoading] = React.useState(false);
 
@@ -45,39 +49,48 @@ export default function Login() {
             AuthService.setToken(res.data.accessToken);
             const decodedToken: any = jwtDecode(res.data.accessToken);
             console.log("The Decoded Token",decodedToken)
-            const role = decodedToken.user.role.role;
-            notifySuccess("Logged In Successful");
-            if (RouteService.getPrevRoute()) {
-                let link: any = RouteService.getPrevRoute();
-                RouteService.removePrevRoute();
-                handleGoTo(link);
-            } else {
-                if (role === system_users.SUPER_ADMIN)
-                    handleGoTo("/super-admin/dashboard");
-                else if (role === system_users.GROUP_ADMIN)
-                    handleGoTo("/group-admin/dashboard");
-                else if (role === system_users.GROUP_DIRECTOR)
-                    handleGoTo("/group-director/dashboard");
-                else if (role === system_users.HOSPITAL_ADMIN)
-                    handleGoTo("/hospital-admin/dashboard");
-                else if (role === system_users.HOSPITAL_DIRECTOR)
-                    handleGoTo("/hospital-director/dashboard");
-                else if (role === system_users.SCHEDULE_MANAGER)
-                    handleGoTo("/schedule-manager/dashboard");
-                else if (role === system_users.APPOINTMENT_MANAGER)
-                    handleGoTo("/appointment-manager/dashboard");
-                else if (role === system_users.DOCTOR)
-                    handleGoTo("/doctor/dashboard");
-                else if (role === system_users.PATIENT)
-                    handleGoTo("/patient/appointment-dashboard");
-                else
-                    handleGoTo("/404");
-            }
+            const roles = decodedToken.user.roles;
+            let role = '';
+            if(roles.length > 1) {
+                setIsModalOpen(true);
+                setAvailableRoles(roles);
+                console.log("there sare modal roles",roles)
+            }else{
+                role = roles[0]?.role;
+                notifySuccess("Logged In Successful");
+                if (RouteService.getPrevRoute()) {
+                    let link: any = RouteService.getPrevRoute();
+                    RouteService.removePrevRoute();
+                    handleGoTo(link);
+                } else {
+                    setFormData(FormDummy);
+                    if (role === system_users.SUPER_ADMIN)
+                        handleGoTo("/super-admin/dashboard");
+                    else if (role === system_users.GROUP_ADMIN)
+                        handleGoTo("/group-admin/dashboard");
+                    else if (role === system_users.GROUP_DIRECTOR)
+                        handleGoTo("/group-director/dashboard");
+                    else if (role === system_users.HOSPITAL_ADMIN)
+                        handleGoTo("/hospital-admin/dashboard");
+                    else if (role === system_users.HOSPITAL_DIRECTOR)
+                        handleGoTo("/hospital-director/dashboard");
+                    else if (role === system_users.SCHEDULE_MANAGER)
+                        handleGoTo("/schedule-manager/dashboard");
+                    else if (role === system_users.APPOINTMENT_MANAGER)
+                        handleGoTo("/appointment-manager/dashboard");
+                    else if (role === system_users.DOCTOR)
+                        handleGoTo("/doctor/dashboard");
+                    else if (role === system_users.PATIENT)
+                        handleGoTo("/patient/appointment-dashboard");
+                    else
+                        handleGoTo("/404");
+                }
             setLoading(false);
-            setFormData(FormDummy);
+            }
+            console.log("role...", role)
 
         } catch (e: any) {
-            // console.log("rr" ,e)
+            console.log("this is the errrrrr" ,e)
             const ERROR_MESSAGE = e.response ? e.response?.data?.error || "Sorry, try again!" : e.error;
             notifyError(ERROR_MESSAGE);
             setFormData(FormDummy);
@@ -85,6 +98,38 @@ export default function Login() {
         setLoading(false);
 
     };
+
+    const continueLogin = () => {
+        let role = selectedRole;
+        notifySuccess("Logged In Successful");
+        if (RouteService.getPrevRoute()) {
+            let link: any = RouteService.getPrevRoute();
+            RouteService.removePrevRoute();
+            handleGoTo(link);
+        } else {
+            if (role === system_users.SUPER_ADMIN)
+                handleGoTo("/super-admin/dashboard");
+            else if (role === system_users.GROUP_ADMIN)
+                handleGoTo("/group-admin/dashboard");
+            else if (role === system_users.GROUP_DIRECTOR)
+                handleGoTo("/group-director/dashboard");
+            else if (role === system_users.HOSPITAL_ADMIN)
+                handleGoTo("/hospital-admin/dashboard");
+            else if (role === system_users.HOSPITAL_DIRECTOR)
+                handleGoTo("/hospital-director/dashboard");
+            else if (role === system_users.SCHEDULE_MANAGER)
+                handleGoTo("/schedule-manager/dashboard");
+            else if (role === system_users.APPOINTMENT_MANAGER)
+                handleGoTo("/appointment-manager/dashboard");
+            else if (role === system_users.DOCTOR)
+                handleGoTo("/doctor/dashboard");
+            else if (role === system_users.PATIENT)
+                handleGoTo("/patient/appointment-dashboard");
+            else
+                handleGoTo("/404");
+        }
+        setFormData(FormDummy);
+    }
 
     return (
         <ForbiddenPage>
@@ -122,9 +167,40 @@ export default function Login() {
                             <h1>HCM Appointment System</h1>
                         </div>
                     </div>
+                    {
+                        isModalOpen && (
+                            <Modal 
+                                showModal={true}
+                                onClose={()=>console.log('closee....')}
+                            >
+                                <label>
+                                    Which role do you want to login as? <br />
+                                </label>
+                                {
+                                    availableRoles.map((role: any)=>(
+                                        <div className='hover:cursor-pointer'>
+                                            <input 
+                                                type='radio' 
+                                                name='role' 
+                                                value={role.role} 
+                                                onChange={(e)=>setSelectedRole(e.target.value)}
+                                            /> <label htmlFor="role">{role.role}</label> 
+                                            <br />
+                                        </div>
+                                    ))   
+                                }
+
+                                <button 
+                                    type='button'
+                                    className='btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary'
+                                    onClick={continueLogin}
+                                >continue</button>
+
+                            </Modal>
+                        )
+                    }
                     <form className={`px-2 md:px-10 py-5`} method="post" onSubmit={login}>
                         <h1 className='font-bold text-xl'>Login</h1>
-
                         <div className='pt-8'>
                             <label className='font-normal'>Email <span className='text-red-500 pl-2'>*</span> </label>
                             <div className='py-4'>
