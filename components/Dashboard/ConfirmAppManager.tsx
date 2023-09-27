@@ -3,9 +3,9 @@ import React from 'react'
 
 const ConfirmAppManager = () => {
     return (
-        <div className=" bg-white min-w-[22vw] h-[85vh] hidden lg:block relative  rounded-lg">
+        <div className=" bg-white min-w-[22vw] h-[40vh] hidden lg:block relative  rounded-lg overflow-y-auto">
             <div className='py-5 px-2 flex justify-between text-white place-items-center '>
-                <h1 className='font-bold text-black '>Recent Request</h1>
+                <h1 className='font-bold text-black '>Recent Reports</h1>
                 <Link href='/'><span className='text-backG text-[10px]'>See all 145</span></Link>
             </div>
             <div className=' flex-col flex gap-4'>

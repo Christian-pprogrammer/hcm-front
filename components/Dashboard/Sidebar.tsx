@@ -9,10 +9,11 @@ import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
   const AuthUser = useSelector((state: any) => state.authUser);
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(AuthUser.role);
+  console.log("")
   useEffect(() => {
-    if (!role && AuthUser?.user?.role?.role) {
-      setRole(AuthUser.user.role.role);
+    if (!role && AuthUser?.role) {
+      setRole(AuthUser.role);
     }
   }, [AuthUser, role]);
   const VerifyUser = () => {

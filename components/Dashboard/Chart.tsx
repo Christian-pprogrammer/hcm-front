@@ -12,7 +12,7 @@ import {
   } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
-  
+
 const Chart = () => {
     ChartJS.register(
         CategoryScale,
@@ -64,12 +64,12 @@ const Chart = () => {
             displayColors:false,
             yAlign : "bottom",
             boxShadow : "4px 4px 4px 3px black",
-            backgroundColor : colorItems 
+            backgroundColor : colorItems
           }
         },
       };
-   
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Sept', 'October', 'November', 'December'];
     const data = {
         labels,
         datasets: [
@@ -101,7 +101,7 @@ const Chart = () => {
           },
         ],
       };
-      
+
   return (
     <>
         <Line data={data} options={options} />

@@ -92,27 +92,27 @@ function AppMeta() {
             const curr_user = updateJavaScriptObject(jwtDecode(token), res.data);
             console.log("Current User",curr_user);
             curr_user.fullNames = res.data.fullName;
-            const user_role = (res.data.role.role);
-            // curr_user.role = res.data.roles[0].role;
+            const user_role = (res.data.roles[0].role);
+            curr_user.role = res.data.roles[0].role;
 
             if (user_role == "SUPER_ADMIN") {
-              curr_user.role = "Super Admin";
+              curr_user.role = "SUPER_ADMIN";
             } else if (user_role == "GROUP_ADMIN") {
-              curr_user.role = "Group Admin";
+              curr_user.role = "GROUP_ADMIN";
             } else if (user_role == "GROUP_DIRECTOR") {
-              curr_user.role = "Group Director";
+              curr_user.role = "GROUP_DIRECTOR";
             } else if (user_role == "HOSPITAL_ADMIN") {
-              curr_user.role = "Hospital Admin";
+              curr_user.role = "HOSPITAL_ADMIN";
             } else if (user_role == "HOSPITAL_DIRECTOR") {
-              curr_user.role = "Hospital Director";
+              curr_user.role = "HOSPITAL_DIRECTOR";
             } else if (user_role == "DOCTOR") {
-              curr_user.role = "Doctor";
+              curr_user.role = "DOCTOR";
             } else if (user_role == "PATIENT") {
-              curr_user.role = "Patient";
+              curr_user.role = "PATIENT";
             } else if (user_role == "APPOINTMENT_MANAGER") {
-              curr_user.role = "Appointment Manager";
+              curr_user.role = "APPOINTMENT_MANAGER";
             } else if (user_role == "SCHEDULE_MANAGER") {
-              curr_user.role = "Schedule Manager";
+              curr_user.role = "SCHEDULE_MANAGER";
             } else {
               curr_user.role = "Guest";
             }
