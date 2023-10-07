@@ -2,12 +2,12 @@ import React from 'react';
 import { FaBell, FaUser } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
-const Navbar = () => {
+const Navbar = (props: any) => {
     const AuthUser = useSelector((state: any) => state.authUser);
   return (
     <div className="flex px-2 sticky top-0 right-0 duration-500 z-20 place-items-center  h-16 bg-white text-black justify-between">
         <div>
-            <h1 className='font-bold text-sm lg:text-xl '>HCM System </h1>
+        <h1 className='font-bold text-sm lg:text-xl '>{props.title || "HCM System"} </h1>
         </div>
         <div className='flex justify-between place-items-center gap-4 '>
             <div className='flex bg-slate-200 relative rounded-full p-4 place-items-center justify-center'>

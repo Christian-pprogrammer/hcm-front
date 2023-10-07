@@ -149,7 +149,7 @@ export interface ISchedule {
     end_time?: string;
     hospital_id?: string;
     service_id?: string;
-    start_date?: string;
+    start_date?: string[];
     start_time?: string;
 }
 export interface SendAppointmentInterface {

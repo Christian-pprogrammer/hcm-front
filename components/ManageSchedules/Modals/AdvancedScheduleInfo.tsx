@@ -1,5 +1,7 @@
-import React from 'react'
-import { ISchedule } from '../../../utils/ModalTypes'
+import React from 'react';
+import DatePicker from "react-multi-date-picker";
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import { ISchedule } from '../../../utils/ModalTypes';
 
 const AdvancedScheduleInfo = ({ FormData, setFormData }: { FormData: ISchedule, setFormData: React.Dispatch<React.SetStateAction<ISchedule>> }) => {
     const errors: string[] = [];
@@ -19,9 +21,10 @@ const AdvancedScheduleInfo = ({ FormData, setFormData }: { FormData: ISchedule, 
         <>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Start Date
+                    Schedule Dates
                 </label>
-                <input value={FormData?.start_date} onChange={(e) => setFormData({ ...FormData, start_date: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date-image" type="date" placeholder="Date" />
+                <DatePicker id="date-image" multiple value={FormData?.start_date} onChange={e => setFormData({ ...FormData, start_date: e })} placeholder="Select Dates" inputClass="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" plugins={[<DatePanel key={"key"} />]} />
+                {/* <input value={FormData?.start_date} onChange={(e) => setFormData({ ...FormData, start_date: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date-image" type="date" placeholder="Date" /> */}
             </div>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
