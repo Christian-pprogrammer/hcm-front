@@ -12,7 +12,7 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: boolean,
     const [isBrowser, setBrowser] = useState<boolean>(false);
     const [FormData, setFormData] = useState<ISchedule>({});
     const authUser = useSelector((state: any) => state.authUser);
-    const hospitalId = authUser.user.hospital.hospitalId
+    const hospitalId = authUser.user.hospital.hospitalId;
     useEffect(() => {
         setBrowser(true)
     }, [])

@@ -144,13 +144,14 @@ export const NewTemplateArr: NewTemplateInterface = {
     description: ""
 }
 export interface ISchedule {
-    doctorId?: string;
-    end_date?: string;
+    doctor_id?: string;
+    appointmentNumber?: number;
     end_time?: string;
     hospital_id?: string;
     service_id?: string;
-    start_date?: string[];
+    dates?: string[];
     start_time?: string;
+    type?: string;
 }
 export interface SendAppointmentInterface {
     patientName: string;

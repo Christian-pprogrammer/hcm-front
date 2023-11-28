@@ -8,5 +8,9 @@ class DoctorService {
   deleteDoctor(doctorId: string) {
     return http.delete(`/doctors/${doctorId}`);
   }
+
+  getDoctorsByHospitalAndService(hospitalId: string, serviceId: string) {
+    return http.get(`/doctors/${serviceId}/${hospitalId}`);
+  }
 }
 export default new DoctorService();
