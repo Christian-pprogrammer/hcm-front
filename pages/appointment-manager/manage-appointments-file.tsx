@@ -18,7 +18,8 @@ const ManageAppointmentsFile = (data:any) => {
         <Sidebar/>
         <div className="lg:w-[80vw]  w-full">
             <Navbar/>
-            {showAppointmentModal ? <AppointmentList onClose={()=>setShowModalApp(false)}/> : <ManageSchedulesTable data={data} showAppFunc={()=>setShowModalApp(true)}/>}
+            {/* {showAppointmentModal ? <AppointmentList onClose={()=>setShowModalApp(false)}/> : <ManageSchedulesTable data={data} showAppFunc={()=>setShowModalApp(true)}/>} */}
+            {showAppointmentModal ? <AppointmentList onClose={()=>setShowModalApp(false)}/> : <ManageSchedulesTable showAppFunc={()=>setShowModalApp(true)}/>}
         </div>
     </div>
     </RouteProtector>
