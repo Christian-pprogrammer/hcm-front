@@ -44,7 +44,6 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
           }
         })
       );
-      setDoctorNames[doctorNamesMap];
       setDoctorNames(doctorNamesMap);
       } catch (error: any) {
         const ERROR_MESSAGE = error.response
