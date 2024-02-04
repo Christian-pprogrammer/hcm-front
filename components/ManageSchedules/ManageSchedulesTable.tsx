@@ -12,6 +12,9 @@ import FetchDataLoader from "../loaders/FetchDataLoader";
 import { ISchedule } from "../../utils/ModalTypes";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import doctorService from "../../services/users/doctor.service";
+
+type DoctorNamesType = { [key: string]: string };
 
 const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
   const [DeleteModal, setDeleteModal] = useState<boolean>(false);
@@ -19,13 +22,30 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
   const [EditModal, setEditModal] = useState<boolean>(false);
   const [NewScheduleModal, setNewScheduleModal] = useState<boolean>(false);
   const [searchtext, setSearchText] = useState<string>("");
+  const [doctorNames, setDoctorNames] = useState<DoctorNamesType>({});
   const authUser = useSelector((state: any) => state.authUser);
   const router = useRouter().pathname;
+
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await scheduleService.getAllSchedules();
-        setScheduleData(data.data);
+        const schedules = await scheduleService.getHospitalSchedules(authUser.user.hospital.hospitalId);
+        setScheduleData(schedules.data);
+
+        // Fetch doctor names for each schedule
+      const doctorNamesMap: DoctorNamesType = {};
+      await Promise.all(
+        schedules.data.map(async (schedule: any) => {
+          try {
+            const doctorName = await doctorService.getDoctor(schedule.doctorId);
+            doctorNamesMap[String(schedule.doctorId)] = doctorName.data.fullName;
+          } catch (error) {
+            console.error(`Error fetching doctor name for schedule ${schedule.id}:`, error);
+          }
+        })
+      );
+      setDoctorNames[doctorNamesMap];
+      setDoctorNames(doctorNamesMap);
       } catch (error: any) {
         const ERROR_MESSAGE = error.response
           ? error.response?.data?.error || "Not Fetched, try again!"
@@ -35,6 +55,7 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
     }
     fetchData();
   }, []);
+
   const handleShowApp = () => {
     showAppFunc();
   };
@@ -121,7 +142,7 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Dr. Sebatunzi
+                  {doctorNames[String(schedule.doctorId)] || 'Loading...'}
                   </th>
                   <td className="px-6 py-4">
                     {schedule?.status?.scheduleStatus == "Active" ? (
@@ -129,10 +150,10 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
                         <FaCheck />
                       </div>
                     ) : (
-                      <span className="text-[#FF1744] font-bold">Inactive</span>
+                      (schedule.status.scheduleStatus == "ACTIVE" ? <span className="text-[#45ff17] font-bold">Active</span> : <span className="text-[#ff2e17] font-bold">Inactive</span>)
                     )}
                   </td>
-                  <td className="px-6 py-4">Detamology</td>
+                  <td className="px-6 py-4">{schedule.service.service}</td>
                   <td className="px-6 py-4">10</td>
                   <td className="px-6 py-4">10/01/2023</td>
                   <td className="flex items-center px-6 py-4 space-x-3 text-backG">

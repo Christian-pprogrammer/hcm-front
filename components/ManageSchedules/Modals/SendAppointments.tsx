@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 import AppointmentService from '../../../services/appointments/appointment.service';
 import { SendAppointmentDataArr, SendAppointmentInterface } from '../../../utils/ModalTypes';
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
+import { PriceArr, PriceStructure } from '../../../utils/Prices';
 import AdvancedSendInfo from './AdvancedSendInfo';
 import BasicSendInfo from './BasicSendInfo';
 
@@ -19,7 +19,7 @@ const SendAppointments = ({ SendAppModal, onClose }: { SendAppModal: Boolean, on
         setBrowser(true)
     }, [])
     interface SelectedData{
-        SelectedService : ServiceStructure;
+        SelectedService : PriceStructure;
     }
     const [selectData,setSelectData] = useState<SelectedData[]>([])
     const [FormData,setFormData] = useState<SendAppointmentInterface>(SendAppointmentDataArr);

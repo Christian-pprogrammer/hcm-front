@@ -1,7 +1,7 @@
 import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices';
+import { PriceArr, PriceStructure } from '../../../utils/Prices';
 
 const MapAppointments = ({ MapModal, onClose }: { MapModal: Boolean, onClose: any }) => {
 
@@ -10,12 +10,12 @@ const MapAppointments = ({ MapModal, onClose }: { MapModal: Boolean, onClose: an
         setBrowser(true)
     }, [])
     interface SelectedData{
-        SelectedService : ServiceStructure;
+        SelectedService : PriceStructure;
     }
     const [selectData,setSelectData] = useState<SelectedData[]>([])
     const handleClose = () => {
         onClose()
-   
+
     }
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -31,7 +31,7 @@ const MapAppointments = ({ MapModal, onClose }: { MapModal: Boolean, onClose: an
                         </button>
                     </div>
                     <form onSubmit={handleSubmit}>
-                        <div className="modal-body"> 
+                        <div className="modal-body">
                             <div className="py-1">
                                 <label className="block text-gray-700 text-sm font-bold">
                                     Patient List

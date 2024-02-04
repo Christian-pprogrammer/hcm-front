@@ -1,11 +1,11 @@
 import Multiselect from 'multiselect-react-dropdown'
 import React, { useState } from 'react'
 import { SendAppointmentInterface } from '../../../utils/ModalTypes'
-import { ServicesArr, ServiceStructure } from '../../../utils/Prices'
+import { PriceArr, PriceStructure } from '../../../utils/Prices';
 
 const AdvancedSendInfo = ({ FormData, setFormData }: { FormData: SendAppointmentInterface, setFormData: any }) => {
     interface SelectedData{
-        SelectedService : ServiceStructure;
+        SelectedService : PriceStructure;
     }
     const [selectData,setSelectData] = useState<SelectedData[]>([])
     const handleOnSelect = (e:React.FormEvent<HTMLFormElement>|any) => {
@@ -18,7 +18,7 @@ const AdvancedSendInfo = ({ FormData, setFormData }: { FormData: SendAppointment
                 <label className="block text-gray-700 text-sm font-bold">
                     Services
                 </label>
-                <Multiselect onSelect={handleOnSelect} loading={false} options={ServicesArr} displayValue={"ServiceName"} className="shadow appearance-none bg-inputG border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Select " />
+                <Multiselect onSelect={handleOnSelect} loading={false} options={PriceArr} displayValue={"ServiceName"} className="shadow appearance-none bg-inputG border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Select " />
                 <small className='text-[12px] text-red-500'>Enter Valid info</small>
             </div>
             <div className="py-1">

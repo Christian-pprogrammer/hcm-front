@@ -169,7 +169,7 @@ export default function Login() {
                     </div>
                     {
                         isModalOpen && (
-                            <Modal 
+                            <Modal
                                 showModal={true}
                                 onClose={()=>console.log('closee....')}
                             >
@@ -178,19 +178,19 @@ export default function Login() {
                                 </label>
                                 {
                                     availableRoles.map((role: any)=>(
-                                        <div className='hover:cursor-pointer'>
-                                            <input 
-                                                type='radio' 
-                                                name='role' 
-                                                value={role.role} 
+                                        <div className='hover:cursor-pointer' key={role.role}>
+                                            <input
+                                                type='radio'
+                                                name='role'
+                                                value={role.role}
                                                 onChange={(e)=>setSelectedRole(e.target.value)}
-                                            /> <label htmlFor="role">{role.role}</label> 
+                                            /> <label htmlFor="role">{role.role}</label>
                                             <br />
                                         </div>
-                                    ))   
+                                    ))
                                 }
 
-                                <button 
+                                <button
                                     type='button'
                                     className='btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary'
                                     onClick={continueLogin}

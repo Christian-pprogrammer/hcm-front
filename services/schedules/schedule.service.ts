@@ -6,6 +6,10 @@ class ScheduleService {
     return http.get("/schedules");
   }
 
+  getSchedule(scheduleId: string) {
+    return http.get(`/schudules/${scheduleId}`)
+  }
+
   createSchedule(data: ISchedule) {
     return http.post("/schedules", data);
   }

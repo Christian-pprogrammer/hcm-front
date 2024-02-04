@@ -21,8 +21,8 @@ const AdvancedInfoAdmin = ({ FormDataAdmin, setFormDataAdmin, setIsValid }: { Fo
         if (errors.length > 0) {
             setIsValid(false)
         }
-    }, [errors])
-    
+    }, [errors, setIsValid])
+
     return (
         <>
             <div className='py-1'>

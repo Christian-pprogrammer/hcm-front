@@ -5,6 +5,9 @@ class DoctorService {
   createDoctor(data: IUser) {
     return http.post(`/doctors`, data);
   }
+  getDoctor(doctorId: string) {
+    return http.get(`/doctors/${doctorId}`);
+  }
   deleteDoctor(doctorId: string) {
     return http.delete(`/doctors/${doctorId}`);
   }

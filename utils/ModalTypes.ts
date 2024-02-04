@@ -145,11 +145,11 @@ export const NewTemplateArr: NewTemplateInterface = {
 }
 export interface ISchedule {
     doctor_id?: string;
-    appointmentNumber?: number;
+    appointmentNumber?: string;
     end_time?: string;
     hospital_id?: string;
     service_id?: string;
-    dates?: string[];
+    dates?: any;
     start_time?: string;
     type?: string;
 }

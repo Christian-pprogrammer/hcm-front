@@ -21,7 +21,7 @@ const AdvancedInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospit
         if (errors.length > 0) {
             setIsValid(true)
         }
-    }, [])
+    }, [setIsValid, errors.length])
     if (!FormData.location) {
         errors.push("The Location is required!");
     }
