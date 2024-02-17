@@ -56,6 +56,21 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
     fetchData();
   }, []);
 
+  const unixTimeToUsualDate = (unixTimestamp: string) => {
+    // Create a new Date object using the Unix timestamp (in milliseconds)
+    const date = new Date(unixTimestamp);
+
+    // Extract the components of the date
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Construct the date string in the desired format
+    const formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
+  }
+
   const handleShowApp = () => {
     showAppFunc();
   };
@@ -129,7 +144,8 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
               <th scope="col" className="px-6 py-3">Appointment Status</th>
               <th scope="col" className="px-6 py-3">Service Department</th>
               <th scope="col" className="px-6 py-3">Appointment Slots</th>
-              <th scope="col" className="px-6 py-3">Schedule Date</th>
+              <th scope="col" className="px-6 py-3">Date of Start</th>
+              <th scope="col" className="px-6 py-3">Number of days</th>
               <th scope="col" className="px-6 py-3">Actions</th>
             </tr>
           </thead>
@@ -155,7 +171,8 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
                   </td>
                   <td className="px-6 py-4">{schedule?.serviceName}</td>
                   <td className="px-6 py-4">{schedule?.appointmentNumber}</td>
-                  <td className="px-6 py-4">10/01/2023</td>
+                  <td className="px-6 py-4">{unixTimeToUsualDate(schedule?.scheduleDates[0].date)}</td>
+                  <td className="px-6 py-4">{(schedule?.scheduleDates).length}</td>
                   <td className="flex items-center px-6 py-4 space-x-3 text-backG">
                     <button onClick={() => setEditModal(true)}>
                       <FaPencilAlt />
