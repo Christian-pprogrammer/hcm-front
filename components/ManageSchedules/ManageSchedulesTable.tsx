@@ -30,6 +30,7 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
     async function fetchData() {
       try {
         const schedules = await scheduleService.getHospitalSchedules(authUser.user.hospital.hospitalId);
+        console.log(schedules);
         setScheduleData(schedules.data);
 
         // Fetch doctor names for each schedule
@@ -149,11 +150,11 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
                         <FaCheck />
                       </div>
                     ) : (
-                      (schedule.status.scheduleStatus == "ACTIVE" ? <span className="text-[#45ff17] font-bold">Active</span> : <span className="text-[#ff2e17] font-bold">Inactive</span>)
+                      (schedule.status?.scheduleStatus == "ACTIVE" ? <span className="text-[#45ff17] font-bold">Active</span> : <span className="text-[#ff2e17] font-bold">Inactive</span>)
                     )}
                   </td>
-                  <td className="px-6 py-4">{schedule.service.service}</td>
-                  <td className="px-6 py-4">10</td>
+                  <td className="px-6 py-4">{schedule?.serviceName}</td>
+                  <td className="px-6 py-4">{schedule?.appointmentNumber}</td>
                   <td className="px-6 py-4">10/01/2023</td>
                   <td className="flex items-center px-6 py-4 space-x-3 text-backG">
                     <button onClick={() => setEditModal(true)}>
