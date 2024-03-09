@@ -18,6 +18,8 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
     const [selectedDepartment, setSelectedDepartment] = useState<string>('');
     const [selectedHospital, setSelectedHospital] = useState<string>('');
     const [selectedDoctor, setSelectedDoctor] = useState<string>('');
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
     const authUser = useSelector((state: any) => state.authUser);
 
@@ -64,6 +66,11 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
           return new Date(a.appointmentDate).getTime() - new Date(b.appointmentDate).getTime();
       });
 
+      // Pagination
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    return filteredAppointments.slice(indexOfFirstItem, indexOfLastItem);
+
       return filteredAppointments;
     };
 
@@ -100,9 +107,6 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
 
     return (
         <div className="px-2 bg-[#F7F7F7]">
-            <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/HCM/Dashboard'>Schedule /</Link><Link href='/'>Service</Link>
-            </div>
             <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
                 <div className="flex px-5 place-items-center justify-between gap-6 py-5">
                     <div className='flex gap-10'>
@@ -172,9 +176,9 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
                         </thead>
                         <tbody>
                           {handleFilter().length > 0 ? (
-                            handleFilter().map((appointment: any) => (
+                            handleFilter().map((appointment: any, index: number) => (
                             <tr
-                             key={appointment.appointmentDate + i++}
+                             key={appointment.appointmentDate + index++}
                              className='bg-inputG group hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'
                             >
                                 <td className='py-2  text-center flex place-items-center  whitespace-nowrap  lg:px-5 '>
@@ -215,6 +219,23 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
                             )}
                         </tbody>
                     </table>
+                </div>
+                {/* Pagination */}
+                <div className="px-5 py-3 flex justify-end">
+                    <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="mx-1 px-3 py-1 rounded-md bg-blue-600 text-white"
+                    >
+                        Previous
+                    </button>
+                    <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={(currentPage * itemsPerPage) >= appointments.length}
+                        className="mx-1 px-3 py-1 rounded-md bg-blue-600 text-white"
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </div>
