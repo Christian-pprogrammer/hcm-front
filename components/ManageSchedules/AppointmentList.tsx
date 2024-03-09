@@ -1,21 +1,103 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { FaBan, FaCheck, FaEllipsisH, FaHome, FaMap, FaPaperPlane, FaPencilAlt, FaPlus, FaTrash, FaUserAlt } from 'react-icons/fa'
-
+import React, { useEffect, useState } from 'react'
+import { FaEllipsisH, FaHome, FaMap, FaPaperPlane} from 'react-icons/fa'
 import MapAppointments from './Modals/MapAppointments'
-import NewSchedule from './Modals/NewSchedule'
 import SendAppointments from './Modals/SendAppointments'
+import { notifyError } from '../alert'
+import appointmentService from '../../services/appointments/appointment.service'
+import { useSelector } from 'react-redux'
+import FetchDataLoader from '../loaders/FetchDataLoader'
 
 
 const AppointmentList = ({ onClose }: { onClose: any }) => {
-    const [MapModal, setMapModal] = useState<Boolean>(false)
-    const [SendAppModal, setSendAppModal] = useState<Boolean>(false)
-    const [searchtext, setSearchText] = useState<string>('');
-    const [showAction, setShowActions] = useState<Boolean>(false)
-    const STATUS = 'Active'
+    const [MapModal, setMapModal] = useState<Boolean>(false);
+    const [SendAppModal, setSendAppModal] = useState<Boolean>(false);
+    const [showAction, setShowActions] = useState<Boolean>(false);
+    const [appointments, setAppointments] = useState<any[]>([]);
+    const [selectedDate, setSelectedDate] = useState<string>('');
+    const [selectedDepartment, setSelectedDepartment] = useState<string>('');
+    const [selectedHospital, setSelectedHospital] = useState<string>('');
+    const [selectedDoctor, setSelectedDoctor] = useState<string>('');
+
+    const authUser = useSelector((state: any) => state.authUser);
+
+    var i = 1;
+
     const handleBackPage = () => {
         onClose()
     }
+
+    const handleFilter = () => {
+      // Filter appointments based on selected criteria
+      let filteredAppointments = appointments.filter(appointment => {
+
+        // Get current date
+        const currentDate = new Date();
+
+        // Calculate date ranges based on selected option
+        let startDate: any, endDate: any;
+        if (selectedDate === 'today') {
+            startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+            endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+        } else if (selectedDate === 'week') {
+            const firstDayOfWeek = currentDate.getDate() - currentDate.getDay(); // First day of the week
+            startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), firstDayOfWeek);
+            endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), firstDayOfWeek + 7);
+        } else if (selectedDate === 'month') {
+            startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            endDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        } else if (selectedDate === 'year') {
+            startDate = new Date(currentDate.getFullYear(), 0, 1);
+            endDate = new Date(currentDate.getFullYear() + 1, 0, 0);
+        }
+
+          return (
+            (selectedDate === '' || (new Date(appointment.appointmentDate) >= startDate && new Date(appointment.appointmentDate) < endDate)) &&
+              (selectedDepartment === '' || appointment.department == selectedDepartment) &&
+              (selectedHospital === '' || appointment.hospital == selectedHospital) &&
+              (selectedDoctor === '' || appointment.doctorName == selectedDoctor)
+          );
+      });
+
+      // Sort filtered appointments by appointment date
+      filteredAppointments.sort((a, b) => {
+          return new Date(a.appointmentDate).getTime() - new Date(b.appointmentDate).getTime();
+      });
+
+      return filteredAppointments;
+    };
+
+    const unixTimeToUsualDate = (unixTimestamp: string) => {
+      // Create a new Date object using the Unix timestamp (in milliseconds)
+      const date = new Date(unixTimestamp);
+
+      // Extract the components of the date
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+      const day = String(date.getDate()).padStart(2, '0');
+
+      // Construct the date string in the desired format
+      const formattedDate = `${year}-${month}-${day}`;
+
+      return formattedDate;
+    }
+
+    useEffect(() => {
+      async function fetchAppointments() {
+        try {
+          const appointments = await appointmentService.getPatientAllAppointments();
+          console.log(appointments);
+          setAppointments(appointments.data);
+        } catch (error: any) {
+          const ERROR_MESSAGE = error.response
+            ? error.response?.data?.error || "Not Fetched, try again!"
+            : error.error;
+          notifyError(ERROR_MESSAGE);
+        }
+      }
+      fetchAppointments();
+    }, [authUser.user]);
+
     return (
         <div className="px-2 bg-[#F7F7F7]">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -23,22 +105,42 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
             </div>
             <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
                 <div className="flex px-5 place-items-center justify-between gap-6 py-5">
-                    <span aria-hidden="true" className='text-backG hover:bg-slate-200 hover:scale-105 p-2 px-4 duration-500 hover:cursor-pointer rounded-full' onClick={handleBackPage}>&times;</span>
                     <div className='flex gap-10'>
-                        <h1 className="pt-3 font-bold text-[1.1em]">Dermatology Services</h1>
                         <div className="px-2 ">
-                            <select name="" id="" className='bg-white border-2 border-[#00000020]  rounded-2xl outline-none px-2 py-2'>
-                                <option defaultValue="today">Today</option>
-                                <option defaultValue="today">Yesterday</option>
-                                <option defaultValue="today">Week</option>
-                                <option defaultValue="today">Month</option>
+                            <select name="" id="" className='bg-white border-2 border-[#00000020]  rounded-2xl outline-none px-2 py-2' value={selectedDate} onChange={e => setSelectedDate(e.target.value)}>
+                                <option value="">Period</option>
+                                <option value="today">Today</option>
+                                <option value="week">Week</option>
+                                <option value="month">Month</option>
+                                <option value="year">Year</option>
+                            </select>
+                        </div>
+                        <div className="px-2 ">
+                            <select name="" id="" className='bg-white border-2 border-[#00000020]  rounded-2xl outline-none px-2 py-2' value={selectedDepartment} onChange={e => setSelectedDepartment(e.target.value)}>
+                                <option value="">Department</option>
+                                <option value="Pediatery">Pediatery</option>
+                                <option value="Determology">Determology</option>
+                                <option value="Surgery">Surgery</option>
+                            </select>
+                        </div>
+                        <div className="px-2 ">
+                            <select name="" id="" className='bg-white border-2 border-[#00000020]  rounded-2xl outline-none px-2 py-2' value={selectedHospital} onChange={e => setSelectedHospital(e.target.value)}>
+                                <option value="">Hospital</option>
+                                <option value="Legacy">Legacy</option>
+                                <option value="Kanombe">Kanombe</option>
+                                <option value="Faisal">Faisal</option>
+                            </select>
+                        </div>
+                        <div className="px-2 ">
+                            <select name="" id="" className='bg-white border-2 border-[#00000020]  rounded-2xl outline-none px-2 py-2' value={selectedDoctor} onChange={e => setSelectedDoctor(e.target.value)}>
+                                <option value="">Doctor</option>
+                                <option value="Kanimba">Kanimba</option>
+                                <option value="Sebatunzi">Sebatunzi</option>
+                                <option value="Mpano">Mpano</option>
                             </select>
                         </div>
                     </div>
                     <div className="md:flex hidden justify-end gap-4">
-                        <div>
-                            <input type="text" onChange={(e) => setSearchText(e.target.value)} value={searchtext} className="form-control rounded-lg outline-none border-none text-backG py-4 px-20 bg-inputG" placeholder="Search Account Name" />
-                        </div>
                         <div className='flex gap-2'>
                             <button disabled={showAction ? false : true} onClick={() => setMapModal(true)} className='py-4 bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4 gap-2 rounded-lg'>
                                 <FaMap className='text-backG' />
@@ -54,47 +156,63 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
                     </div>
                 </div>
                 <div className=' w-full overflow-x-auto'>
-                    <table className=' table-auto w-full  '>
+                    <table className=' table-auto w-full'>
                         <thead>
                             <tr>
                                 <th className='py-5 text-[#000000c8] text-sm '>Time</th>
                                 <th className='py-5 text-[#000000c8] text-sm '>Patient Name</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Patient Telephone</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Patient RecordNumber</th>
+                                <th className='py-5 text-[#000000c8] text-sm '>Hospital</th>
+                                <th className='py-5 text-[#000000c8] text-sm '>Department</th>
+                                <th className='py-5 text-[#000000c8] text-sm '>Doctor's name</th>
                                 <th className='py-5 text-[#000000c8] text-sm '>Appointment Date</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Appointment Status</th>
                                 {showAction &&
-                                    <th className='py-5 text-[#000000c8] text-sm '>Actions</th>
+                                    <th className='py-5 text-[#000000c8] text-sm '>Appointment Status</th>
                                 }
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className='bg-inputG group hover:cursor-pointer  hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
+                          {handleFilter().length > 0 ? (
+                            handleFilter().map((appointment: any) => (
+                            <tr
+                             key={appointment.appointmentDate + i++}
+                             className='bg-inputG group hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'
+                            >
                                 <td className='py-2  text-center flex place-items-center  whitespace-nowrap  lg:px-5 '>
                                     <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowActions((prev) => !prev)} />
-                                    <span className='text-[#00000043] pl-2 font-bold'>08.00am - 08.30am</span>
+                                    <span className='text-[#00000043] pl-2 font-bold'>{appointment.time}</span>
                                 </td>
                                 <td className='py-2  whitespace-nowrap lg:px-5 text-center'>
-                                    <span className='text-black font-bold'>Albert Muraho</span>
+                                    <span className='text-black font-bold'>{appointment.patientName ? appointment.patientName : "Not booked"}</span>
                                 </td>
                                 <td className='px-10 whitespace-nowrap text-center'>
-                                    <span className='text-[#00000043]'>0780918379</span>
+                                    <span className='text-[#00000043]'>{appointment.hospital}</span>
                                 </td>
                                 <td className='px-10 whitespace-nowrap text-center'>
-                                    <span className='text-[#00000043]'>99223</span>
+                                    <span className='text-[#00000043]'>{appointment.department}</span>
                                 </td>
                                 <td className='px-10 whitespace-nowrap text-center'>
-                                    <span className='text-[#00000043]'>12/12/2021</span>
+                                    <span className='text-[#00000043]'>{appointment.doctorName}</span>
                                 </td>
                                 <td className='px-10  whitespace-nowrap py-2 text-center flex justify-center place-items-center '>
-                                    {STATUS == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
+                                    {unixTimeToUsualDate(appointment.appointmentDate)}
                                 </td>
                                 {showAction &&
                                     <td className='px-10 whitespace-nowrap text-center gap-10 text-backG'>
-                                        <button onClick={() => setMapModal(true)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> <MapAppointments MapModal={MapModal} onClose={() => setMapModal(false)} />
+                                      <button onClick={() => setMapModal(true)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> <MapAppointments MapModal={MapModal} onClose={() => setMapModal(false)} /> {appointment.appointmentStatus}
                                     </td>
                                 }
                             </tr>
+                            ))
+                            ) : (
+                              <tr className="bg-slate-50">
+                                <td className="px-10 py-2">
+                                  <FetchDataLoader />
+                                </td>
+                                <td className="font-bold animate-pulse" colSpan={7}>
+                                  No appointments found
+                                </td>
+                              </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -103,4 +221,4 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
     )
 }
 
-export default AppointmentList
+export default AppointmentList;

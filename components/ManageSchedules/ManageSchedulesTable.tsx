@@ -141,7 +141,7 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
           <thead className="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">Doctor</th>
-              <th scope="col" className="px-6 py-3">Appointment Status</th>
+              <th scope="col" className="px-6 py-3">Schedule Status</th>
               <th scope="col" className="px-6 py-3">Service Department</th>
               <th scope="col" className="px-6 py-3">Appointment Slots</th>
               <th scope="col" className="px-6 py-3">Date of Start</th>
@@ -161,13 +161,9 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
                   {doctorNames[String(schedule.doctorId)] || 'Loading...'}
                   </th>
                   <td className="px-6 py-4">
-                    {schedule?.status?.scheduleStatus == "Active" ? (
-                      <div className="text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold ">
-                        <FaCheck />
-                      </div>
-                    ) : (
-                      (schedule.status?.scheduleStatus == "ACTIVE" ? <span className="text-[#45ff17] font-bold">Active</span> : <span className="text-[#ff2e17] font-bold">Inactive</span>)
-                    )}
+                    {
+                      schedule?.scheduleStatus == "INCOMPLETE" || "ACTIVE" ? (<span className="text-[#45ff17] font-bold">Incomplete</span>): schedule?.scheduleStatus == "COMPLETED" ? (<span className="text-[#ff2e17] font-bold">Completed</span>): <span className="text-[#3a32d4] font-bold">Finished</span>
+                    }
                   </td>
                   <td className="px-6 py-4">{schedule?.serviceName}</td>
                   <td className="px-6 py-4">{schedule?.appointmentNumber}</td>

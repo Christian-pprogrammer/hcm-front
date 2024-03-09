@@ -204,6 +204,12 @@ export const ScheduleManagerArr : ISidebar[] = [
     IconName: <ManageAccIcon/>,
     LinkName: "Schedules",
     Linkurl:"/schedule-manager/manage-schedules"
+},
+{
+    id:3,
+    IconName: <FaUsers/>,
+    LinkName: "Appointments",
+    Linkurl:"/schedule-manager/appointments"
 }
 ]
 

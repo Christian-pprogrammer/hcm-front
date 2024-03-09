@@ -24,17 +24,17 @@ const Sidebar = () => {
     } if (role == "GROUP_DIRECTOR") {
       return GroupDirectorArr;
     } if (role == "HOSPITAL_ADMIN") {
-      return HospitalAdminArr
+      return HospitalAdminArr;
     } if (role == "HOSPITAL_DIRECTOR") {
-      return HospitalDirectorArr
+      return HospitalDirectorArr;
     } if (role == "DOCTOR") {
-      return DoctorAdminArr
+      return DoctorAdminArr;
     } if (role == "PATIENT") {
       return PatientAdminArr;
     } if (role == "APPOINTMENT_MANAGER") {
       return AppointmentManagerArr;
     } if (role == "SCHEDULE_MANAGER") {
-      return ScheduleManagerArr
+      return ScheduleManagerArr;
     } else {
       return PatientAdminArr;
     }
