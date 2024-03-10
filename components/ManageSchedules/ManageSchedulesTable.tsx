@@ -151,9 +151,9 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
           </thead>
           <tbody>
             {ScheduleData ? (
-              ScheduleData.map((schedule: any) => (
+              ScheduleData.map((schedule: any, key:number) => (
                 <tr
-                  key={schedule.schedule_id}
+                  key={key++}
                   onClick={handleShowApp}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
