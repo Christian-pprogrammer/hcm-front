@@ -15,7 +15,7 @@ const ManageSchedules = () => {
                 <Sidebar />
                 <div className="lg:w-[80vw]  w-full">
                     <Navbar />
-                    {showAppointmentModal ? <AppointmentList onClose={() => setShowModalApp(false)} /> : <ManageSchedulesTable showAppFunc={() => setShowModalApp(true)} />}
+                    {showAppointmentModal ? <AppointmentList onClose={() => setShowModalApp(false)} /> : <ManageSchedulesTable/>}
                 </div>
             </div>
         </RouteProtector>

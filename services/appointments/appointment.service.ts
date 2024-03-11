@@ -5,8 +5,8 @@ class AppointmentService {
     return http.get(`/appointments/`)
   }
 
-  bookAppintment(appointmentId: string, data: any) {
-    return http.put(`/appointments/${appointmentId}`, data);
+  bookAppintment(appointmentId: string) {
+    return http.put(`/appointments/${appointmentId}`);
   }
 
   createAppointment(scheduleId: string, data: any) {

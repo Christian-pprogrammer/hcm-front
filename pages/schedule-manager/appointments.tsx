@@ -19,22 +19,23 @@ const Appointments = (data:any) => {
         <div className="lg:w-[80vw]  w-full">
             <Navbar/>
             {/* {showAppointmentModal ? <AppointmentList onClose={()=>setShowModalApp(false)}/> : <ManageSchedulesTable data={data} showAppFunc={()=>setShowModalApp(true)}/>} */}
-            <AppointmentList onClose={()=>setShowModalApp(false)}/>
+            <AppointmentList onClose={()=>setShowModalApp(false)} />
         </div>
     </div>
     </RouteProtector>
     )
 }
 export const getServerSideProps: GetServerSideProps = async ({
-    res
+    query, res
   }) => {
     try{
+        const { scheduleId } = query;
         const data = await scheduleService.getAllSchedules();
         if(res.statusCode == 200){
             notifySuccess("Manage Appointments Manager")
         }
         return {
-            props : {data}
+            props : {scheduleId, data}
         }
     }catch(error:any){
         res.statusCode = 404;

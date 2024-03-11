@@ -16,7 +16,7 @@ import doctorService from "../../services/users/doctor.service";
 
 type DoctorNamesType = { [key: string]: string };
 
-const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
+const ManageSchedulesTable = () => {
   const [DeleteModal, setDeleteModal] = useState<boolean>(false);
   const [ScheduleData, setScheduleData] = useState<ISchedule[]>([]);
   const [EditModal, setEditModal] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
   const [searchtext, setSearchText] = useState<string>("");
   const [doctorNames, setDoctorNames] = useState<DoctorNamesType>({});
   const authUser = useSelector((state: any) => state.authUser);
-  const router = useRouter().pathname;
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
@@ -71,8 +71,11 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
     return formattedDate;
   }
 
-  const handleShowApp = () => {
-    showAppFunc();
+  const handleRowClick = (scheduleId: string) => {
+    router.push({
+      pathname: "/schedule-manager/appointments",
+      query: { scheduleId: scheduleId }
+    });
   };
   var element = (
     <div className="bg-white border-2 h-5/6  rounded-lg border-[#0000002] overflow-auto">
@@ -154,7 +157,7 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
               ScheduleData.map((schedule: any, key:number) => (
                 <tr
                   key={key++}
-                  onClick={handleShowApp}
+                  onClick={() => handleRowClick(schedule.scheduleId)}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -231,7 +234,7 @@ const ManageSchedulesTable = ({ showAppFunc }: { showAppFunc: () => void }) => {
   );
   return (
     <div>
-      {router == "/schedule-manager/dashboard" ? (
+      {router.pathname == "/schedule-manager/dashboard" ? (
         element
       ) : (
         <div className="px-2 bg-[#F7F7F7]">

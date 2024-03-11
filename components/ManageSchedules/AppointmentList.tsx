@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { FaEllipsisH, FaHome, FaMap, FaPaperPlane} from 'react-icons/fa'
 import MapAppointments from './Modals/MapAppointments'
 import SendAppointments from './Modals/SendAppointments'
@@ -9,7 +10,8 @@ import { useSelector } from 'react-redux'
 import FetchDataLoader from '../loaders/FetchDataLoader'
 
 
-const AppointmentList = ({ onClose }: { onClose: any }) => {
+const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
+  const router = useRouter();
     const [MapModal, setMapModal] = useState<Boolean>(false);
     const [SendAppModal, setSendAppModal] = useState<Boolean>(false);
     const [showAction, setShowActions] = useState<Boolean>(false);
@@ -22,8 +24,6 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
     const [itemsPerPage, setItemsPerPage] = useState<number>(10);
 
     const authUser = useSelector((state: any) => state.authUser);
-
-    var i = 1;
 
     const handleBackPage = () => {
         onClose()
@@ -91,8 +91,14 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
 
     useEffect(() => {
       async function fetchAppointments() {
+        const { scheduleId } = router.query;
+        let appointments;
         try {
-          const appointments = await appointmentService.getPatientAllAppointments();
+          if (scheduleId && typeof scheduleId === "string") {
+            appointments = await appointmentService.getScheduleAppointments(scheduleId);
+          } else {
+            appointments = await appointmentService.getPatientAllAppointments();
+          }
           console.log(appointments);
           setAppointments(appointments.data);
         } catch (error: any) {
@@ -103,7 +109,7 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
         }
       }
       fetchAppointments();
-    }, [authUser.user]);
+    }, [authUser.user, router.query]);
 
     return (
         <div className="px-2 bg-[#F7F7F7]">
@@ -155,7 +161,7 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
                                 <span>Send Appointment</span>
                             </button>
                             <SendAppointments SendAppModal={SendAppModal} onClose={() => setSendAppModal(false)} />
-                            <MapAppointments MapModal={MapModal} onClose={() => setMapModal(false)} />
+                            {/* <MapAppointments appointmentId={appointment.appointment_id} MapModal={MapModal} onClose={() => setMapModal(false)} /> */}
                         </div>
                     </div>
                 </div>
@@ -202,7 +208,7 @@ const AppointmentList = ({ onClose }: { onClose: any }) => {
                                 </td>
                                 {showAction &&
                                     <td className='px-10 whitespace-nowrap text-center gap-10 text-backG'>
-                                      <button onClick={() => setMapModal(true)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> <MapAppointments MapModal={MapModal} onClose={() => setMapModal(false)} /> {appointment.appointmentStatus}
+                                      <button onClick={() => setMapModal(true)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> <MapAppointments MapModal={MapModal} appointmentId={appointment.appointment_id} onClose={() => setMapModal(false)} /> {appointment.appointmentStatus}
                                     </td>
                                 }
                             </tr>

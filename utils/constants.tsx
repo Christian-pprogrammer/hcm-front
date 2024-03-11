@@ -162,12 +162,20 @@ export const DoctorAdminArr : ISidebar[] = [
 }
 ]
 
-export const PatientAdminArr : ISidebar[] = [{
-    id:1,
-    IconName: <FaChartPie/>,
-    LinkName: "Appointments",
-    Linkurl:"/patient/appointment-dashboard"
-}]
+export const PatientAdminArr : ISidebar[] = [
+{
+  id:1,
+  IconName: <ManageAccIcon/>,
+  LinkName: "Schedules",
+  Linkurl:"/schedule-manager/manage-schedules"
+},
+{
+  id:2,
+  IconName: <FaUsers/>,
+  LinkName: "Appointments",
+  Linkurl:"/schedule-manager/appointments"
+}
+]
 
 
 export const AppointmentManagerArr : ISidebar[] = [

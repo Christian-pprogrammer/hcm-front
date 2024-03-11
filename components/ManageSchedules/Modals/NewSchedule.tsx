@@ -18,7 +18,7 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: boolean,
     }, [])
 
     const handleClose = () => {
-        onClose()
+        onClose();
     }
     const [FormPageNumber, setFormPageNumber] = useState<number>(0);
     const PageDisplayForm = () => {
@@ -44,6 +44,7 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: boolean,
             notifyError(ERROR_MESSAGE);
             setFormData({});
         }
+        onClose();
     }
     const ModalContent = NewScheduleModal ? (
         <div className="modal-portal bg-modalG h-screen w-screen px-5 flex place-items-center z-20 absolute top-0 bottom-0 left-0 right-0 justify-center">
