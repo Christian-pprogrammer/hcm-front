@@ -39,7 +39,7 @@ const SendAppointments = ({ SendAppModal, onClose }: { SendAppModal: Boolean, on
         try {
             console.log(FormData);
             setLoading(true);
-            const res = await AppointmentService.bookAppintment(FormData.patientRecordNumber /* thi should be changed into appointment id */,FormData);
+            const res = await AppointmentService.bookAppintment(FormData.patientRecordNumber /* thi should be changed into appointment id */);
             if (res.data.status === 200) {
                 setAlertData({
                     alert: true,
