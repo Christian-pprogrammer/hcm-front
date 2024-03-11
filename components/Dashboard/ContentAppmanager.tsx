@@ -40,7 +40,7 @@ const ContentAppManager = () => {
                         <h1 className='font-bold'>Database Activity</h1>
                     </div>
                     <div className='min-w-[55vw] bg-white border-none rounded-lg h-[40vh] border-[#000000082]'>
-                        <ManageSchedulesTable showAppFunc={() => setShowModalApp(true)} />
+                        <ManageSchedulesTable />
                     </div>
                 </div>
             </div>
