@@ -33,8 +33,10 @@ export const LoginFormData : FormLoginStructure = {
 
 export interface FormVerificationStructure {
     code: string;
+    email: string;
 }
 
 export const VerificationFormData: FormVerificationStructure = {
     code: '',
+    email: ''
 }

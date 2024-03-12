@@ -14,35 +14,39 @@ import Image from 'next/image';
 const Signup = () => {
     const [FormPage, setFormPage] = useState<number>(0);
     const [FormData, setFormData] = useState<FormStructure>(FormDummy);
+    const [isValid, setIsValid] = useState<boolean>(false);
+    const [enRegBtn, setEnRegBtn] = useState<boolean>(false);
     const router = useRouter();
+
     const PageDisplay = () => {
         if (FormPage == 0) {
             return <SignupInfo
             FormData={FormData}
             setFormData={setFormData}
+            onValidityChange={handleValidity}
          />;
         }
         else if(FormPage == 1) {
             return <PersonalInfo
             FormData={FormData}
-            setFormData={setFormData}/>
+            setFormData={setFormData}
+            onValidityChange={handleValidity}
+              />
         }else{
-            return <LocalInfo 
+            return <LocalInfo
                 FormData={FormData}
                 setFormData={setFormData}
+                onValidityChange={handleValidity}
             />
         }
-        // else if (FormPage == 1) {
-        //     return <PersonalInfo
-        //     FormData={FormData}
-        //     setFormData={setFormData}/>
-        // }
-        // else {
-        //     return <LocalInfo  FormData={FormData}
-        //     setFormData={setFormData} />;
-        // }
 
     }
+
+    const handleValidity = (state: boolean) => {
+      setIsValid(state);
+      (!FormData.fullName || !FormData.password.match(/^(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*()\-+=.,?])^.{8,30}$/) || !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) || FormData.mobile.length != 9 || !FormData.province || !FormData.district || !FormData.sector) ? setEnRegBtn(false) : setEnRegBtn(true);
+    }
+
     const [loading, setLoading] = useState<Boolean>(false);
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -105,13 +109,13 @@ const Signup = () => {
                         <LineSvg />
                     </div>
                     <div className="z-20">
-                        <button className='btn hover:scale-110 duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-backG text-white font-bold' onClick={()=>setFormPage(0)}>1</button>
+                        <button className={`btn hover:scale-110 duration-300 btn-primary h-14 w-14 text-lg rounded-full ${FormPage == 0 ? 'bg-backG text-white font-bold' : 'bg-inputG text-backG font-bold' } `} onClick={()=>setFormPage(0)}>1</button>
                     </div>
                     <div className="z-20">
-                        <button className={`btn ${FormPage >= 1 && 'bg-backG text-white'} hover:scale-110 hover:bg-backG hover:text-white duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-inputG text-backG font-bold`} onClick={()=>setFormPage(1)}>2</button>
+                        <button className={`btn hover:scale-110 duration-300 btn-primary h-14 w-14 text-lg rounded-full ${FormPage == 1 ? 'bg-backG text-white font-bold' : 'bg-inputG text-backG font-bold' } `} onClick={()=>setFormPage(1)}>2</button>
                     </div>
                     <div className="z-20">
-                        <button className={`btn hover:scale-110 hover:bg-backG hover:text-white duration-300 btn-primary h-14 w-14 text-lg rounded-full bg-inputG text-backG font-bold1 ${FormPage == 2 && 'bg-backG text-white'}`} onClick={()=>setFormPage(2)}>3</button>
+                        <button className={`btn hover:scale-110 duration-300 btn-primary h-14 w-14 text-lg rounded-full ${FormPage == 2 ? 'bg-backG text-white font-bold' : 'bg-inputG text-backG font-bold' } `} onClick={()=>setFormPage(2)}>3</button>
                     </div>
                 </div>
                 <div className='md:px-10 px-2 py-2 md:py-0'>
@@ -126,13 +130,14 @@ const Signup = () => {
                         </div>
                     }
                     {FormPage == 2 &&
-                        <div className='pt-2'>
-                            <button type='submit' className='py-5 bg-backG text-white w-full'>Register</button>
+                        <div className='flex gap-6 py-1'>
+                          <button type="button" className='py-4 bg-zinc-600 text-white w-full ' onClick={() => { setFormPage((prev) => prev - 1) }}>Previous</button>
+                            <button type='submit' className={`py-4 bg-backG text-white w-full ${!enRegBtn && 'opacity-50 cursor-not-allowed'}`} disabled={!enRegBtn}>Register</button>
                         </div>
                     }
                 </form>
                 <div className='px-2 md:px-10  text-left text-[12px]'>
-                    <span>Already Have an Account?</span> <Link className='text-backG ' href='/auth/login'>Login </Link>
+                <Link className='text-backG ' href='/auth/login'>Already Have an Account? Login </Link>
                 </div>
             </div>
         </div>

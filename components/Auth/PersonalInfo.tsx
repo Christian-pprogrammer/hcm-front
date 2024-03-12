@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaceIdIcon, NationalityIcon, TelephoneIcon } from '../../icons'
 import { FormStructure } from '../../utils/FormData'
 import { CountrieListArr } from '../../utils/SelectOptions';
 
 
-const PersonalInfo = ({ FormData, setFormData }: { FormData: FormStructure, setFormData: any }) => {
+const PersonalInfo = ({ FormData, setFormData, onValidityChange} : {FormData:FormStructure , setFormData :any, onValidityChange: (newValidity: boolean) => void }) => {
     const [isValid, setIsValid] = useState(true);
+    const validityRef = useRef<boolean>(false);
+
     useEffect(() => {
-        !FormData.mobile || !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? setIsValid(false) : setIsValid(true)
-    }, [FormData]);
+        FormData.mobile.length != 9 ? setIsValid(false) : setIsValid(true);
+        const validity = !!isValid;
+        validityRef.current = validity;
+       onValidityChange(validityRef.current);
+    }, [FormData, isValid, onValidityChange]);
     return (
         <>
             <div>
