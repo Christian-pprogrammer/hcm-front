@@ -1,24 +1,50 @@
 import Link from 'next/link';
 import Head from "next/head";
-import Router from 'next/router';
-import React, { useState,useEffect } from 'react';
+import Router, { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 
 import AuthService from "../../services/auth/auth.service";
 import {notifyError, notifySuccess} from "../../components/alert";
-import {app_config, system_users} from "../../utils/constants";
-import {KeyIcon, EyeNoShowIcon, EyeShowIcon, EmailIcon } from '../../icons';
-import { FormDummy, FormVerificationStructure, VerificationFormData } from '../../utils/FormData';
+import {app_config} from "../../utils/constants";
+import {KeyIcon, EmailIcon } from '../../icons';
+import { FormVerificationStructure, VerificationFormData } from '../../utils/FormData';
 import ForbiddenPage from '../../layouts/ForbiddenPage';
 import { UrlObject } from 'url';
 import LoaderCache from '../../components/loaders/LoaderCache';
 import PageLogo from '../../components/PageLogo';
 
 export default function Verification() {
-
+  const router = useRouter();
     const [FormData, setFormData] = useState<FormVerificationStructure>(VerificationFormData);
-    const [isCodeValid, setIsCodeValid] = useState(true);
+    const [isCodeValid, setIsCodeValid] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(false);
 
     const [loading, setLoading] = React.useState(false);
+    const { email, code } = router.query;
+
+    useEffect(() => {
+      try{
+        if (email && typeof email === "string") {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            email: email,
+          }));
+        }
+        if (code && typeof code === "string") {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            code: code,
+          }));
+        }
+        !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? setIsEmailValid(false): setIsEmailValid(true);
+        FormData.code.length != 6 ? setIsCodeValid(false) : setIsCodeValid(true);
+      } catch (error: any) {
+        const ERROR_MESSAGE = error.response
+          ? error.response?.data?.error || "An error occurred verifying, try again!"
+          : error.error;
+        notifyError(ERROR_MESSAGE);
+      }
+    }, [FormData.code.length, FormData.email, code, email])
 
     const handleGoTo = (link: string | UrlObject) => {
         setTimeout(() => {
@@ -50,7 +76,7 @@ export default function Verification() {
             :
             <div className="bg-white h-screen flex-row-reverse flex ">
                 <Head>
-                        <title>{`Login | ${app_config.APP_NAME_LOWER}`}</title>
+                        <title>{`Verify Email | ${app_config.APP_NAME_LOWER}`}</title>
                     </Head>
                 <div className="relative md:flex hidden auth-image bg-backG">
                     <div className="absolute text-[12px] flex gap-4 top-0 p-5">
@@ -92,7 +118,7 @@ export default function Verification() {
                                     </div>
                                     <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your email" />
                                 </div>
-                                <small className={`text-[12px] ${!isCodeValid && 'text-red-500'}`}>{!isCodeValid ? "Please enter a valid code" : ""}</small>
+                                <small className={`text-[12px] ${!isEmailValid && 'text-red-500'}`}>{!isEmailValid ? "Please enter a valid email" : ""}</small>
                             </div>
                         </div>
 
@@ -115,7 +141,7 @@ export default function Verification() {
                         </div>
                     </form>
                     <div className='px-2 md:px-10 py-2 text-left text-[12px]'>
-                        <span>Did not get the code?</span> <Link className='text-backG ' href='#'>Contact us </Link>
+                        <span>Did not get the code?</span> <Link className='text-backG ' href='mailto:DushimeBillBenon@gmail.com'>Contact us </Link>
                     </div>
                 </div>
             </div>

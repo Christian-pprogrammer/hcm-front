@@ -2,7 +2,6 @@ import React,{ useState } from 'react';
 import Navbar from '../../components/Dashboard/Navbar';
 import Sidebar from '../../components/Dashboard/Sidebar';
 import AppointmentList from '../../components/ManageSchedules/AppointmentList';
-import ManageSchedulesTable from '../../components/ManageSchedules/ManageSchedulesTable';
 import { GetServerSideProps } from 'next';
 import scheduleService from '../../services/schedules/schedule.service';
 import { notifyError, notifySuccess } from '../../components/alert';
