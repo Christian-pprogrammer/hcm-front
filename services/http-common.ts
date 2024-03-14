@@ -3,8 +3,6 @@ import Router from "next/router";
 import AuthService from './auth/auth.service';
 
 export const domain = process.env.NEXT_PUBLIC_API_URL;
-// export const domain = "http://localhost:8080";
-// export const domain = "http://54.236.129.228:8080";
 
 
 const http = axios.create({
