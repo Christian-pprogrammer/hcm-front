@@ -14,12 +14,12 @@ const ManageServicesGA = () => {
     const [MapHospitalModal, setMapHospitalModal] = useState<Boolean>(false)
     let [manageServicesData, setManageServicesData] = useState<IService[]>([]);
     const [showAction, setShowActions] = useState<boolean>(false)
-    const authUser = useSelector((state: any) => state.authUser)
-    const id = authUser.user?.group?.group_id
+    const authUser = useSelector((state: any) => state.authUser);
+
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await servicesService.getGroupServices(id);
+                const data = await servicesService.getAllServices();
                 setManageServicesData(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Failure, try again!" : error.error;
@@ -27,7 +27,7 @@ const ManageServicesGA = () => {
             }
         }
         fetchData()
-    }, [id, manageServicesData]);
+    }, []);
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">

@@ -11,7 +11,6 @@ const Content = () => {
     useEffect(() => {
         async function handleRoleFetch() {
             const roles = await roleService.getAllRoles();
-            console.log("The roles:", roles)
         }
         handleRoleFetch()
     }, [])

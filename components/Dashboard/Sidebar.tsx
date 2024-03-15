@@ -74,7 +74,7 @@ const Sidebar = () => {
             </div>
           ))}
         </div>
-        <div onClick={handleSystemSignOut} className='flex px-10 py-5 justify-start place-items-center gap-[4em]'>
+        <div onClick={handleSystemSignOut} className='flex px-10 py-5 justify-start place-items-center gap-[4em] cursor-pointer'>
           <FaSignOutAlt className='text-[2em]' />
           <span className='font-bold text-white'>Sign Out</span>
         </div>

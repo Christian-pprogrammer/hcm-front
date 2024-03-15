@@ -68,7 +68,7 @@ const AdvancedUserInfo = ({ FormData, setFormData }: { FormData: IUser, setFormD
             }
         }
         fetchServices();
-    }, [])
+    }, [authUser, hospitalId])
     return (
         <>
             <div className="py-1">

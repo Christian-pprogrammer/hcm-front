@@ -15,8 +15,9 @@ const EditHospital = ({ EditModal, onClose }: { EditModal: Boolean, onClose: () 
     interface SelectedData {
         SelectedServiceName: string;
     }
-    const [selectData, setSelectData] = useState<SelectedData[]>([])
-    async function fetchData() {
+    const [selectData, setSelectData] = useState<SelectedData[]>([]);
+    useEffect(() => {
+      async function fetchData() {
         try {
             const data = await servicesService.getAllServices();
             setServiceArr(data.data);
@@ -24,8 +25,10 @@ const EditHospital = ({ EditModal, onClose }: { EditModal: Boolean, onClose: () 
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
             notifyError(ERROR_MESSAGE);
         }
-    }
-    fetchData()
+      }
+      fetchData();
+    }, [])
+
     // const handleOnServiceSelect = (selectedServices: SelectedData[]) => {
     //     setSelectData(selectedServices);
     //     const serviceNames = selectedServices.map(service => service.SelectedServiceName);

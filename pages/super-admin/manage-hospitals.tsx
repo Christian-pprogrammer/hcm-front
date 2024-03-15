@@ -7,7 +7,7 @@ import { system_users } from '../../utils/constants'
 
 const ManageHospitals = () => {
   return (
-    <RouteProtector only={system_users.GROUP_ADMIN}>
+    <RouteProtector only={system_users.SUPER_ADMIN}>
       <div className='flex gap-0 bg-[#F7F7F7] '>
         <Sidebar />
         <div className="lg:w-[80vw]  w-full">

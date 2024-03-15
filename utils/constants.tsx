@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaChartPie, FaConnectdevelop, FaFileCsv, FaLanguage, FaNotesMedical, FaReacteurope, FaUsers } from 'react-icons/fa'
-import { AuditIcon, DashboardIcon, ManageAccIcon, SettingsIcon } from '../icons';
+import { AuditIcon, DashboardIcon, ManageAccIcon, ServicesIcon, SettingsIcon } from '../icons';
 export const system_users = {
     SUPER_ADMIN: "SUPER_ADMIN",
     GROUP_ADMIN: "GROUP_ADMIN",
@@ -54,17 +54,29 @@ const SideBarAdmins : ISidebar[] = [
 {
     id: 2,
     IconName: <ManageAccIcon/>,
+    LinkName: "Manage Hospitals",
+    Linkurl: "/super-admin/manage-hospitals"
+},
+{
+    id: 3,
+    IconName: <FaUsers/>,
     LinkName: "Manage Accounts",
     Linkurl: "/super-admin/manage-accounts"
 },
 {
-    id: 3,
+    id: 4,
+    IconName: <ServicesIcon/>,
+    LinkName: "Manage Services",
+    Linkurl: "/super-admin/manage-service"
+},
+{
+    id: 5,
     IconName: <AuditIcon />,
     LinkName: "Audit Logs",
     Linkurl: "/super-admin/auditlogs"
 },
 {
-    id: 4,
+    id: 6,
     IconName: <SettingsIcon/>,
     LinkName: "Settings",
     Linkurl: "/super-admin/settings"

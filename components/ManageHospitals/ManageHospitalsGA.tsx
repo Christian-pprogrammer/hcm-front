@@ -11,21 +11,23 @@ import ManageHospitalsFetch from './tables/manage-hospital-fetchdata'
 const ManageHospitalsGA = () => {
     const [AddHospitalModal, setAddHospital] = useState<Boolean>(false)
     const [searchtext, setSearchText] = useState<string>('');
-    const [manageHospitalData, setmanageHospitalData] = useState<any>(null);
-    const authUser = useSelector((state: any) => state.authUser)
+    const [manageHospitalData, setManageHospitalData] = useState<any>(null);
+    const authUser = useSelector((state: any) => state.authUser);
+
     useEffect(() => {
         async function fetchData() {
             try {
-                const groupId = authUser?.user?.group?.group_id;
                 const data = await hospitalService.getAllHospitals();
-                setmanageHospitalData(data.data);
+                console.log(data);
+                setManageHospitalData(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Failure, try again!" : error.error;
                 reportError(ERROR_MESSAGE);
+                notifyError(ERROR_MESSAGE);
             }
         }
         fetchData();
-    }, [authUser?.user?.group?.group_id])
+    }, [])
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -72,10 +74,8 @@ const ManageHospitalsGA = () => {
                             {manageHospitalData ? manageHospitalData.map((hospital: any) => (
                                 <ManageHospitalsFetch hospital={hospital} key={hospital.hospitalId} />
                             )) : <tr className="flex justify-center text-center gap-6 flex-col place-items-center bg-white w-full">
-                                <td>
-                                    <FetchDataLoader />
-                                </td>
-                                <td>Fetching the data...</td>
+
+                                <td>No hospitals registered so far</td>
                             </tr>
                             }
                         </tbody>
