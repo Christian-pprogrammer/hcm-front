@@ -22,10 +22,11 @@ export interface IHospital {
     hospitalId: string;
     hospitalName: string;
     location: string;
-    licensedDate: string;
     status?: string;
     createdAt?: string;
     updatedAt?: string;
+    paymentType: string;
+    appointmentPrice: number;
 }
 
 export const IHospitalDummy: IHospital = {
@@ -34,7 +35,8 @@ export const IHospitalDummy: IHospital = {
     hospitalId: "",
     hospitalName: "",
     location: "",
-    licensedDate: "",
+    paymentType: "",
+    appointmentPrice: 0
 }
 export interface IServiceHospitalMap {
     serviceId: string;

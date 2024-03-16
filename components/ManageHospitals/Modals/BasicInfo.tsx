@@ -9,8 +9,8 @@ const BasicInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospital,
     if (!FormData.email) {
         errors.push("The Hospital email is required!");
     }
-    if (!FormData.licensedDate) {
-        errors.push("The Hospital license is required!");
+    if (!FormData.paymentType) {
+        errors.push("The Hospital's appointment type is required!");
     }
     useEffect(() => {
         if (errors.length > 0) {
@@ -32,10 +32,13 @@ const BasicInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospital,
                 <input value={FormData?.email} onChange={(e) => setFormData({ ...FormData, email: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Email" />
             </div>
             <div className="py-1">
-                <label className="block text-gray-700 text-sm font-bold">
-                    New License Expiration
+                <label htmlFor="paymentType" className="block text-gray-700 text-sm font-bold">
+                    Appointment paid by:
                 </label>
-                <input value={FormData?.licensedDate} onChange={(e) => setFormData({ ...FormData, licensedDate: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date-image" type="date" placeholder="Date" />
+                <select value={FormData?.paymentType} onChange={(e) => setFormData({ ...FormData, paymentType: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                  <option value="HOSPITAL">Hospital</option>
+                  <option value="PATIENT">Patient</option>
+                </select>
             </div>
             {errors.length > 0 && (
                 <div className='py-2'>

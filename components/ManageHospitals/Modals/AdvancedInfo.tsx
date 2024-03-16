@@ -22,6 +22,9 @@ const AdvancedInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospit
             setIsValid(true)
         }
     }, [setIsValid, errors.length])
+    if (!FormData.appointmentPrice) {
+      errors.push("Appointment Price is required!");
+    }
     if (!FormData.location) {
         errors.push("The Location is required!");
     }
@@ -30,6 +33,13 @@ const AdvancedInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospit
     }
     return (
         <>
+          <div className="py-1">
+                <label htmlFor="appointmentPrice" className="block text-gray-700 text-sm font-bold">
+                    Appointment price
+
+                </label>
+                <input value={FormData?.appointmentPrice} onChange={(e) => setFormData({ ...FormData, appointmentPrice: parseFloat(e.target.value) })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="appointmentPrice" type="number" placeholder="Appointment price" />
+            </div>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
                     Location
