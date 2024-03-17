@@ -78,6 +78,7 @@ export interface IUser {
     fullName: string;
     email: string;
     password: string;
+    confirmPassword: string;
     status: string;
     mobile: number | string;
     role: string;
@@ -88,6 +89,7 @@ export interface IUser {
     sector: string;
     type: string;
     servicesManaged?: string[];
+    services?: string[];
     hospitalId?: string;
     createdAt?: string;
 }
@@ -98,6 +100,7 @@ export const IUserImpl: IUser = {
     fullName: "",
     email: "",
     password: "",
+    confirmPassword: "",
     status: "",
     mobile: 0,
     gender: "",

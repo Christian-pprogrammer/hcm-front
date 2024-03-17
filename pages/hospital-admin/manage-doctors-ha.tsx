@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
-import ManageUserAdmin from '../../components/ManageUser/ManageUserAdmin'
+import ManageDoctorAdmin from '../../components/ManageDoctor/ManageDoctorAdmin'
 import RouteProtector from '../../middlewares/RouteProtector'
 import { system_users } from '../../utils/constants'
 
@@ -12,7 +12,7 @@ const ManageDoctorsHA = () => {
     <Sidebar/>
     <div className="lg:w-[80vw]  w-full">
         <Navbar/>
-        <ManageUserAdmin/>
+        <ManageDoctorAdmin/>
     </div>
 </div>
 </RouteProtector>
