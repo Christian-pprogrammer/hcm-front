@@ -14,9 +14,7 @@ const BasicInfoAdmin = ({ FormDataAdmin, setFormDataAdmin }: { FormDataAdmin: IU
     if (!FormDataAdmin.password) {
         errors.push("The password is required!");
     }
-    if (FormDataAdmin.password !== FormDataAdmin.confirmPassword) {
-        errors.push("The password should match.");
-    }
+
     useEffect(() => {
         async function handleRoleFetch() {
             const roles = await roleService.getAllRoles();
@@ -32,12 +30,6 @@ const BasicInfoAdmin = ({ FormDataAdmin, setFormDataAdmin }: { FormDataAdmin: IU
                     Password
                 </label>
                 <input value={FormDataAdmin?.password} onChange={(e) => setFormDataAdmin({ ...FormDataAdmin, password: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Password credentials" />
-            </div>
-            <div className="py-1">
-                <label className="block text-gray-700 text-sm font-bold">
-                    Confirm Password
-                </label>
-                <input value={FormDataAdmin?.confirmPassword} onChange={(e) => setFormDataAdmin({ ...FormDataAdmin, confirmPassword: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Input password credentials" />
             </div>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">

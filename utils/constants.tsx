@@ -129,23 +129,29 @@ export const HospitalAdminArr : ISidebar[] = [
 {
     id:2,
     IconName: <FaUsers/>,
-    LinkName: "Manage Users",
-    Linkurl:"/hospital-admin/manage-users-ha"
+    LinkName: "Manage Schedule managers",
+    Linkurl:"/hospital-admin/manage-schmanagers-ha"
 },
 {
     id:3,
+    IconName: <FaUsers/>,
+    LinkName: "Manage Doctors",
+    Linkurl:"/hospital-admin/manage-doctors-ha"
+},
+{
+    id:4,
     IconName: <ManageAccIcon/>,
     LinkName: "Manage Services",
     Linkurl:"/hospital-admin/manage-services-ha"
 },
 {
-    id:4,
+    id:5,
     IconName: <FaFileCsv/>,
     LinkName: "Audit Logs",
     Linkurl:"/hospital-admin/auditLogs-ha"
 },
 {
-    id:5,
+    id:6,
     IconName: <SettingsIcon/>,
     LinkName: "Settings",
     Linkurl:"/hospital-admin/settings-page-ha"

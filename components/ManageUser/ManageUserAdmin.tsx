@@ -16,7 +16,8 @@ const ManageUserAdmin = () => {
     async function fetchData() {
         try {
             const data = await userService.getAll();
-            setmanageUserData(data.data?.filter((user: IUser) => (user.role !== system_users.SUPER_ADMIN && user.role !== system_users.GROUP_ADMIN && user.role !== system_users.HOSPITAL_ADMIN)));
+            console.log(data.data);
+            setmanageUserData(data.data?.filter((user: IUser) => (user.roles[0].role == system_users.SCHEDULE_MANAGER)));
         } catch (error: any) {
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
             notifyError(ERROR_MESSAGE);
@@ -24,7 +25,7 @@ const ManageUserAdmin = () => {
     }
     useEffect(() => {
         fetchData();
-    }, [manageUserData])
+    }, [])
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -50,7 +51,7 @@ const ManageUserAdmin = () => {
                         <div>
                             <button onClick={() => setAddUserModal(true)} className='py-4 ripple text-[14px] bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
                                 <FaPlus />
-                                <span>New User</span>
+                                <span>New Sch manager</span>
                             </button>
                             <AddNewUser showModal={AddUserModal} onClose={() => setAddUserModal(false)} />
                         </div>

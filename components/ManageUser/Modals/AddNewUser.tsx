@@ -33,7 +33,6 @@ const AddNewUser = ({ showModal, onClose }: { showModal: Boolean, onClose: () =>
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            if (FormData.role === system_users.SCHEDULE_MANAGER) {
                 FormData.hospitalId = AuthUser.user?.hospital?.hospitalId;
                 let result = await scheduleManagerService.createScheduleManager(FormData);
                 if (result.status === 200) {
@@ -41,25 +40,7 @@ const AddNewUser = ({ showModal, onClose }: { showModal: Boolean, onClose: () =>
                     setFormData(IUserImpl);
                     handleClose();
                 }
-            }
-            else if (FormData.role === system_users.DOCTOR) {
-                FormData.hospitalId = AuthUser.user?.hospital?.hospitalId;
-                let result = await doctorService.createDoctor(FormData);
-                if (result.status === 200) {
-                    notifySuccess("Successfully created the doctor");
-                    setFormData(IUserImpl);
-                    handleClose();
-                }
-            }
-            else {
-                let result = await userService.create(FormData);
-                console.log("The result", result)
-                if (result.status === 200) {
-                    notifySuccess("Successfully created the user");
-                    setFormData(IUserImpl);
-                    handleClose();
-                }
-            }
+            
         } catch (error: any) {
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
             notifyError(ERROR_MESSAGE);

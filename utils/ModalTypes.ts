@@ -75,16 +75,19 @@ export interface ILanguage {
 }
 export interface IUser {
     id?: string;
-    confirmPassword: string;
-    username: string;
     fullName: string;
     email: string;
     password: string;
     status: string;
     mobile: number | string;
     role: string;
+    roles: any[];
     gender: string;
-    services?: string[];
+    province: string;
+    district: string;
+    sector: string;
+    type: string;
+    servicesManaged?: string[];
     hospitalId?: string;
     createdAt?: string;
 }
@@ -92,8 +95,6 @@ export type TUserErrors = {
     [K in keyof IUser]: string;
 };
 export const IUserImpl: IUser = {
-    confirmPassword: "",
-    username: "",
     fullName: "",
     email: "",
     password: "",
@@ -101,7 +102,12 @@ export const IUserImpl: IUser = {
     mobile: 0,
     gender: "",
     role: "",
-    services: [],
+    province: "",
+    district: "",
+    sector: "",
+    type: "",
+    servicesManaged: [],
+    roles: []
 }
 
 export interface IHospitalAdmin {

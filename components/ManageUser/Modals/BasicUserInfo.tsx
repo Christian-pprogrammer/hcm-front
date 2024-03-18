@@ -5,7 +5,7 @@ const BasicUserInfo = ({ FormData, setFormData }: { FormData: IUser, setFormData
     const errors: string[] = [];
 
     if (!FormData.fullName) {
-        errors.push("The fullname should be provided");
+        errors.push("The full name should be provided");
     }
     if (!FormData.email) {
         errors.push("The email should be provided");
@@ -16,15 +16,15 @@ const BasicUserInfo = ({ FormData, setFormData }: { FormData: IUser, setFormData
     if (!FormData.password) {
         errors.push("The Password should be provided");
     }
-    if (FormData.password !== FormData.confirmPassword) {
-        errors.push("The Password Should match the confirm password");
+    if (!FormData.type) {
+        errors.push("The manager type should be selected");
     }
 
     return (
         <>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Username/ FullName
+                    Full Name
                 </label>
                 <input value={FormData?.fullName} onChange={(e) => setFormData({ ...FormData, fullName: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Enter your username" />
             </div>
@@ -36,9 +36,9 @@ const BasicUserInfo = ({ FormData, setFormData }: { FormData: IUser, setFormData
             </div>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Mobile
+                    Telephone
                 </label>
-                <input value={FormData?.mobile} onChange={(e) => setFormData({ ...FormData, mobile: e.target.valueAsNumber })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" placeholder="Enter your number" />
+                <input value={FormData?.mobile} onChange={(e) => setFormData({ ...FormData, mobile: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Enter your number" />
             </div>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
@@ -48,9 +48,13 @@ const BasicUserInfo = ({ FormData, setFormData }: { FormData: IUser, setFormData
             </div>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
-                    Confirm Password
+                    Manager type
                 </label>
-                <input value={FormData?.confirmPassword} onChange={(e) => setFormData({ ...FormData, confirmPassword: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="confirm-password" type="password" placeholder="Re-enter password" />
+                <select value={FormData.type} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={(e) => setFormData({...FormData, type: e.target.value})}>
+                  <option value="">Select type</option>
+                  <option value="SERVICE">Service</option>
+                  <option value="OVERALL">Overall</option>
+                </select>
             </div>
             {errors.length > 0 && (
                 <div className='py-2'>
