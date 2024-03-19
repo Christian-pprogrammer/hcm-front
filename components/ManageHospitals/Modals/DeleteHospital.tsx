@@ -5,7 +5,7 @@ import hospitalService from '../../../services/hospital/hospital.service';
 import { notifyError, notifySuccess } from '../../alert';
 import { BlobOptions } from 'buffer';
 
-const DeleteHospital = ({ showModal, onClose, id }: { showModal: Boolean, onClose: () => void, id: string }) => {
+const DeleteHospital = ({ showModal, onClose, id }: { showModal: Boolean, onClose: () => void, id: any }) => {
 
     const [isBrowser, setBrowser] = useState<Boolean>(false);
     const [password, setPassword] = useState<string>("");
