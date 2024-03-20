@@ -33,6 +33,12 @@ export interface IService {
     createdAt?:string;
     updatedAt?:string;
 }
+export interface INewService {
+  service_id: string;
+  serviceName: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
 export interface NewPriceInt {
     serviceName: string;
     fee: number;

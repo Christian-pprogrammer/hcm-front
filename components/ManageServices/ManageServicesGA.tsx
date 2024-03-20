@@ -11,7 +11,6 @@ import ManageServiceFetch from './ManageServiceFetch';
 const ManageServicesGA = () => {
     const [searchtext, setSearchText] = useState<string>('');
     const [NewServiceModal, setNewServiceModal] = useState<Boolean>(false)
-    const [MapHospitalModal, setMapHospitalModal] = useState<Boolean>(false)
     let [manageServicesData, setManageServicesData] = useState<IService[]>([]);
     const [showAction, setShowActions] = useState<boolean>(false)
     const authUser = useSelector((state: any) => state.authUser);

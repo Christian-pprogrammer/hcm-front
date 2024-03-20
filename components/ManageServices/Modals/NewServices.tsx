@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { useSelector } from 'react-redux';
 import servicesService from '../../../services/services/services.service';
 import { notifyError, notifySuccess } from '../../alert';
-import { IService } from '../../../utils/Prices';
+import { INewService, IService } from '../../../utils/Prices';
 
 const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: () => void }) => {
     const [isBrowser, setBrowser] = useState<Boolean>(false);
@@ -12,8 +12,7 @@ const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: () =
         setBrowser(true)
         async function fetchData() {
             try {
-                const id = await authUser.user?.group?.group_id
-                const data = await servicesService.getGroupServices(id);
+                const data = await servicesService.getAllServices();
                 setServiceArr(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
@@ -22,8 +21,8 @@ const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: () =
         }
         fetchData()
     }, [serviceArr]);
-    const [FormData, setFormData] = useState<IService>({
-        service: '',
+    const [FormData, setFormData] = useState<INewService>({
+        serviceName: '',
         service_id: ''
     });
     const authUser = useSelector((state: any) => state.authUser)
@@ -33,13 +32,12 @@ const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: () =
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            console.log("The Formdata", FormData);
-            let result = await servicesService.addServiceToGroup(FormData);
+            let result = await servicesService.createService(FormData);
             console.log("The result:", result);
             if (result.status === 200) {
-                notifySuccess("Successfully Created the service");
+                notifySuccess("Successfully created the service");
                 setFormData({
-                    service: '',
+                    serviceName: '',
                     service_id: ''
                 });
                 handleClose();
@@ -78,13 +76,13 @@ const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: () =
                                 <label className="block text-gray-700 text-sm font-bold">
                                     New Services Name
                                 </label>
-                                <input value={FormData?.service} onChange={(e) => setFormData({ ...FormData, service: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type={'text'} placeholder="Enter your service name " />
-                                {FormData?.service === '' ? <small className='text-[12px] text-red-500'>Enter Valid info</small> : ''}
+                                <input value={FormData?.serviceName} onChange={(e) => setFormData({ ...FormData, serviceName: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date" type={'text'} placeholder="Enter your service name " />
+                                {FormData?.serviceName === '' ? <small className='text-[12px] text-red-500'>Enter Valid info</small> : ''}
                             </div>
                         </div>
                         <div className="modal-footer flex py-2 gap-2 justify-between">
                             <button type="button" className="btn ripple bg-slate-500 text-white py-2 px-6 lg:px-6 rounded-sm shadow-lg lg:py-2 btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>
-                            <button type="submit" disabled={!FormData.service ? true : false} className={`${!FormData.service && 'bg-slate-500 cursor-not-allowed'} btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary`} data-dismiss="modal">New Service</button>
+                            <button type="submit" disabled={!FormData.serviceName ? true : false} className={`${!FormData.serviceName && 'bg-slate-500 cursor-not-allowed'} btn ripple bg-backG text-white py-2 px-6 lg:px-6 lg:py-2 rounded-sm shadow-lg btn-secondary`} data-dismiss="modal">New Service</button>
                         </div>
                     </form>
                 </div>

@@ -1,9 +1,9 @@
 import { IHospital, IServiceHospitalMap } from "../../utils/ModalTypes";
-import { IService } from "../../utils/Prices";
+import { INewService, IService } from "../../utils/Prices";
 import http from "../http-common";
 
 class ManageServicesService {
-  createService(data: IService) {
+  createService(data: INewService) {
     return http.post(`/services`, data);
   }
 
