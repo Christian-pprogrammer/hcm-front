@@ -8,14 +8,20 @@ import { IUser } from '../../../utils/ModalTypes'
 import hospitaladminService from '../../../services/hospital-admin/hospitaladmin.service'
 import ManageHospitalAdminFetch from './ManageHospitalAdminFetch'
 
-const ManageAdminHospitalPage = ({ name, id }: { name: string, id: any }) => {
+const ManageAdminHospitalPage = ({ id }: { id: any }) => {
     const [AddHospitalAdmin, setAddHospitalAdmin] = useState<boolean>(false)
     const [searchtext, setSearchText] = useState<string>('');
     const [manageHospitalAdmin, setmanageHospitalAdmin] = useState<IUser[]>([]);
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await hospitaladminService.getHospitalAdmins(id);
+              let data;
+              if (id) {
+                data = await hospitaladminService.getHospitalAdmins(id);
+              } else {
+                data = await hospitaladminService.getAllHospitalAdmins();
+              }
+              console.log(data);
                 setmanageHospitalAdmin(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;
@@ -27,7 +33,7 @@ const ManageAdminHospitalPage = ({ name, id }: { name: string, id: any }) => {
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/group-admin/manage-hospitals'>{`Manage Hospitals / ${name}`}</Link>
+                <FaHome /><Link href='/group-admin/manage-hospitals'>{`Manage Hospitals`}</Link>
             </div>
             <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
                 <div className="flex px-5 place-items-center justify-between gap-6 py-5">

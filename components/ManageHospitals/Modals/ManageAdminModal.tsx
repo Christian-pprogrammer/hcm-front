@@ -10,33 +10,36 @@ const ManageAdminModal = ({ showModal, onClose, id }: { showModal: Boolean, onCl
     const [isBrowser, setBrowser] = useState<Boolean>(false)
     const [FormDataAdmin, setFormDataAdmin] = useState<IHospitalAdmin>(IHospitalAdminDummy);
     const [FormPageNumber, setFormPageNumber] = useState<number>(0);
-    const [isValid, setIsValid] = useState<boolean>()
-    const PageDisplayForm = () => {
-        if (FormPageNumber == 0) {
-            return <BasicAdminInfo FormDataAdmin={FormDataAdmin} setFormDataAdmin={setFormDataAdmin} />
-        } else {
-            return <AdvancedInfoAdmin FormDataAdmin={FormDataAdmin} setFormDataAdmin={setFormDataAdmin} />
-        }
-    }
+    const [isValid, setIsValid] = useState<boolean>();
+
     useEffect(() => {
-        setBrowser(true)
+        setBrowser(true);
     }, [])
+
+    const PageDisplayForm = () => {
+      if (FormPageNumber == 0) {
+          return <BasicAdminInfo FormDataAdmin={FormDataAdmin} setFormDataAdmin={setFormDataAdmin} />
+      } else {
+          return <AdvancedInfoAdmin hospId={id} FormDataAdmin={FormDataAdmin} setFormDataAdmin={setFormDataAdmin} />
+      }
+  }
+
     const handleClose = () => {
         onClose()
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        FormDataAdmin.hospitalId = id;
         try {
+          console.log(FormDataAdmin);
             let result = await hospitaladminService.createHospitalAdmin(FormDataAdmin);
             console.log("The result", result)
             if (result.status === 200) {
-                notifySuccess("Successfully Created the Hospitals Admin");
+                notifySuccess("Successfully Created the Hospital Admin");
                 setFormDataAdmin(IHospitalAdminDummy);
                 handleClose();
             }
         } catch (error: any) {
-            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
+            const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Admin creation failed, try again!" : error.error;
             notifyError(ERROR_MESSAGE);
         }
     }
@@ -46,7 +49,7 @@ const ManageAdminModal = ({ showModal, onClose, id }: { showModal: Boolean, onCl
                 <div className="modal-content">
 
                     <div className="modal-header py-5 flex justify-between">
-                        <h5 className="modal-title font-bold">Manage Director</h5>
+                        <h5 className="modal-title font-bold">New Hospital Admin</h5>
                         <button type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close" onClick={handleClose}>
                             <span aria-hidden="true">&times;</span>
                         </button>

@@ -1,14 +1,13 @@
 import React, { useState, useEffect, memo } from 'react'
 import hospitalCategoryService from '../../../services/hospital/hospital-category.service';
 import { ICategory, IHospital } from '../../../utils/ModalTypes'
-import { notifyError, notifyInfo } from '../../alert';
+import { notifyError } from '../../alert';
 
 const AdvancedInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospital, setFormData: React.Dispatch<React.SetStateAction<IHospital>>, setIsValid: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [CategoryArr, setCategoryArr] = useState<ICategory[]>([]);
     const errors: string[] = []
     async function fetchData() {
         try {
-            notifyInfo("Category on fetch!");
             const data = await hospitalCategoryService.getHospitalCategories();
             setCategoryArr(data.data);
         } catch (error: any) {
@@ -19,7 +18,10 @@ const AdvancedInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospit
     useEffect(() => {
         fetchData();
         if (errors.length > 0) {
-            setIsValid(true)
+            setIsValid(false)
+        }
+        if (errors.length < 1) {
+          setIsValid(true);
         }
     }, [setIsValid, errors.length])
     if (!FormData.appointmentPrice) {
@@ -51,11 +53,9 @@ const AdvancedInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospit
                     Category
                 </label>
                 <select onChange={(e) => setFormData({ ...FormData, hospitalCategoryId: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Enter your Location">
+                  <option value={''}>Select The Value</option>
                     {CategoryArr ? CategoryArr.map((category: ICategory, i: number) => (
-                        <>
-                            <option value={''}>Select The Value</option>
-                            <option value={category.hospital_category_id}>{category.hospitalCategory}</option>
-                        </>
+                            <option key={category.hospital_category_id} value={category.hospital_category_id}>{category.hospitalCategory}</option>
                     )) :
                         <span>Category Not found</span>
                     }

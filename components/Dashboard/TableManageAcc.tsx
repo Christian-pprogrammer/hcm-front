@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { FaHome, FaPlus } from 'react-icons/fa'
-import AddAccount from './Modals/AddAccount'
+import AddAccount from './HospitalAdmin/AddAccount'
 import ManageAccountsFetchData from './tablesdata/manage-accounts'
 import groupService from '../../services/group/group.service'
 import FetchDataLoader from '../loaders/FetchDataLoader'
 import { notifyError } from '../alert'
 import { IGroup } from '../../utils/ModalTypes'
+import hospitaladminService from '../../services/hospital-admin/hospitaladmin.service'
 
 const TableManageAcc = () => {
-    const [addAccount, setAddAccount] = useState<Boolean>(false)
+    const [addAccount, setAddAccount] = useState<Boolean>(false);
     const [searchtext, setSearchText] = useState<string>('');
     let [manageAccData, setmanageAccData] = useState<IGroup[]>([]);
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await groupService.getAllGroups();
+                const data = await hospitaladminService.getAllHospitalAdmins();
                 console.log("data...", data)
                 setmanageAccData(data.data);
             } catch (error: any) {

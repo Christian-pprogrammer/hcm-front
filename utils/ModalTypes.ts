@@ -19,7 +19,7 @@ export interface ICategory {
 export interface IHospital {
     email: string;
     hospitalCategoryId: string;
-    hospitalId: string;
+    hospitalId?: string;
     hospitalName: string;
     location: string;
     status?: string;
@@ -105,29 +105,27 @@ export const IUserImpl: IUser = {
 }
 
 export interface IHospitalAdmin {
-    confirmPassword: string;
-    username: string;
-    fullName: string;
-    email: string;
-    password: string;
-    status: string;
-    mobile: number;
-    role: string;
-    gender: string;
-    hospitalId: string;
+  email: string;
+  password: string;
+  mobile : string;
+  fullName: string;
+  hospitalId: string;
+  gender: string;
+  province: string;
+  district: string;
+  sector: string;
 }
 
 export const IHospitalAdminDummy: IHospitalAdmin = {
-    confirmPassword: "",
-    username: "",
-    fullName: "",
     email: "",
     password: "",
-    status: "",
-    mobile: 0,
+    fullName: "",
+    mobile: "",
     gender: "",
-    role: "",
     hospitalId: "",
+    province: "",
+    district: "",
+    sector: ""
 }
 
 export interface IRole {

@@ -5,6 +5,10 @@ class HospitalAdmin {
     return http.post(`/hospital-admin`, data);
   }
 
+  getAllHospitalAdmins() {
+    return http.get(`/hospital-admin`);
+  }
+
   getHospitalAdmins(hospitalId: string) {
     return http.get(`/hospital-admin/${hospitalId}`);
   }

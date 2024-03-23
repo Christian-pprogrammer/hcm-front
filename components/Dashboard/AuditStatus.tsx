@@ -2,7 +2,7 @@ import React,{ useState } from 'react'
 import Link from 'next/link'
 import DeleteAcc from './Modals/DeleteAcc'
 import { FaCheck,FaEye,FaFileImport,FaHome, FaPencilAlt, FaPlus, FaTrash } from 'react-icons/fa'
-import AddAccount from './Modals/AddAccount'
+import AddAccount from './HospitalAdmin/AddAccount'
 import EditAccount from './Modals/EditAccount'
 import ViewAudit from './Modals/ViewAudit'
 import ConfirmStep from './Modals/ConfirmStep'
@@ -21,7 +21,7 @@ const AuditStatus = () => {
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/super-admin/auditlogs'>Audit Status / </Link> 
+                <FaHome /><Link href='/super-admin/auditlogs'>Audit Status / </Link>
         </div>
         <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
             <div className="flex px-5 place-items-center justify-between gap-6 py-5">
@@ -33,7 +33,7 @@ const AuditStatus = () => {
                             <option defaultValue="today">Yesterday</option>
                             <option defaultValue="today">Week</option>
                             <option defaultValue="today">Month</option>
-                            
+
                         </select>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ const AuditStatus = () => {
                             <ConfirmStep showConfirm={showConfirm} onClose={()=>setShowConfirm(false)}>
                             <div className=" flex justify-center place-items-center text-slate-500 text-[12px] flex-col gap-4">
                                 <p>Accept that all appointment request are added to their prescribed and requested schedules at once. This is an irreversible action.Confirm the process to run at once.</p>
-                                <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> 
+                                <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div>
                             </div>
                             </ConfirmStep>
                         </button>
@@ -108,7 +108,7 @@ const AuditStatus = () => {
                         <button onClick={toggleModal} className='p-4 bg-white flex group-hover:bg-inputG justify-center place-items-center'><FaEye /><ViewAudit showModal={showModal} onClose={toggleModal}> <div className='text-[12px] text-slate-500 '> <p>The Doctor Account registered under the names of Dr. Sebatunzi, performed the recent activities such as sending appointment to the patient account under the Names of Martin Uwera . </p> <p>The Doctor Account rescheduled the 02/02/2022 schedule creating and extending the schedule hours</p></div></ViewAudit></button>
                     </td>
                 </tr>
-                
+
             </tbody>
         </table>
         </div>

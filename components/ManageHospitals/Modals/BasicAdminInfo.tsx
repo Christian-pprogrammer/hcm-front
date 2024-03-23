@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { IHospitalAdmin } from '../../../utils/ModalTypes'
 import { GenderOptions } from '../../../utils/SelectOptions'
 
 const BasicAdminInfo = ({ FormDataAdmin, setFormDataAdmin }: { FormDataAdmin: IHospitalAdmin, setFormDataAdmin: React.Dispatch<React.SetStateAction<IHospitalAdmin>> }) => {
-    const errors: string[] = []
+    const errors: string[] = [];
+
     if (!FormDataAdmin.fullName) {
         errors.push("The Username is required!");
     }
@@ -16,13 +17,15 @@ const BasicAdminInfo = ({ FormDataAdmin, setFormDataAdmin }: { FormDataAdmin: IH
     if (!FormDataAdmin.gender) {
         errors.push("The gender is required!");
     }
+
     return (
         <>
+
             <div className='py-1'>
                 <label className="block text-gray-700 text-sm font-bold">
-                    User Name
+                    Full Name
                 </label>
-                <input value={FormDataAdmin?.fullName} onChange={(e) => setFormDataAdmin({ ...FormDataAdmin, fullName: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Username" />
+                <input value={FormDataAdmin?.fullName} onChange={(e) => setFormDataAdmin({ ...FormDataAdmin, fullName: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Full name" />
             </div>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
@@ -32,9 +35,9 @@ const BasicAdminInfo = ({ FormDataAdmin, setFormDataAdmin }: { FormDataAdmin: IH
             </div>
             <div className='py-1'>
                 <label className="block text-gray-700 text-sm font-bold">
-                    Tel
+                    Telephone
                 </label>
-                <input onChange={(e) => setFormDataAdmin({ ...FormDataAdmin, mobile: e.target.valueAsNumber })} value={FormDataAdmin?.mobile} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number" placeholder="Telephone" />
+                <input onChange={(e) => setFormDataAdmin({ ...FormDataAdmin, mobile: e.target.value })} value={FormDataAdmin?.mobile} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Telephone" />
             </div>
             <div className="py-1">
                 <label className="block text-gray-700 text-sm font-bold">
