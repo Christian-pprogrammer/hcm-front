@@ -122,6 +122,7 @@ const ManageSchedulesTable = () => {
           <div>
             <DatePicker placeholder="Select Dates" inputClass="form-control rounded-lg outline-none border-none text-backG py-4 px-10 bg-inputG" multiple plugins={[<DatePanel key={"key"} />]} />
           </div>
+          {authUser?.role == "SCHEDULE_MANAGER" &&
           <div>
             <button
               onClick={() => setNewScheduleModal(true)}
@@ -137,6 +138,7 @@ const ManageSchedulesTable = () => {
               />
             )}
           </div>
+          }
         </div>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

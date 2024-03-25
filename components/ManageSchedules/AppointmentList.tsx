@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { FaEllipsisH, FaHome, FaMap, FaPaperPlane} from 'react-icons/fa'
@@ -150,39 +149,47 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                             </select>
                         </div>
                     </div>
+                    {authUser?.role == "SCHEDULE_MANAGER" &&
                     <div className="md:flex hidden justify-end gap-4">
                         <div className='flex gap-2'>
                             <button disabled={showAction ? false : true} onClick={() => setMapModal(true)} className='py-4 bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4 gap-2 rounded-lg'>
                                 <FaMap className='text-backG' />
                                 <span>Map Appointment</span>
                             </button>
-                            <button onClick={() => setSendAppModal(true)} className='py-4 ripple text-[14px] bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4  rounded-lg  gap-6'>
+                            {/* <button onClick={() => setSendAppModal(true)} className='py-4 ripple text-[14px] bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4  rounded-lg  gap-6'>
                                 <FaPaperPlane className='text-backG' />
                                 <span>Send Appointment</span>
-                            </button>
+                            </button> */}
                             <SendAppointments SendAppModal={SendAppModal} onClose={() => setSendAppModal(false)} />
                             {/* <MapAppointments appointmentId={appointment.appointment_id} MapModal={MapModal} onClose={() => setMapModal(false)} /> */}
                         </div>
                     </div>
+                    }
                 </div>
                 <div className=' w-full overflow-x-auto'>
                     <table className=' table-auto w-full'>
                         <thead>
                             <tr>
                                 <th className='py-5 text-[#000000c8] text-sm '>Time</th>
-                                <th className='py-5 text-[#000000c8] text-sm '>Patient Name</th>
+                                {authUser?.role == "SCHEDULE_MANAGER" && <th className='py-5 text-[#000000c8] text-sm '>Patient Name</th> }
                                 <th className='py-5 text-[#000000c8] text-sm '>Hospital</th>
                                 <th className='py-5 text-[#000000c8] text-sm '>Department</th>
                                 <th className='py-5 text-[#000000c8] text-sm '>Doctor's name</th>
                                 <th className='py-5 text-[#000000c8] text-sm '>Appointment Date</th>
-                                {showAction &&
-                                    <th className='py-5 text-[#000000c8] text-sm '>Appointment Status</th>
-                                }
+                                <th className='py-5 text-[#000000c8] text-sm '>{authUser?.role == "SCHEDULE_MANAGER" ? "Appointment Status" : "Book Appointment"}</th>
                             </tr>
                         </thead>
                         <tbody>
                           {handleFilter().length > 0 ? (
-                            handleFilter().map((appointment: any, index: number) => (
+                            handleFilter().filter((appointment: any) => {
+                              // Check if user role is "PATIENT" and appointment status is "CREATED"
+                              if (authUser.role === "PATIENT") {
+                                return appointment.appointmentStatus === "CREATED";
+                              }
+                              // For other roles, no filter is applied
+                              return true;
+                            })
+                            .map((appointment: any, index: number) => (
                             <tr
                              key={appointment.appointmentDate + index++}
                              className='bg-inputG group hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'
@@ -191,9 +198,9 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                                     <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowActions((prev) => !prev)} />
                                     <span className='text-[#00000043] pl-2 font-bold'>{appointment.time}</span>
                                 </td>
-                                <td className='py-2  whitespace-nowrap lg:px-5 text-center'>
+                                {authUser?.role == "SCHEDULE_MANAGER" && <td className='py-2  whitespace-nowrap lg:px-5 text-center'>
                                     <span className='text-black font-bold'>{appointment.patientName ? appointment.patientName : "Not booked"}</span>
-                                </td>
+                                </td>}
                                 <td className='px-10 whitespace-nowrap text-center'>
                                     <span className='text-[#00000043]'>{appointment.hospital}</span>
                                 </td>
@@ -206,11 +213,13 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                                 <td className='px-10  whitespace-nowrap py-2 text-center flex justify-center place-items-center '>
                                     {unixTimeToUsualDate(appointment.appointmentDate)}
                                 </td>
-                                {showAction &&
-                                    <td className='px-10 whitespace-nowrap text-center gap-10 text-backG'>
-                                      <button onClick={() => setMapModal(true)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 bg-white rounded-lg'> <FaEllipsisH /></button> <MapAppointments MapModal={MapModal} appointmentId={appointment.appointment_id} onClose={() => setMapModal(false)} /> {appointment.appointmentStatus}
-                                    </td>
-                                }
+                                {authUser?.role == "PATIENT" && <td className='px-10 whitespace-nowrap text-center gap-10 text-backG'>
+                                  <button onClick={() => setMapModal(true)} className='hover:bg-slate-100 group-hover:bg-inputG p-3 rounded-lg'> Book</button> <MapAppointments MapModal={MapModal} appointmentId={appointment.appointment_id} onClose={() => setMapModal(false)} />
+                                </td>}
+                                {authUser?.role == "SCHEDULE_MANAGER" && <td className='px-10 whitespace-nowrap text-center gap-10 text-backG'>
+                                  <button className='hover:bg-slate-100 group-hover:bg-inputG p-3 rounded-lg'></button> {appointment.appointmentStatus}
+                                </td>}
+
                             </tr>
                             ))
                             ) : (

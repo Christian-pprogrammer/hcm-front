@@ -81,7 +81,7 @@ export default function Login() {
                     else if (role === system_users.DOCTOR)
                         handleGoTo("/doctor/dashboard");
                     else if (role === system_users.PATIENT)
-                        handleGoTo("/patient/appointment-dashboard");
+                        handleGoTo("/patient/schedules");
                     else
                         handleGoTo("/404");
                 }

@@ -185,13 +185,13 @@ export const PatientAdminArr : ISidebar[] = [
   id:1,
   IconName: <ManageAccIcon/>,
   LinkName: "Schedules",
-  Linkurl:"/schedule-manager/manage-schedules"
+  Linkurl:"/patient/schedules"
 },
 {
   id:2,
   IconName: <FaUsers/>,
   LinkName: "Appointments",
-  Linkurl:"/schedule-manager/appointments"
+  Linkurl:"/patient/appointments"
 }
 ]
 
