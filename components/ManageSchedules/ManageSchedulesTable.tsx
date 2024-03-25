@@ -29,7 +29,12 @@ const ManageSchedulesTable = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const schedules = await scheduleService.getHospitalSchedules(authUser.user.hospital.hospitalId);
+        let schedules;
+        if (authUser?.role == "SCHEDULE_MANAGER") {
+          schedules = await scheduleService.getHospitalSchedules(authUser.user.hospital.hospitalId);
+        } else {
+          schedules = await scheduleService.getAllSchedules();
+        }
         console.log(schedules);
         setScheduleData(schedules.data);
 
@@ -172,7 +177,7 @@ const ManageSchedulesTable = () => {
                   </td>
                   <td className="px-6 py-4">{schedule?.serviceName}</td>
                   <td className="px-6 py-4">{schedule?.appointmentNumber}</td>
-                  <td className="px-6 py-4">{unixTimeToUsualDate(schedule?.scheduleDates[0].date)}</td>
+                  <td className="px-6 py-4">{unixTimeToUsualDate(schedule?.scheduleDates[0]?.date)}</td>
                   <td className="px-6 py-4">{(schedule?.scheduleDates).length}</td>
                   <td className="flex items-center px-6 py-4 space-x-3 text-backG">
                     <button onClick={() => setEditModal(true)}>
