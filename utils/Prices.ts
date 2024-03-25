@@ -39,6 +39,9 @@ export interface INewService {
   createdAt?: string;
   updatedAt?: string;
 }
+export interface AddServices {
+  serviceIds: string[];
+}
 export interface NewPriceInt {
     serviceName: string;
     fee: number;

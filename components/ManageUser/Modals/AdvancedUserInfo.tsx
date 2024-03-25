@@ -82,7 +82,7 @@ const AdvancedUserInfo = ({ FormData, setFormData }: { FormData: IUser, setFormD
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await servicesService.getAllServices();
+                const data = await servicesService.getHospitalServices(hospitalId);
                 console.log(data.data);
                 setServiceArr(data.data);
             } catch (error: any) {

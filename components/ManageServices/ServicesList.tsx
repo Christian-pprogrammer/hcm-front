@@ -7,7 +7,7 @@ import servicesService from '../../services/services/services.service';
 import { notifyError } from '../alert';
 import ServicesFetchHA from './ServicesFetchHA';
 import { IService } from '../../utils/Prices';
-import RemoveAllService from './Modals/RemoveAllService';
+import AddService from './Modals/AddService';
 
 const ServicesList = () => {
     const [searchtext, setSearchText] = useState<string>('');
@@ -15,7 +15,8 @@ const ServicesList = () => {
     const [showAction, setShowActions] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false)
     let [manageHospitalServices, setmanageHospitalServices] = useState<IService[]>([]);
-    const hospitalId = authUser.user.hospital.hospitalId
+    const hospitalId = authUser?.user?.hospital?.hospitalId;
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -27,7 +28,8 @@ const ServicesList = () => {
             }
         }
         fetchData();
-    }, [hospitalId, manageHospitalServices]);
+    }, [hospitalId])
+
     return (
         <div className="px-2 bg-[#F7F7F7] ">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -52,9 +54,9 @@ const ServicesList = () => {
                         </div>
                         <div>
                             <button onClick={() => setShowModal(true)} className='ripple py-4 text-[14px] bg-backG text-white flex place-items-center justify-center px-8  rounded-lg  gap-6'>
-                                <span>Remove All</span>
+                                <span>Add Services</span>
                             </button>
-                            <RemoveAllService showModal={showModal} onClose={() => setShowModal(false)} />
+                            <AddService showModal={showModal} onClose={() => setShowModal(false)} />
                         </div>
                     </div>
                 </div>
