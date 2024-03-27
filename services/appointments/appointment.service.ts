@@ -1,3 +1,4 @@
+import { PayAppointment } from "../../utils/ModalTypes";
 import http from "../http-common";
 
 class AppointmentService {
@@ -43,6 +44,13 @@ class AppointmentService {
 
   getUnbookedAppointmentsInSchedule(scheduleId: string) {
     return http.get(`/appointments/schedule/${scheduleId}/unbooked`);
+  }
+
+  payForAppointment(data: PayAppointment) {
+    return http.post(`/payment`, data);
+  }
+  getPaymentStatus(paymentId: string) {
+    return http.get(`/payment/${paymentId}`);
   }
 }
 export default new AppointmentService();

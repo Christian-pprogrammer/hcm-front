@@ -98,7 +98,6 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
           } else {
             appointments = await appointmentService.getPatientAllAppointments();
           }
-          console.log(appointments);
           setAppointments(appointments.data);
         } catch (error: any) {
           const ERROR_MESSAGE = error.response

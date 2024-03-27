@@ -77,10 +77,18 @@ const ManageSchedulesTable = () => {
   }
 
   const handleRowClick = (scheduleId: string) => {
-    router.push({
-      pathname: "/schedule-manager/appointments",
-      query: { scheduleId: scheduleId }
-    });
+    if (authUser?.role == "SCHEDULE_MANAGER") {
+      router.push({
+        pathname: "/schedule-manager/appointments",
+        query: { scheduleId: scheduleId }
+      });
+    } else {
+      router.push({
+        pathname: "/patient/appointments",
+        query: { scheduleId: scheduleId }
+      });
+    }
+
   };
   var element = (
     <div className="bg-white border-2 h-5/6  rounded-lg border-[#0000002] overflow-auto">
