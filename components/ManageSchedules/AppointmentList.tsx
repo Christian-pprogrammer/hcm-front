@@ -126,7 +126,7 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                         <div className="px-2 ">
                             <select name="" id="" className='bg-white border-2 border-[#00000020]  rounded-2xl outline-none px-2 py-2' value={selectedDepartment} onChange={e => setSelectedDepartment(e.target.value)}>
                                 <option value="">Department</option>
-                                <option value="Pediatery">Pediatery</option>
+                                <option value="pediatery">Pediatery</option>
                                 <option value="Determology">Determology</option>
                                 <option value="Surgery">Surgery</option>
                             </select>

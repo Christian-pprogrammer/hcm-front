@@ -17,7 +17,10 @@ const AuditStatus = () => {
     const toggleShowConfirm = () =>{
         setShowConfirm(!showConfirm)
     }
-    const STATUS = 'Active'
+    const STATUS = 'Active';
+    // Get the current year
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
@@ -79,13 +82,13 @@ const AuditStatus = () => {
                         {STATUS == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
                     </td>
                     <td className='py-2 text-[#0000006c] break-words whitespace-nowrap lg:px-5 text-center  '>
-                        <p>Approved the schedules on 12/2/2022 </p>
+                        <p>Approved the schedules on 12/2/{currentYear} </p>
                     </td>
                     <td className='py-2 text-[#0000006c] whitespace-nowrap text-center lg:px-5'>
                         <p>Dr.Sebatunzi Marcel </p>
                     </td>
                     <td className='py-2 lg:px-10 whitespace-nowrap flex justify-center gap-10 text-backG'>
-                        <button onClick={toggleModal} className='p-4 bg-white flex group-hover:bg-inputG justify-center place-items-center'><FaEye /><ViewAudit showModal={showModal} onClose={toggleModal}> <div className='text-[12px] text-slate-500 '> <p>The Doctor Account registered under the names of Dr. Sebatunzi, performed the recent activities such as sending appointment to the patient account under the Names of Martin Uwera . </p> <p>The Doctor Account rescheduled the 02/02/2022 schedule creating and extending the schedule hours</p></div></ViewAudit></button>
+                        <button onClick={toggleModal} className='p-4 bg-white flex group-hover:bg-inputG justify-center place-items-center'><FaEye /><ViewAudit showModal={showModal} onClose={toggleModal}> <div className='text-[12px] text-slate-500 '> <p>The Doctor Account registered under the names of Dr. Sebatunzi, performed the recent activities such as sending appointment to the patient account under the Names of Martin Uwera . </p> <p>The Doctor Account rescheduled the 02/02/{currentYear} schedule creating and extending the schedule hours</p></div></ViewAudit></button>
                     </td>
                 </tr>
                 <tr className='bg-inputG group hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'>
@@ -105,7 +108,7 @@ const AuditStatus = () => {
                         <p>Dr.Sebatunzi Marcel </p>
                     </td>
                     <td className='py-2 lg:px-10 whitespace-nowrap flex place-items-center justify-center text-backG'>
-                        <button onClick={toggleModal} className='p-4 bg-white flex group-hover:bg-inputG justify-center place-items-center'><FaEye /><ViewAudit showModal={showModal} onClose={toggleModal}> <div className='text-[12px] text-slate-500 '> <p>The Doctor Account registered under the names of Dr. Sebatunzi, performed the recent activities such as sending appointment to the patient account under the Names of Martin Uwera . </p> <p>The Doctor Account rescheduled the 02/02/2022 schedule creating and extending the schedule hours</p></div></ViewAudit></button>
+                        <button onClick={toggleModal} className='p-4 bg-white flex group-hover:bg-inputG justify-center place-items-center'><FaEye /><ViewAudit showModal={showModal} onClose={toggleModal}> <div className='text-[12px] text-slate-500 '> <p>The Doctor Account registered under the names of Dr. Sebatunzi, performed the recent activities such as sending appointment to the patient account under the Names of Martin Uwera . </p> <p>The Doctor Account rescheduled the 02/02/{currentYear} schedule creating and extending the schedule hours</p></div></ViewAudit></button>
                     </td>
                 </tr>
 

@@ -18,7 +18,6 @@ const MapAppointments = ({
   const [loading, setLoading] = useState(false);
   const [FormData, setFormData] = useState<PayAppointment>(PayAppointmentImpl);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
-  const [pageNumber, setPageNumber] = useState<number>(0);
   const errors: string[] = [];
 
   if (!FormData.phoneNumber || !FormData.phoneNumber.match(/^2507[2389]\d{7}$/)) {

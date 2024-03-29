@@ -3,6 +3,9 @@ import React from 'react'
 import { FaAppStore, FaGoogle, FaIntercom, FaLinkedin, FaQuestion, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 
 const Footer = () => {
+  // Get the current year
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className='bg-backG  text-white py-10 min-h-[30vh] md:px-[2em]' >
         <div className='flex flex-col justify-center   text-center md:text-left md:flex-row mx-auto px-10 lg:px-0 gap-6'>
@@ -67,7 +70,7 @@ const Footer = () => {
           <div className='border-t-2 flex-col gap-6 md:flex-row  border-[#ffffffb9] my-10 flex py-2 place-items-center '>
               <h1 className='font-bold text-white text-sm'>HCM Corp</h1>
               <p className='text-[#ffffffb9] px-20'>Appointment.rw ® is a registered Trademark of HCM Technology Limited (ACN 142 189 759)
-Copyright © 2022 HCM Technology Pty Limited (ACN 142 189 759)</p> 
+Copyright © {currentYear} HCM Corporation Ltd (ACN 142 189 759)</p>
               <div className='flex justify-between py-2 gap-4'>
                 <Link href='/'>
                 <div className='rounded-full hover:scale-125 hover:cursor-pointer duration-300 text-backG place-items-center bg-white p-5'>
@@ -84,8 +87,8 @@ Copyright © 2022 HCM Technology Pty Limited (ACN 142 189 759)</p>
                   <FaWhatsapp/>
                 </div>
                 </Link>
-          
-          
+
+
               </div>
           </div>
       </footer>

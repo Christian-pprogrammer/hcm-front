@@ -7,13 +7,17 @@ import { CountrieListArr } from '../../utils/SelectOptions';
 const PersonalInfo = ({ FormData, setFormData, onValidityChange} : {FormData:FormStructure , setFormData :any, onValidityChange: (newValidity: boolean) => void }) => {
     const [isValid, setIsValid] = useState(true);
     const validityRef = useRef<boolean>(false);
+    const [phoneNbrValid, setPhoneNbrValid] = useState(true);
+    const [genderValid, setGenderValid] = useState(true);
 
     useEffect(() => {
-        FormData.mobile.length != 9 ? setIsValid(false) : setIsValid(true);
+        FormData.mobile.length != 9 ? setPhoneNbrValid(false) : setPhoneNbrValid(true);
+        FormData.gender.length < 1 ? setGenderValid(false) : setGenderValid(true);
+        (!phoneNbrValid || !genderValid) ? setIsValid(false) : setIsValid(false);
         const validity = !!isValid;
         validityRef.current = validity;
        onValidityChange(validityRef.current);
-    }, [FormData, isValid, onValidityChange]);
+    }, [FormData, genderValid, isValid, onValidityChange, phoneNbrValid]);
     return (
         <>
             <div>
@@ -40,7 +44,7 @@ const PersonalInfo = ({ FormData, setFormData, onValidityChange} : {FormData:For
                         </div>
                         <input value={FormData.mobile} onChange={(e) => setFormData({ ...FormData, mobile: e.target.value })} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' placeholder="Enter your Tel" />
                     </div>
-                    <small className={`text-[10px] ${!isValid && 'text-red-500'}`}>{!isValid ? "Please Enter a valid telephone" : ""}</small>
+                    <small className={`text-[10px] ${!phoneNbrValid && 'text-red-500'}`}>{!phoneNbrValid ? "Please Enter a valid telephone" : ""}</small>
                 </div>
             </div>
             <div className=''>
@@ -51,13 +55,14 @@ const PersonalInfo = ({ FormData, setFormData, onValidityChange} : {FormData:For
                             <FaceIdIcon />
                         </div>
                         <select value={FormData.gender} onChange={(e) => {
-                            alert(e.target.value)
                             setFormData({ ...FormData, gender: e.target.value })
                         }} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' placeholder="Select gender">
+                          <option value="">Selet gender</option>
                           <option value="MALE">Male</option>
                           <option value="FEMALE">Female</option>
                         </select>
                     </div>
+                    <small className={`text-[10px] ${!genderValid && 'text-red-500'}`}>{!genderValid ? "Please select your gender" : ""}</small>
                 </div>
             </div>
 

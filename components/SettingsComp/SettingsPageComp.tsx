@@ -9,7 +9,9 @@ import ServicesFee from './ServicesFee'
 const SettingsPageComp = () => {
     const [showModal, setShowModal] = useState<Boolean>(false)
     const [NewMessageModal, setNewMessageModal] = useState<Boolean>(false)
-    const [showMessage, setshowMessage] = useState<Boolean>(false)
+    const [showMessage, setshowMessage] = useState<Boolean>(false);
+    // Get the current year
+  const currentYear = new Date().getFullYear();
 
     return (
         <div className="px-2 py-4">
@@ -47,7 +49,7 @@ const SettingsPageComp = () => {
                         <div className='py-5'>
                             <h5>Alert</h5>
                             <p className=' text-[#00000073] py-5 '>The System needs reactivation before the below dates. The permanent access will be retrieved after the below dates.The System needs reactivation before the below dates. The permanent access will be retrieved after the below dates.The System needs reactivation before the below dates. The permanent access will be retrieved after the below dates.The System needs reactivation before the below dates. The permanent access will be retrieved after the below dates.</p>
-                            <button type="button" className="btn bg-backG text-white py-2 px-4 font-bold lg:px-10 flex place-items-center gap-4 justify-center lg:py-3 btn-secondary" data-dismiss="modal">12 . 02 . 2022</button>
+                            <button type="button" className="btn bg-backG text-white py-2 px-4 font-bold lg:px-10 flex place-items-center gap-4 justify-center lg:py-3 btn-secondary" data-dismiss="modal">12 . 02 . {currentYear}</button>
                         </div>
                     </div>
                 </div>

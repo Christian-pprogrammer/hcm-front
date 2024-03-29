@@ -2,7 +2,9 @@ import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 
 const AppManagerTable = () => {
-    const STATUS = 'Active'
+    const STATUS = 'Active';
+    // Get the current year
+  const currentYear = new Date().getFullYear();
     return (
         <table className=' table-auto w-full  '>
         <thead className=''>
@@ -25,10 +27,10 @@ const AppManagerTable = () => {
                     <span className='text-[#00000043]'>12</span>
                 </td>
                 <td className='px-10 whitespace-nowrap text-center'>
-                    <span className='text-[#00000043]'>12. 02 .2022</span>
+                    <span className='text-[#00000043]'>12. 02 .{currentYear}</span>
                 </td>
             </tr>
-           
+
         </tbody>
     </table>
     )

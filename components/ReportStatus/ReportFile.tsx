@@ -6,12 +6,14 @@ const ReportFile = () => {
     const [DeleteModal,setDeleteModal] = useState<Boolean>(false)
     const [AddUserModal,setAddUserModal] = useState<Boolean>(false)
     const [EditModal,setEditModal] = useState<Boolean>(false)
-    const [searchtext,setSearchText] = useState<string>(''); 
-  const STATUS ='Active'
+    const [searchtext,setSearchText] = useState<string>('');
+  const STATUS ='Active';
+  // Get the current year
+  const currentYear = new Date().getFullYear();
   return (
     <div className="px-2 bg-[#F7F7F7] ">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-                <FaHome /><Link href='/HCM/Dashboard'>Report Overview / </Link> 
+                <FaHome /><Link href='/HCM/Dashboard'>Report Overview / </Link>
         </div>
         <div className="bg-white border-2 h-[85vh] px-5 rounded-lg border-[#0000002]">
             <div className='py-4'>
@@ -39,24 +41,24 @@ const ReportFile = () => {
                                 <td className='py-5 text-center'>1</td>
                                 <td className='py-5 text-center'>Minisante Audit Status.pdf</td>
                                 <td className='py-5 text-center'>1.23MB</td>
-                                <td className='py-5 text-center'>12/02/2022</td>
+                                <td className='py-5 text-center'>12/02/{currentYear}</td>
                             </tr>
                             <tr className=' py-5 border-y-2 border-opacity-30 '>
                                 <td className='py-5 text-center'>1</td>
                                 <td className='py-5 text-center'>Minisante Audit Status.pdf</td>
                                 <td className='py-5 text-center'>1.23MB</td>
-                                <td className='py-5 text-center'>12/02/2022</td>
+                                <td className='py-5 text-center'>12/02/{currentYear}</td>
                             </tr>
                             <tr className=' py-5 border-y-2 border-opacity-30 '>
                                 <td className='py-5 text-center'>1</td>
                                 <td className='py-5 text-center'>Minisante Audit Status.pdf</td>
                                 <td className='py-5 text-center'>1.23MB</td>
-                                <td className='py-5 text-center'>12/02/2022</td>
+                                <td className='py-5 text-center'>12/02/{currentYear}</td>
                             </tr>
                         </tbody>
                 </table>
             </div>
-            
+
         </div>
     </div>
   )

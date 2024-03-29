@@ -73,6 +73,9 @@ const Signup = () => {
         setLoading(false);
         console.log("form data after loading", FormData);
     }
+
+    // Get the current year
+  const currentYear = new Date().getFullYear();
     return (
         <>
         {loading ? <LoaderCache/> :
@@ -85,14 +88,14 @@ const Signup = () => {
                     <div className=' justify-center'>
                         <h1 className='text-xl font-semibold '>HCM Corp</h1>
                         <p className='text-[#ffffffb3] text-[12px]'>HCM Appointment Status</p>
-                        <span className='text-[#ffffffb3] text-[12px]'>2022</span>
+                        <span className='text-[#ffffffb3] text-[12px]'>{currentYear}</span>
                     </div>
                 </div>
                 <div className='flex flex-col justify-center align-middle place-content-center  w-full text-center font-bold text-7xl place-items-center'>
                     <h1>HCM Appointment System</h1>
                 </div>
                 <div className='flex left-[25vw] absolute bottom-2 text-[white]'>
-                    <p>Copyright @ 2022 - International UN </p>
+                    <p>Copyright @ {currentYear} - International UN </p>
                 </div>
             </div>
             <div className="bg-white pt-10 md:pt-5 min-w-full md:px-0 px-[4em] md:min-w-[50vw] lg:min-w-1/2 lg:px-20 text-black p-5">
