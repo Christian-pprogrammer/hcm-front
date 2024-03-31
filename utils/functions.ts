@@ -143,3 +143,18 @@ export const toDate = (timestamp: any) => {
 export const getFormattedDate = (date: Date) => {
     return dateFormat(date).onlyDate()
 }
+
+export const unixTimeToUsualDate = (unixTimestamp: string) => {
+  // Create a new Date object using the Unix timestamp (in milliseconds)
+  const date = new Date(unixTimestamp);
+
+  // Extract the components of the date
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+  const day = String(date.getDate()).padStart(2, '0');
+
+  // Construct the date string in the desired format
+  const formattedDate = `${year}-${month}-${day}`;
+
+  return formattedDate;
+}

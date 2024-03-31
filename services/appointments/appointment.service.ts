@@ -52,5 +52,8 @@ class AppointmentService {
   getPaymentStatus(paymentId: string) {
     return http.get(`/payment/${paymentId}`);
   }
+  composeMessageForPatients(data: any) {
+    return http.post(`/compose-message`, data);
+  }
 }
 export default new AppointmentService();

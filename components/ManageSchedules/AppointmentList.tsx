@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { FaEllipsisH, FaHome, FaMap, FaPaperPlane} from 'react-icons/fa'
+import { FaMap } from 'react-icons/fa'
 import MapAppointments from './Modals/MapAppointments'
 import SendAppointments from './Modals/SendAppointments'
 import { notifyError } from '../alert'

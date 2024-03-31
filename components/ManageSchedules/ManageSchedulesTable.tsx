@@ -13,6 +13,7 @@ import { ISchedule } from "../../utils/ModalTypes";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import doctorService from "../../services/users/doctor.service";
+import { unixTimeToUsualDate } from "../../utils/functions";
 
 type DoctorNamesType = { [key: string]: string };
 
@@ -60,21 +61,6 @@ const ManageSchedulesTable = () => {
     }
     fetchData();
   }, []);
-
-  const unixTimeToUsualDate = (unixTimestamp: string) => {
-    // Create a new Date object using the Unix timestamp (in milliseconds)
-    const date = new Date(unixTimestamp);
-
-    // Extract the components of the date
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    const day = String(date.getDate()).padStart(2, '0');
-
-    // Construct the date string in the desired format
-    const formattedDate = `${year}-${month}-${day}`;
-
-    return formattedDate;
-  }
 
   const handleRowClick = (scheduleId: string) => {
     if (authUser?.role == "SCHEDULE_MANAGER") {
@@ -164,7 +150,9 @@ const ManageSchedulesTable = () => {
               <th scope="col" className="px-6 py-3">Appointment Slots</th>
               <th scope="col" className="px-6 py-3">Date of Start</th>
               <th scope="col" className="px-6 py-3">Number of days</th>
-              <th scope="col" className="px-6 py-3">Actions</th>
+              {authUser?.role == "SCHEDULE_MANAGER" &&
+                <th scope="col" className="px-6 py-3">Actions</th>
+              }
             </tr>
           </thead>
           <tbody>
@@ -172,38 +160,41 @@ const ManageSchedulesTable = () => {
               ScheduleData.map((schedule: any, key:number) => (
                 <tr
                   key={key++}
-                  onClick={() => handleRowClick(schedule.scheduleId)}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" onClick={() => handleRowClick(schedule.scheduleId)}>
                   {doctorNames[String(schedule.doctorId)] || 'Loading...'}
                   </th>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4" onClick={() => handleRowClick(schedule.scheduleId)}>
                     {
                       schedule?.scheduleStatus == "INCOMPLETE" || "ACTIVE" ? (<span className="text-[#45ff17] font-bold">Incomplete</span>): schedule?.scheduleStatus == "COMPLETED" ? (<span className="text-[#ff2e17] font-bold">Completed</span>): <span className="text-[#3a32d4] font-bold">Finished</span>
                     }
                   </td>
-                  <td className="px-6 py-4">{schedule?.serviceName}</td>
-                  <td className="px-6 py-4">{schedule?.appointmentNumber}</td>
-                  <td className="px-6 py-4">{unixTimeToUsualDate(schedule?.scheduleDates[0]?.date)}</td>
-                  <td className="px-6 py-4">{(schedule?.scheduleDates).length}</td>
-                  <td className="flex items-center px-6 py-4 space-x-3 text-backG">
-                    <button onClick={() => setEditModal(true)}>
-                      <FaPencilAlt />
-                    </button>
-                    <EditSchedule
-                      EditModal={EditModal}
-                      onClose={() => setEditModal(false)}
-                    />
-                    <button onClick={() => setDeleteModal(true)}>
-                      {" "}
-                      <FaTrash />
-                    </button>{" "}
-                    <DeleteSchedule
-                      showModal={DeleteModal}
-                      onClose={() => setDeleteModal(false)}
-                    />
-                  </td>
+                  <td className="px-6 py-4" onClick={() => handleRowClick(schedule.scheduleId)}>{schedule?.serviceName}</td>
+                  <td className="px-6 py-4" onClick={() => handleRowClick(schedule.scheduleId)}>{schedule?.appointmentNumber}</td>
+                  <td className="px-6 py-4" onClick={() => handleRowClick(schedule.scheduleId)}>{unixTimeToUsualDate(schedule?.scheduleDates[0]?.date)}</td>
+                  <td className="px-6 py-4" onClick={() => handleRowClick(schedule.scheduleId)}>{(schedule?.scheduleDates).length}</td>
+                  {authUser?.role == "SCHEDULE_MANAGER" &&
+                    <td className="flex items-center px-6 py-4 space-x-3 text-backG">
+                      <button onClick={() => setEditModal(true)}>
+                        <FaPencilAlt />
+                      </button>
+                      <EditSchedule
+                        EditModal={EditModal}
+                        onClose={() => setEditModal(false)}
+                        dates={schedule?.scheduleDates}
+                        scheduleId={schedule.scheduleId}
+                      />
+                      <button onClick={() => setDeleteModal(true)}>
+                        {" "}
+                        <FaTrash />
+                      </button>{" "}
+                      <DeleteSchedule
+                        showModal={DeleteModal}
+                        onClose={() => setDeleteModal(false)}
+                      />
+                    </td>
+                  }
                 </tr>
               ))
             ) : (
