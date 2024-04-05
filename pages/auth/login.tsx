@@ -36,8 +36,8 @@ export default function Login() {
     }
 
     useEffect(()=>{
-        !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? setEmailValid(false): setEmailValid(true);
-        !FormData.password.match(/^(?=.*[A-Z])(?=.*[\\W])(?=.*[0-9])(?=.*[a-z]).{8,30}$/) ? setPassValid(false): setPassValid(true);
+        !FormData.email.toLowerCase().match(/^(?:[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,})|^[\d]{9}$/) ? setEmailValid(false): setEmailValid(true);
+        !FormData.password.match(/^(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*()\-+=.,?])^.{8,30}$/) ? setPassValid(false): setPassValid(true);
     },[FormData]);
 
     const login = async (e: React.FormEvent<HTMLFormElement>) => {

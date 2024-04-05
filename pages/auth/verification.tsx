@@ -36,7 +36,7 @@ export default function Verification() {
             code: code,
           }));
         }
-        FormData.emailOrPhone.length < 9 || !FormData.emailOrPhone.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? setIsEmailValid(false): setIsEmailValid(true);
+        !FormData.emailOrPhone.toLowerCase().match(/^(?:[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,})|^[\d]{9}$/) ? setIsEmailValid(false): setIsEmailValid(true);
         FormData.code.length != 6 ? setIsCodeValid(false) : setIsCodeValid(true);
       } catch (error: any) {
         const ERROR_MESSAGE = error.response

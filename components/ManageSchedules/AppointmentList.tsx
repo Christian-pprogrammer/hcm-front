@@ -195,7 +195,7 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                                     <span className='text-[#00000043]'>{appointment.department}</span>
                                 </td>
                                 <td className='px-10 whitespace-nowrap text-center'>
-                                    <span className='text-[#00000043]'>{appointment.doctorName}</span>
+                                    <span className='text-[#00000043]'>{appointment?.showDoctor == true ? appointment.doctorName : ""}</span>
                                 </td>
                                 <td className='px-10  whitespace-nowrap py-2 text-center flex justify-center place-items-center '>
                                     {unixTimeToUsualDate(appointment.appointmentDate)}
