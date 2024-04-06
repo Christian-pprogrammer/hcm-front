@@ -10,6 +10,7 @@ import SignupInfo from '../../components/Auth/SignupInfo';
 import PersonalInfo from '../../components/Auth/PersonalInfo';
 import LocalInfo from '../../components/Auth/LocalInfo';
 import Image from 'next/image';
+import { emailValidation } from '../../utils/functions';
 
 const Signup = () => {
     const [FormPage, setFormPage] = useState<number>(0);
@@ -44,7 +45,7 @@ const Signup = () => {
 
     const handleValidity = (state: boolean) => {
       setIsValid(state);
-      (!FormData.fullName || !FormData.password.match(/^(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*()\-+=.,?])^.{8,30}$/) || !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) || FormData.mobile.length != 9 || !FormData.province || !FormData.district || !FormData.sector) ? setEnRegBtn(false) : setEnRegBtn(true);
+      (!FormData.fullName || !FormData.password.match(/^(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*()\-+=.,?])^.{8,30}$/) || !emailValidation(FormData.email) || FormData.mobile.length != 9 || !FormData.province || !FormData.district || !FormData.sector) ? setEnRegBtn(false) : setEnRegBtn(true);
     }
 
     const [loading, setLoading] = useState<Boolean>(false);

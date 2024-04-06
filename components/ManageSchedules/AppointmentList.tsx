@@ -7,6 +7,7 @@ import { notifyError } from '../alert'
 import appointmentService from '../../services/appointments/appointment.service'
 import { useSelector } from 'react-redux'
 import FetchDataLoader from '../loaders/FetchDataLoader'
+import { unixTimeToUsualDate } from "../../utils/functions";
 
 
 const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
@@ -73,21 +74,6 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
       return filteredAppointments;
     };
 
-    const unixTimeToUsualDate = (unixTimestamp: string) => {
-      // Create a new Date object using the Unix timestamp (in milliseconds)
-      const date = new Date(unixTimestamp);
-
-      // Extract the components of the date
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-      const day = String(date.getDate()).padStart(2, '0');
-
-      // Construct the date string in the desired format
-      const formattedDate = `${year}-${month}-${day}`;
-
-      return formattedDate;
-    }
-
     useEffect(() => {
       async function fetchAppointments() {
         const { scheduleId } = router.query;
@@ -151,15 +137,15 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                     {authUser?.role == "SCHEDULE_MANAGER" &&
                     <div className="md:flex hidden justify-end gap-4">
                         <div className='flex gap-2'>
-                            <button disabled={showAction ? false : true} onClick={() => setMapModal(true)} className='py-4 bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4 gap-2 rounded-lg'>
+                            <button disabled={showAction ? false : true} onClick={() => setSendAppModal(true)} className='py-4 bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4 gap-2 rounded-lg'>
                                 <FaMap className='text-backG' />
-                                <span>Map Appointment</span>
+                                <span>Reschedule App...nts</span>
                             </button>
+                            <SendAppointments SendAppModal={SendAppModal} onClose={() => setSendAppModal(false)} />
                             {/* <button onClick={() => setSendAppModal(true)} className='py-4 ripple text-[14px] bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4  rounded-lg  gap-6'>
                                 <FaPaperPlane className='text-backG' />
                                 <span>Send Appointment</span>
                             </button> */}
-                            <SendAppointments SendAppModal={SendAppModal} onClose={() => setSendAppModal(false)} />
                             {/* <MapAppointments appointmentId={appointment.appointment_id} MapModal={MapModal} onClose={() => setMapModal(false)} /> */}
                         </div>
                     </div>
@@ -194,7 +180,9 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                              className='bg-inputG group hover:cursor-pointer hover:bg-white duration-300 hover:drop-shadow-lg border-4 border-white py-4'
                             >
                                 <td className='py-2  text-center flex place-items-center  whitespace-nowrap  lg:px-5 '>
-                                    <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowActions((prev) => !prev)} />
+                                  {authUser?.role == "SCHEDULE_MANAGER" &&
+                                    <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowActions(true)} />
+                                  }
                                     <span className='text-[#00000043] pl-2 font-bold'>{appointment.time}</span>
                                 </td>
                                 {authUser?.role == "SCHEDULE_MANAGER" && <td className='py-2  whitespace-nowrap lg:px-5 text-center'>

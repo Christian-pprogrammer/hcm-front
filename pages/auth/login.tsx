@@ -205,16 +205,16 @@ export default function Login() {
                     <form className={`px-2 md:px-10 py-5`} method="post" onSubmit={login}>
                         <h1 className='font-bold text-xl'>Login</h1>
                         <div className='pt-8'>
-                            <label className='font-normal'>Email <span className='text-red-500 pl-2'>*</span> </label>
+                            <label className='font-normal'>Email or phone <span className='text-red-500 pl-2'>*</span> </label>
                             <div className='py-4'>
 
                                 <div className='flex hover:border-solid  hover:border-2 hover:rounded-md duration-500 rounded-md border-2 border-[white] hover:border-backG '>
                                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                                         <EmailIcon />
                                     </div>
-                                    <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="email" placeholder="Enter your email" />
+                                    <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your email" />
                                 </div>
-                                <small className={`text-[12px] ${!isEmailValid && 'text-red-500'}`}>{!isEmailValid ? "Please enter a valid email" : ""}</small>
+                                <small className={`text-[12px] ${!isEmailValid && 'text-red-500'}`}>{!isEmailValid ? "Please enter a valid email or phone" : ""}</small>
                             </div>
                         </div>
                         <div>

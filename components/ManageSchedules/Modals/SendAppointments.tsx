@@ -1,23 +1,41 @@
-import Multiselect from 'multiselect-react-dropdown';
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import { useSelector } from 'react-redux';
 import AppointmentService from '../../../services/appointments/appointment.service';
-import { SendAppointmentDataArr, SendAppointmentInterface } from '../../../utils/ModalTypes';
+import { ISchedule, SendAppointmentDataArr, SendAppointmentInterface } from '../../../utils/ModalTypes';
 import { PriceArr, PriceStructure } from '../../../utils/Prices';
 import AdvancedSendInfo from './AdvancedSendInfo';
 import BasicSendInfo from './BasicSendInfo';
+import scheduleService from '../../../services/schedules/schedule.service';
+import { notifyError } from '../../alert';
 
 const SendAppointments = ({ SendAppModal, onClose }: { SendAppModal: Boolean, onClose: any }) => {
+  const authUser = useSelector((state: any) => state.authUser);
     const [loading, setLoading] = React.useState(false);
     const [alertData, setAlertData] = React.useState({
         alert: false,
         message: "",
         class: "",
     });
+    const [ScheduleData, setScheduleData] = useState<ISchedule[]>([]);
     const [isBrowser, setBrowser] = useState<Boolean>(false)
     useEffect(() => {
-        setBrowser(true)
+        setBrowser(true);
+        async function fetchAppointments () {
+          try {
+            const schedules = await scheduleService.getHospitalSchedules(authUser.user.hospital.hospitalId);
+            console.log(schedules);
+            setScheduleData(schedules.data);
+          } catch (error: any) {
+            const ERROR_MESSAGE = error.response
+              ? error.response?.data?.error || "Not Fetched, try again!"
+              : error.error;
+            notifyError(ERROR_MESSAGE);
+          }
+        }
+        fetchAppointments();
     }, [])
+
     interface SelectedData{
         SelectedService : PriceStructure;
     }
@@ -62,7 +80,7 @@ const SendAppointments = ({ SendAppModal, onClose }: { SendAppModal: Boolean, on
             <div className="modal px-10 py-4 bg-white rounded-sm drop-shadow w-full md:w-1/2 lg:w-[30vw]">
                 <div className="modal-content">
                     <div className="modal-header py-2 flex justify-between">
-                        <h5 className="modal-title font-bold text-backG ">Send Appointment</h5>
+                        <h5 className="modal-title font-bold text-backG ">Reschedule Appointments</h5>
                         <button onClick={handleClose} type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { EmailIcon, EyeNoShowIcon, EyeShowIcon, KeyIcon, LockIcon, UsernameIcon } from '../../icons'
 import { FormStructure } from '../../utils/FormData'
+import {emailValidation} from "../../utils/functions";
 
 const SignupInfo = ({FormData,setFormData, onValidityChange} : {FormData:FormStructure , setFormData :any, onValidityChange: (newValidity: boolean) => void }) => {
     const [showPassword, setShowPasswords] = useState<Boolean>(false);
@@ -12,9 +13,10 @@ const SignupInfo = ({FormData,setFormData, onValidityChange} : {FormData:FormStr
     useEffect(()=>{
        !FormData.fullName ? setIsFullnameValid(false) : setIsFullnameValid(true);
        !FormData.password.match(/^(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*()\-+=.,?])^.{8,30}$/) ? setIsPasswordValid(false) : setIsPasswordValid(true);
-       !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? setIsEmailValid(false): setIsEmailValid(true);
+       emailValidation(FormData.email) ? setIsEmailValid(true): setIsEmailValid(false);
 
-       const isValid = !!(isFullnameValid && isPasswordValid && isEmailValid);
+
+       const isValid = !!(isFullnameValid && isPasswordValid);
        validityRef.current = isValid;
        onValidityChange(validityRef.current);
     },[FormData, isEmailValid, isFullnameValid, isPasswordValid, onValidityChange]);

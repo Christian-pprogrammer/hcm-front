@@ -154,7 +154,17 @@ export const unixTimeToUsualDate = (unixTimestamp: string) => {
   const day = String(date.getDate()).padStart(2, '0');
 
   // Construct the date string in the desired format
-  const formattedDate = `${year}-${month}-${day}`;
+  const formattedDate = `${day}-${month}-${year}`;
 
   return formattedDate;
 }
+
+export const emailValidation = (email: string) => {
+  // If the email is empty, return true
+  if (email === '') {
+    return true;
+  }
+
+  // Check if the email matches the regex pattern
+  return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email.toLowerCase());
+};

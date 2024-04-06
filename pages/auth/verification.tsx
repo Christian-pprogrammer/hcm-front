@@ -27,7 +27,7 @@ export default function Verification() {
         if (email && typeof email === "string") {
           setFormData((prevFormData) => ({
             ...prevFormData,
-            email: email,
+            emailOrPhone: email,
           }));
         }
         if (code && typeof code === "string") {
@@ -36,7 +36,7 @@ export default function Verification() {
             code: code,
           }));
         }
-        !FormData.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? setIsEmailValid(false): setIsEmailValid(true);
+        FormData.emailOrPhone.length < 9 || !FormData.emailOrPhone.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ? setIsEmailValid(false): setIsEmailValid(true);
         FormData.code.length != 6 ? setIsCodeValid(false) : setIsCodeValid(true);
       } catch (error: any) {
         const ERROR_MESSAGE = error.response
@@ -44,7 +44,7 @@ export default function Verification() {
           : error.error;
         notifyError(ERROR_MESSAGE);
       }
-    }, [FormData.code.length, FormData.email, code, email])
+    }, [FormData.code.length, FormData.emailOrPhone, code, email])
 
     const handleGoTo = (link: string | UrlObject) => {
         setTimeout(() => {
@@ -79,7 +79,7 @@ export default function Verification() {
             :
             <div className="bg-white h-screen flex-row-reverse flex ">
                 <Head>
-                        <title>{`Verify Email | ${app_config.APP_NAME_LOWER}`}</title>
+                        <title>{`Verify Email or phone | ${app_config.APP_NAME_LOWER}`}</title>
                     </Head>
                 <div className="relative md:flex hidden auth-image bg-backG">
                     <div className="absolute text-[12px] flex gap-4 top-0 p-5">
@@ -109,19 +109,19 @@ export default function Verification() {
                         </div>
                     </div>
                     <form className={`px-2 md:px-10 py-5`} method="post" onSubmit={verifyAccount}>
-                        <h1 className='font-bold text-xl'>Email verification</h1>
+                        <h1 className='font-bold text-xl'>Email or phone verification</h1>
 
                         <div className='pt-8'>
-                            <label className='font-normal'>Your Email <span className='text-red-500 pl-2'>*</span> </label>
+                            <label className='font-normal'>Your Email or phone <span className='text-red-500 pl-2'>*</span> </label>
                             <div className='py-4'>
 
                                 <div className='flex hover:border-solid  hover:border-2 hover:rounded-md duration-500 rounded-md border-2 border-[white] hover:border-backG '>
                                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                                         <EmailIcon />
                                     </div>
-                                    <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your email" />
+                                    <input value={FormData.emailOrPhone} onChange={(e)=>setFormData({...FormData, emailOrPhone:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your email or phone" />
                                 </div>
-                                <small className={`text-[12px] ${!isEmailValid && 'text-red-500'}`}>{!isEmailValid ? "Please enter a valid email" : ""}</small>
+                                <small className={`text-[12px] ${!isEmailValid && 'text-red-500'}`}>{!isEmailValid ? "Please enter a valid email or phone (start with 7..)" : ""}</small>
                             </div>
                         </div>
 
