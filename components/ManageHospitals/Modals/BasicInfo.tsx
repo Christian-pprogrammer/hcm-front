@@ -9,6 +9,9 @@ const BasicInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospital,
     if (!FormData.email) {
         errors.push("The Hospital email is required!");
     }
+    if (!FormData.mobile) {
+        errors.push("The Hospital mobile is required!");
+    }
     if (!FormData.paymentType) {
         errors.push("The Hospital's appointment type is required!");
     }
@@ -30,6 +33,12 @@ const BasicInfo = ({ FormData, setFormData, setIsValid }: { FormData: IHospital,
                     Email
                 </label>
                 <input value={FormData?.email} onChange={(e) => setFormData({ ...FormData, email: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Email" />
+            </div>
+            <div className="py-1">
+                <label className="block text-gray-700 text-sm font-bold">
+                    Mobile
+                </label>
+                <input value={FormData?.mobile} onChange={(e) => setFormData({ ...FormData, mobile: e.target.value })} className="shadow appearance-none bg-inputG hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="tel" placeholder="Mobile" />
             </div>
             <div className="py-1">
                 <label htmlFor="paymentType" className="block text-gray-700 text-sm font-bold">

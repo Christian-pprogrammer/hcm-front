@@ -18,6 +18,7 @@ export interface ICategory {
 }
 export interface IHospital {
   email: string;
+  mobile: string;
   hospitalCategoryId: string;
   hospitalId?: string;
   hospitalName: string;
@@ -31,6 +32,7 @@ export interface IHospital {
 
 export const IHospitalDummy: IHospital = {
   email: "",
+  mobile: "7",
   hospitalCategoryId: "",
   hospitalId: "",
   hospitalName: "",
