@@ -171,6 +171,19 @@ export interface ISchedule {
   dates?: any;
   start_time?: string;
   type?: string;
+  mobile: string;
+}
+
+export const IScheduleDummy: ISchedule = {
+  doctor_id: "",
+  appointmentNumber: "",
+  end_time: "",
+  hospital_id: "",
+  service_id: "",
+  dates: "",
+  start_time: "",
+  type: "",
+  mobile: ""
 }
 export interface SendAppointmentInterface {
   patientName: string;

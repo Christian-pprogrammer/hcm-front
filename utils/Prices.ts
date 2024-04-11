@@ -41,7 +41,7 @@ export interface INewService {
 }
 export interface AddServices {
   serviceIds: string[];
-  moible: string;
+  mobile: string;
 }
 export interface NewPriceInt {
     serviceName: string;

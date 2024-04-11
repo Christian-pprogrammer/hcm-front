@@ -1,8 +1,6 @@
 import Multiselect from "multiselect-react-dropdown";
 import React, { useEffect, useState } from "react";
 import { ISchedule, IUser } from "../../../utils/ModalTypes";
-import userService from "../../../services/users/user.service";
-import { notifyError } from "../../alert";
 import servicesService from "../../../services/services/services.service";
 import doctorService from "../../../services/users/doctor.service";
 import { useSelector } from "react-redux";
@@ -30,6 +28,9 @@ const BasicScheduleInfo = ({
   }
   if (!FormData.type) {
     errors.push("Select hour orientation");
+  }
+  if (FormData.mobile.length != 9) {
+    errors.push("Input the 9 phone number digits starting with 7")
   }
 
   useEffect(() => {
@@ -104,6 +105,12 @@ const BasicScheduleInfo = ({
               </option>
             ))}
         </select>
+      </div>
+      <div className="py-1">
+        <label className="block text-gray-700 text-sm font-bold">
+            Contact mobile:
+        </label>
+        <input value={FormData?.mobile} onChange={(e) => setFormData({ ...FormData, mobile: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Enter your number" />
       </div>
       <div className="py-1">
         <label className="block text-gray-700 text-sm font-bold">Hour Orientation</label>

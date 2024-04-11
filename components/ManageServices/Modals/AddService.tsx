@@ -13,7 +13,7 @@ const AddService = ({ showModal, onClose }: { showModal: Boolean, onClose: () =>
   }
   const [FormData, setFormData] = useState<AddServices>({
     serviceIds: [],
-    moible: ""
+    mobile: ""
   });
 
   const [isBrowser, setBrowser] = useState<Boolean>(false);
@@ -79,9 +79,9 @@ const AddService = ({ showModal, onClose }: { showModal: Boolean, onClose: () =>
                     </div>
                     <div className="py-1">
                       <label className="block text-gray-700 text-sm font-bold">
-                          Telephone
+                          Service mobile:
                       </label>
-                      <input value={FormData?.moible} onChange={(e) => setFormData({ ...FormData, moible: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Enter your number" />
+                      <input value={FormData?.mobile} onChange={(e) => setFormData({ ...FormData, mobile: e.target.value })} className="shadow hover:border-solid hover:border-2 duration-500 rounded-md hover:border-backG border-2 border-white appearance-none bg-inputG w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Enter your number" />
                     </div>
                     <div className="modal-footer flex py-4 justify-between">
                         <button type="button" className="btn ripple bg-slate-500 text-white py-2 px-6 lg:px-6 rounded-sm shadow-lg lg:py-2  btn-secondary" data-dismiss="modal" onClick={handleClose}>Close</button>

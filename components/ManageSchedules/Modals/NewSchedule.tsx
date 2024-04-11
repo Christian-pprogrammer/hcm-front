@@ -3,14 +3,14 @@ import * as ReactDOM from 'react-dom';
 import scheduleService from '../../../services/schedules/schedule.service';
 import AdvancedScheduleInfo from './AdvancedScheduleInfo';
 import BasicScheduleInfo from './BasicScheduleInfo';
-import { ISchedule } from '../../../utils/ModalTypes';
+import { ISchedule, IScheduleDummy } from '../../../utils/ModalTypes';
 import { notifyError, notifySuccess } from '../../alert';
 import { useSelector } from 'react-redux';
 
 const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: boolean, onClose: () => void }) => {
     const [loading, setLoading] = React.useState(false);
     const [isBrowser, setBrowser] = useState<boolean>(false);
-    const [FormData, setFormData] = useState<ISchedule>({});
+    const [FormData, setFormData] = useState<ISchedule>(IScheduleDummy);
     const authUser = useSelector((state: any) => state.authUser);
     const hospitalId = authUser.user.hospital.hospitalId;
     useEffect(() => {
@@ -37,12 +37,12 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: boolean,
             const res = await scheduleService.createSchedule(FormData);
             if (res.status === 200) {
                 notifySuccess('Successfully created the schedule.')
-                setFormData({});
+                setFormData(IScheduleDummy);
             }
         } catch (error: any) {
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Created, try again!" : error.error;
             notifyError(ERROR_MESSAGE);
-            setFormData({});
+            setFormData(IScheduleDummy);
         }
         onClose();
     }
