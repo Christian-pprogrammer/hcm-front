@@ -53,7 +53,11 @@ class AppointmentService {
     return http.get(`/payment/${paymentId}`);
   }
   composeMessageForPatients(data: any) {
-    return http.post(`/compose-message`, data);
+    return http.post(`/appointments/compose-message`, data);
+  }
+
+  rescheduleAppointments(data: any) {
+    return http.post(`/appointments/reschedule`, data);
   }
 }
 export default new AppointmentService();

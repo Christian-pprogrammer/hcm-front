@@ -3,17 +3,17 @@ import React, { useState } from 'react'
 import { FaCheck, FaHome} from 'react-icons/fa'
 import AcceptAll from './Modals/AcceptAll'
 
-import SendAppointments from './Modals/SendAppointments'
+import SendAppointments from './Modals/RescheduleAppointments'
 
 
 const ApproveAppointments = () => {
   const [showModal,setShowModal] = useState<Boolean>(false)
-  const [searchtext,setSearchText] = useState<string>(''); 
+  const [searchtext,setSearchText] = useState<string>('');
   const STATUS ='Active'
   return (
     <div className="px-2 bg-[#F7F7F7]">
         <div className="content-link py-2 text-backG text-[12px] flex gap-4">
-            <FaHome /><Link href='/HCM/Dashboard'>Notification /</Link> 
+            <FaHome /><Link href='/HCM/Dashboard'>Notification /</Link>
         </div>
         <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
             <div className="flex px-5 place-items-center justify-between gap-6 py-5">
@@ -69,7 +69,7 @@ const ApproveAppointments = () => {
                 <td className='px-10 whitespace-nowrap text-center'>
                     <span className='text-[#00000043]'>12/12/2021</span>
                 </td>
-                
+
                 <td className='px-10 whitespace-nowrap text-center flex place-items-center justify-center py-2 h-16 gap-6'>
                     <button className='text-red-500 bg-redlinearG w-10 h-10 border-2 border-red-500 flex justify-center place-items-center rounded-full font-bold '><span aria-hidden="true" className='text-xl'>&times;</span></button>
                     <button className='text-backG bg-linear w-10 h-10 border-2 border-backG flex justify-center place-items-center rounded-full font-bold '><FaCheck /></button>

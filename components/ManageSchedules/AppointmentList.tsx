@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { FaMap } from 'react-icons/fa'
 import MapAppointments from './Modals/MapAppointments'
-import SendAppointments from './Modals/SendAppointments'
+import RescheduleAppointments from './Modals/RescheduleAppointments'
 import { notifyError } from '../alert'
 import appointmentService from '../../services/appointments/appointment.service'
 import { useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
   const router = useRouter();
     const [MapModal, setMapModal] = useState<Boolean>(false);
     const [SendAppModal, setSendAppModal] = useState<Boolean>(false);
-    const [showAction, setShowActions] = useState<Boolean>(false);
+    const [selectedAppointments, setSelectedAppointments] = useState<string[]>([]);
     const [appointments, setAppointments] = useState<any[]>([]);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [selectedDepartment, setSelectedDepartment] = useState<string>('');
@@ -72,6 +72,18 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
     return filteredAppointments.slice(indexOfFirstItem, indexOfLastItem);
 
       return filteredAppointments;
+    };
+
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, appointmentId: string) => {
+      if (e.target.checked) {
+        // Checkbox is checked, add appointmentId to selectedAppointments
+        setSelectedAppointments((prevSelected) => [...prevSelected, appointmentId]);
+      } else {
+        // Checkbox is unchecked, remove appointmentId from selectedAppointments
+        setSelectedAppointments((prevSelected) =>
+          prevSelected.filter((id) => id !== appointmentId)
+        );
+      }
     };
 
     useEffect(() => {
@@ -137,11 +149,11 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                     {authUser?.role == "SCHEDULE_MANAGER" &&
                     <div className="md:flex hidden justify-end gap-4">
                         <div className='flex gap-2'>
-                            <button disabled={showAction ? false : true} onClick={() => setSendAppModal(true)} className='py-4 bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4 gap-2 rounded-lg'>
-                                <FaMap className='text-backG' />
-                                <span>Reschedule App...nts</span>
+                            <button disabled={selectedAppointments.length < 1 ? true : false} onClick={() => setSendAppModal(true)} className='py-4 bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4 gap-2 rounded-lg'>
+                              <FaMap className='text-backG' />
+                              <span>Reschedule App...nts</span>
+                              <RescheduleAppointments SendAppModal={SendAppModal} onClose={() => setSendAppModal(false)} appointments={selectedAppointments} />
                             </button>
-                            <SendAppointments SendAppModal={SendAppModal} onClose={() => setSendAppModal(false)} />
                             {/* <button onClick={() => setSendAppModal(true)} className='py-4 ripple text-[14px] bg-linear border-backG border-2 text-backG flex place-items-center justify-center px-4  rounded-lg  gap-6'>
                                 <FaPaperPlane className='text-backG' />
                                 <span>Send Appointment</span>
@@ -181,7 +193,12 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                             >
                                 <td className='py-2  text-center flex place-items-center  whitespace-nowrap  lg:px-5 '>
                                   {authUser?.role == "SCHEDULE_MANAGER" &&
-                                    <input type="checkbox" className="h-4 w-4 bg-inputG" onClick={() => setShowActions(true)} />
+                                    <input
+                                      type="checkbox"
+                                      className="h-4 w-4 bg-inputG"
+                                      checked={selectedAppointments.includes(appointment?.appointment_id)}
+                                      onChange={(e) => handleCheckboxChange(e, appointment?.appointment_id)}
+                                    />
                                   }
                                     <span className='text-[#00000043] pl-2 font-bold'>{appointment.time}</span>
                                 </td>
@@ -195,7 +212,7 @@ const AppointmentList = ({ onClose }: { onClose: any }, scheduleId: any) => {
                                     <span className='text-[#00000043]'>{appointment.department}</span>
                                 </td>
                                 <td className='px-10 whitespace-nowrap text-center'>
-                                    <span className='text-[#00000043]'>{appointment?.showDoctor == true ? appointment.doctorName : ""}</span>
+                                    <span className='text-[#00000043]'>{authUser?.role == "SCHEDULE_MANAGER" || appointment?.showDoctor == true ? appointment.doctorName : ""}</span>
                                 </td>
                                 <td className='px-10  whitespace-nowrap py-2 text-center flex justify-center place-items-center '>
                                     {unixTimeToUsualDate(appointment.appointmentDate)}
