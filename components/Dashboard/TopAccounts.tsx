@@ -7,7 +7,6 @@ interface TopAccountsProps {
 }
 
 const TopAccounts : React.FC<TopAccountsProps> = ({ hospitalAdmins }) => {
-  console.log(hospitalAdmins);
   return (
     <div className=" bg-backG min-w-[20vw] h-[75vh] hidden lg:block relative  rounded-lg">
       <div className="text-center gap-2 py-10 flex justify-center text-white place-items-center flex-col">

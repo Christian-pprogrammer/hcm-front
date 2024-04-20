@@ -6,6 +6,7 @@ import TopAccounts from './TopAccounts'
 import roleService from '../../services/role/role.service'
 import StatisticsService from '../../services/statistics/index.service';
 import { AdminHospital } from '../../utils/FormData'
+import { notifyError } from '../alert'
 
 const Content = () => {
   const [hospitalNo, setHospitalNo] = useState(0);
@@ -26,6 +27,7 @@ const Content = () => {
               setHospitalAdmins(data.data.hospitalAdmins);
           } catch (error: any) {
               const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Statistics fetching failed, reload the page!" : error.error;
+              notifyError(ERROR_MESSAGE);
           }
         }
         getSuperAdminStats();
