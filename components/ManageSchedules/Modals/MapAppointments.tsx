@@ -84,7 +84,7 @@ const MapAppointments = ({
           "Appointment booking failed, try again!"
         : error.error;
       notifyError(ERROR_MESSAGE);
-      handleClose;
+      handleClose();
     }
   };
 

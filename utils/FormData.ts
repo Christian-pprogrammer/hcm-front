@@ -40,3 +40,8 @@ export const VerificationFormData: FormVerificationStructure = {
     code: '',
     emailOrPhone: ''
 }
+
+export interface AdminHospital {
+  hospital: string;
+  hospitalAdmin: string;
+}

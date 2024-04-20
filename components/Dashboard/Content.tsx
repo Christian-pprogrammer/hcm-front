@@ -1,18 +1,34 @@
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaArrowUp, FaCheck, FaHome } from 'react-icons/fa'
 import Chart from './Chart'
-import TableAdmin from './TableAdmin'
 import TopAccounts from './TopAccounts'
-import TopReviews from './TopReviews'
 import roleService from '../../services/role/role.service'
+import StatisticsService from '../../services/statistics/index.service';
+import { AdminHospital } from '../../utils/FormData'
 
 const Content = () => {
+  const [hospitalNo, setHospitalNo] = useState(0);
+  const [usersNo, setUsersNo] = useState(0);
+  const [servicesNo, setServicesNo] = useState(0);
+  const [hospitalAdmins, setHospitalAdmins] = useState<AdminHospital[]>([]);
     useEffect(() => {
         async function handleRoleFetch() {
             const roles = await roleService.getAllRoles();
         }
-        handleRoleFetch()
+        handleRoleFetch();
+        async function getSuperAdminStats() {
+          try {
+              const data = await StatisticsService.getSuperAdminStats();
+              setHospitalNo(data.data.hospitalsCount);
+              setUsersNo(data.data.usersCount);
+              setServicesNo(data.data.servicesCount);
+              setHospitalAdmins(data.data.hospitalAdmins);
+          } catch (error: any) {
+              const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Statistics fetching failed, reload the page!" : error.error;
+          }
+        }
+        getSuperAdminStats();
     }, [])
 
     return (
@@ -36,44 +52,27 @@ const Content = () => {
 
                     <div className='flex lg:gap-8 gap-2 py-5 flex-col md:flex-row'>
                         <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 lg:h-[15vh] text-[12px] lg:text-base lg:w-60 py-5 px-2 lg:px-5 rounded-lg flex-col relative  bg-inputG'>
-                            <p>Total Account Registered </p>
-                            <p className=' text-center text-xl font-bold'>02</p>
-                            <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +2</span>
+                            <p>Total Hospitals Registered</p>
+                            <p className=' text-center text-xl font-bold'>{hospitalNo}</p>
+                            <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +</span>
                         </div>
                         <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 lg:h-[15vh] text-[12px] lg:text-base lg:w-60 py-5 px-2 lg:px-5 rounded-lg flex-col relative  bg-inputG'>
-                            <p>Total  Registered </p>
-                            <p className=' text-center text-xl font-bold'>02</p>
-                            <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +2</span>
+                            <p>Total  People Registered</p>
+                            <p className=' text-center text-xl font-bold'>{usersNo}</p>
+                            <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +</span>
                         </div>
                         <div className='flex hover:cursor-pointer duration-300 group hover:bg-backG hover:text-white hover:scale-110 lg:h-[15vh] text-[12px] lg:text-base lg:w-60 py-5 px-2 lg:px-5 rounded-lg flex-col relative  bg-inputG'>
-                            <p>Total Account Registered </p>
-                            <p className=' text-center text-xl font-bold'>02</p>
-                            <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +2</span>
+                            <p>Total services available</p>
+                            <p className=' text-center text-xl font-bold'>{servicesNo}</p>
+                            <span className='text-backG group-hover:text-black text-right flex absolute bottom-2 right-2 text-[12px]'><FaArrowUp /> +</span>
                         </div>
                     </div>
                     <div className='lg:max-w-[50vw] w-full '>
                         <Chart />
                     </div>
                 </div>
-                <TopAccounts />
+                <TopAccounts hospitalAdmins={hospitalAdmins} />
             </div>
-            <div className='flex gap-2'>
-                <div className='gap-2'>
-                    <div className='py-5'>
-                        <h1 className='font-bold'>Account Management</h1>
-                    </div>
-                    <div className='lg:max-w-[55vw] w-full bg-white border-2 rounded-lg h-[50vh] border-[#000000082] overflow-x-auto'>
-                        <TableAdmin />
-                    </div>
-                </div>
-                <div className='hidden lg:block'>
-                    <div className='py-5'>
-                        <h1 className='font-bold'>Top Reviews</h1>
-                    </div>
-                    <TopReviews />
-                </div>
-            </div>
-
         </div>
     )
 }

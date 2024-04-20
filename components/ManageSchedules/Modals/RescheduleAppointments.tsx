@@ -9,7 +9,7 @@ import AppointmentService from '../../../services/appointments/appointment.servi
 // import scheduleService from '../../../services/schedules/schedule.service';
 import { notifyError, notifySuccess } from '../../alert';
 
-const RescheduleAppointments = ({ SendAppModal, onClose, appointments }: { SendAppModal: Boolean, onClose: any, appointments: string[] }) => {
+const RescheduleAppointments = ({ SendAppModal, onClose, appointments }: { SendAppModal: Boolean, onClose: () => void, appointments: string[] }) => {
   const authUser = useSelector((state: any) => state.authUser);
     const [loading, setLoading] = React.useState(false);
 
@@ -44,9 +44,9 @@ const RescheduleAppointments = ({ SendAppModal, onClose, appointments }: { SendA
     //         return <AdvancedSendInfo FormData={FormData} setFormData={setFormData} />
     //     }
     // }
-    const handleClose = () => {
-        onClose()
-    }
+  const handleClose = () => {
+    onClose()
+  }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -55,8 +55,10 @@ const RescheduleAppointments = ({ SendAppModal, onClose, appointments }: { SendA
             const res = await AppointmentService.rescheduleAppointments(appointments);
             if (res.status === 200) {
                 notifySuccess(res.data.message || "Rescheduling appointments completed successfully.");
+                handleClose();
             } else {
                 notifyError(res.data.error || "Failed to reschedule, try again!");
+                handleClose();
             }
         }catch(error) {
             reportError(error);
@@ -69,7 +71,7 @@ const RescheduleAppointments = ({ SendAppModal, onClose, appointments }: { SendA
                 <div className="modal-content">
                     <div className="modal-header py-2 flex justify-between">
                         <h5 className="modal-title font-bold text-backG ">Reschedule Appointments</h5>
-                        <button onClick={handleClose} type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close">
+                        <button type="button" className="close text-backG hover:scale-125 duration-300 text-xl " data-dismiss="modal" aria-label="Close" onClick={handleClose}>
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
