@@ -84,6 +84,7 @@ function AppMeta() {
   const dispatch = useDispatch();
 
   const setUser = () => {
+    console.log(process.env?.NEXT_PUBLIC_API_URL);
     if (AuthService.isLoggedIn()) {
       if (!AuthService.tokenExpired()) {
         const token: any = AuthService.getDecToken();
