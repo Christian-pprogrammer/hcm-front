@@ -21,7 +21,6 @@ const ManageAdminHospitalPage = ({ id }: { id: any }) => {
               } else {
                 data = await hospitaladminService.getAllHospitalAdmins();
               }
-              console.log(data);
                 setmanageHospitalAdmin(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;

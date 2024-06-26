@@ -26,7 +26,7 @@ const ChangeServiceFee = ({ showModal, onClose }: { showModal: Boolean, onClose:
         e.preventDefault();
         try {
             setLoading(true);
-            console.log(FormData);
+            // console.log(FormData);
             const res = await SettingsService.createFee(FormData);
             if (res.data.status === 200) {
                 setAlertData({

@@ -84,14 +84,12 @@ function AppMeta() {
   const dispatch = useDispatch();
 
   const setUser = () => {
-    console.log(process.env?.NEXT_PUBLIC_API_URL);
     if (AuthService.isLoggedIn()) {
       if (!AuthService.tokenExpired()) {
         const token: any = AuthService.getDecToken();
         UserService.get(jwtDecode<any>(token).user.id)
           .then((res) => {
             const curr_user = updateJavaScriptObject(jwtDecode(token), res.data);
-            console.log("Current User",curr_user);
             curr_user.fullNames = res.data.fullName;
             curr_user.role = res.data.roles[0].role;
             dispatch(setAuthUser(curr_user));

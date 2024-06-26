@@ -32,7 +32,6 @@ const AddNewDoctor = ({ showModal, onClose }: { showModal: Boolean, onClose: () 
         try {
                 FormData.hospitalId = AuthUser.user?.hospital?.hospitalId;
                 FormData.confirmPassword = FormData.password;
-                console.log(FormData);
                 let result = await doctorService.createDoctor(FormData);
                 if (result.status === 200) {
                     notifySuccess("Successfully created a new doctor");
@@ -43,7 +42,6 @@ const AddNewDoctor = ({ showModal, onClose }: { showModal: Boolean, onClose: () 
         } catch (error: any) {
             const ERROR_MESSAGE = error.response ? error.response?.data?.message || "Not Created, try again!" : error.error;
             notifyError(ERROR_MESSAGE);
-            console.log(error);
             setFormData(IUserImpl);
         }
     }

@@ -61,7 +61,7 @@ export default function Verification() {
             setLoading(false);
             Router.push('/auth/login')
         } catch (e: any) {
-            console.log("rr" ,e)
+            // console.log("rr" ,e)
             const ERROR_MESSAGE = e.response ? e.response?.data?.message || "Sorry, try again!" : e.error;
             notifyError(ERROR_MESSAGE);
         }

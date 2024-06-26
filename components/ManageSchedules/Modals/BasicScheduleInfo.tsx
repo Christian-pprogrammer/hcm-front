@@ -38,7 +38,6 @@ const BasicScheduleInfo = ({
       try {
         // const data = await servicesService.getHospitalServices(hospitalId);
         const data = await servicesService.getAllServices();
-        console.log(data);
         setServiceArr(data.data);
       } catch (error: any) {
         const ERROR_MESSAGE = error.response
@@ -53,7 +52,6 @@ const BasicScheduleInfo = ({
   async function fetchDoctors(servId: string) {
     try {
       const doctor_arr_data = await doctorService.getDoctorsByHospitalAndService(hospitalId, servId);
-      console.log(doctor_arr_data.data);
       setDoctorArr(doctor_arr_data.data.data);
     } catch (error: any) {
       const ERROR_MESSAGE = error.response

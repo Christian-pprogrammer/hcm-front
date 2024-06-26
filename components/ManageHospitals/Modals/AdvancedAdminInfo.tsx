@@ -61,8 +61,6 @@ const AdvancedInfoAdmin = ({
       const response = await hospitalService.getAllHospitals();
       const data = response.data;
       setHospitals(data);
-      console.log("Set state", hospitals);
-      console.log("Fetched hospitals", data);
     } catch (error: any) {
       const ERROR_MESSAGE = error.response
         ? error.response?.data?.error || "Admin creation failed, try again!"

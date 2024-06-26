@@ -50,7 +50,7 @@ const RescheduleAppointments = ({ SendAppModal, onClose, appointments }: { SendA
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            console.log(FormData);
+            // console.log(FormData);
             setLoading(true);
             const res = await AppointmentService.rescheduleAppointments(appointments);
             if (res.status === 200) {

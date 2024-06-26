@@ -36,7 +36,6 @@ const ManageSchedulesTable = () => {
         } else {
           schedules = await scheduleService.getAllSchedules();
         }
-        console.log(schedules);
         setScheduleData(schedules.data);
 
         // Fetch doctor names for each schedule

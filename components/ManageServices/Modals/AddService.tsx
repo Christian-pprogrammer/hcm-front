@@ -47,7 +47,7 @@ const AddService = ({ showModal, onClose }: { showModal: Boolean, onClose: () =>
     }
     const handleClick = async (e: any) => {
         e.preventDefault();
-        console.log(FormData);
+        // console.log(FormData);
         try {
             const hospitalId = await authUser.user?.hospital?.hospitalId;
             let result = await servicesService.addServiceToHospital(hospitalId, FormData);

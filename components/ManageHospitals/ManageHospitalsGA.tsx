@@ -18,7 +18,6 @@ const ManageHospitalsGA = () => {
         async function fetchData() {
             try {
                 const data = await hospitalService.getAllHospitals();
-                console.log(data);
                 setManageHospitalData(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Failure, try again!" : error.error;

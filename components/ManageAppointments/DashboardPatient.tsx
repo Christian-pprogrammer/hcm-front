@@ -13,7 +13,6 @@ const DashboardPatient = (data:any): JSX.Element => {
     const [showModal, setShowModal] = useState<Boolean>(false)
     const [showAction, setShowActions] = useState<Boolean>(false)
     const STATUS = 'Active'
-    console.log("Patient Data Log",data)
     return (
         <div className="px-2 bg-[#F7F7F7]">
             <div className="content-link py-2 text-backG text-[12px] flex gap-4">

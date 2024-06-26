@@ -41,10 +41,7 @@ const MapAppointments = ({
       const bookAppintment = await appointmentService.bookAppintment(
         appointmentId
       );
-      console.log("Response for booking the appointment", bookAppintment);
       const paymentCreds = await appointmentService.payForAppointment(FormData);
-      console.log("Our form data", FormData);
-      console.log("Paid for appointment", paymentCreds);
 
       if (paymentCreds.status === 200) {
         const id = setInterval(async () => {
@@ -52,7 +49,7 @@ const MapAppointments = ({
             const res = await appointmentService.getPaymentStatus(
               paymentCreds.data.payment_id
             );
-            console.log("Payment status: ", res);
+            // console.log("Payment status: ", res);
             // Check if response is FAILED or SUCCESSFUL
             if (res.data == "FAILED") {
               clearInterval(id);

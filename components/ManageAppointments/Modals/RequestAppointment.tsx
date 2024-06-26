@@ -38,7 +38,6 @@ const RequestAppointment = ({ showModal, onClose }: { showModal: Boolean, onClos
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            console.log(FormData);
             setLoading(true);
             const res = await AppointmentService.createAppointment("kjadh129aklsd12k" /* this should be changed into real appointment id */,FormData);
             if (res.data.status === 200) {

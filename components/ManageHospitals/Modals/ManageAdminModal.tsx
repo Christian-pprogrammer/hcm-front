@@ -30,9 +30,7 @@ const ManageAdminModal = ({ showModal, onClose, id }: { showModal: Boolean, onCl
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-          console.log(FormDataAdmin);
             let result = await hospitaladminService.createHospitalAdmin(FormDataAdmin);
-            console.log("The result", result)
             if (result.status === 200) {
                 notifySuccess("Successfully Created the Hospital Admin");
                 setFormDataAdmin(IHospitalAdminDummy);

@@ -83,7 +83,6 @@ const AdvancedDoctorInfo = ({ FormData, setFormData }: { FormData: IUser, setFor
         async function fetchData() {
             try {
                 const data = await servicesService.getAllServices();
-                console.log(data.data);
                 setServiceArr(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Services Error, try again!" : error.error;

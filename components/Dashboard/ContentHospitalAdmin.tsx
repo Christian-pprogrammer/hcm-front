@@ -18,7 +18,6 @@ const ContentHospitalAdmin = () => {
         async function getSuperAdminStats() {
           try {
               const data = await StatisticsService.getHospitalAdminStats(hospitalId);
-              console.log(data);
               setReschedules(data.data.bookedAppointments);
               setBookedApps(data.data.bookedAppointments);
               setAvailableSchs(data.data.availableSchedules);

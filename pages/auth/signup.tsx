@@ -53,10 +53,10 @@ const Signup = () => {
         e.preventDefault();
         setLoading(true);
         try{
-            console.log("The Formdata",FormData)
+            // console.log("The Formdata",FormData)
             const res = await AuthService.signup(FormData);
 
-            console.log(res.status);
+            // console.log(res.status);
 
             if(res.status == 200){
                 notifySuccess(res.data.message || "Successfully Registered")
@@ -72,7 +72,7 @@ const Signup = () => {
             }
         }
         setLoading(false);
-        console.log("form data after loading", FormData);
+        // console.log("form data after loading", FormData);
     }
 
     // Get the current year

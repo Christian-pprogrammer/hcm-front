@@ -33,7 +33,7 @@ const NewSchedule = ({ NewScheduleModal, onClose }: { NewScheduleModal: boolean,
         try {
             setLoading(true);
             FormData.hospital_id = hospitalId;
-            console.log(FormData);
+            // console.log(FormData);
             const res = await scheduleService.createSchedule(FormData);
             if (res.status === 200) {
                 notifySuccess('Successfully created the schedule.')

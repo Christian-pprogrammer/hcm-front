@@ -23,7 +23,7 @@ const NewMessageTemplate = ({ NewMessageModal, onClose }: { NewMessageModal: Boo
         e.preventDefault();
         try {
             setLoading(true);
-            console.log(FormData);
+            // console.log(FormData);
             const res = await SettingsService.createTemplate(FormData);
             if (res.data.status === 200) {
                 setAlertData({

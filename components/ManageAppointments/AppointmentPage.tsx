@@ -6,14 +6,13 @@ import groupAdminService from '../../services/users/group-admin.service';
 import { notifyError, notifySuccess } from '../alert';
 import RequestAppointment from './Modals/RequestAppointment';
 
-//Landing Page Appointment 
+//Landing Page Appointment
 
 const AppointmentPage = (data:any) => {
     const [searchtext, setSearchText] = useState<string>('');
     const [showModal, setShowModal] = useState<Boolean>(false)
     const STATUS = 'Active';
-    console.log("GROUP ADMIN SECTION",data);
-    
+
     return (
             <div className="bg-white border-2 h-[85vh]  rounded-lg border-[#0000002]">
                 <div className="flex px-5 place-items-center justify-between gap-6 py-5">

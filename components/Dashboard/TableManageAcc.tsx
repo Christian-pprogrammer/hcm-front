@@ -17,7 +17,6 @@ const TableManageAcc = () => {
         async function fetchData() {
             try {
                 const data = await hospitaladminService.getAllHospitalAdmins();
-                console.log("data...", data)
                 setmanageAccData(data.data);
             } catch (error: any) {
                 const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Failure, try again!" : error.error;

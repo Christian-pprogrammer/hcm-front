@@ -33,7 +33,7 @@ const NewServices = ({ showModal, onClose }: { showModal: Boolean, onClose: () =
         e.preventDefault();
         try {
             let result = await servicesService.createService(FormData);
-            console.log("The result:", result);
+            // console.log("The result:", result);
             if (result.status === 200) {
                 notifySuccess("Successfully created the service");
                 setFormData({

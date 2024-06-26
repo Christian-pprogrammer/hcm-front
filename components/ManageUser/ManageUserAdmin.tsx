@@ -16,7 +16,7 @@ const ManageUserAdmin = () => {
     async function fetchData() {
         try {
             const data = await userService.getAll();
-            console.log(data.data);
+            // console.log(data.data);
             setmanageUserData(data.data?.filter((user: IUser) => (user.roles[0].role == system_users.SCHEDULE_MANAGER)));
         } catch (error: any) {
             const ERROR_MESSAGE = error.response ? error.response?.data?.error || "Not Fetched, try again!" : error.error;

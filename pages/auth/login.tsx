@@ -45,16 +45,13 @@ export default function Login() {
         try {
             setLoading(true);
             const res = await AuthService.login(FormData);
-            console.log("The Response",res)
             AuthService.setToken(res.data.accessToken);
             const decodedToken: any = jwtDecode(res.data.accessToken);
-            console.log("The Decoded Token",decodedToken)
             const roles = decodedToken.user.roles;
             let role = '';
             if(roles.length > 1) {
                 setIsModalOpen(true);
                 setAvailableRoles(roles);
-                console.log("there sare modal roles",roles)
             }else{
                 role = roles[0]?.role;
                 notifySuccess("Logged In Successful");
@@ -87,10 +84,8 @@ export default function Login() {
                 }
             setLoading(false);
             }
-            console.log("role...", role)
 
         } catch (e: any) {
-            console.log("this is the errrrrr" ,e)
             const ERROR_MESSAGE = e.response ? e.response?.data?.error || "Sorry, try again!" : e.error;
             notifyError(ERROR_MESSAGE);
             setFormData(FormDummy);
@@ -174,7 +169,6 @@ export default function Login() {
                         isModalOpen && (
                             <Modal
                                 showModal={true}
-                                onClose={()=>console.log('closee....')}
                             >
                                 <label>
                                     Which role do you want to login as? <br />
