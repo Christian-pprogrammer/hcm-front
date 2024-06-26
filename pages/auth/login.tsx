@@ -168,6 +168,7 @@ export default function Login() {
                     {
                         isModalOpen && (
                             <Modal
+                              onClose={()=>console.log('closee....')}
                                 showModal={true}
                             >
                                 <label>

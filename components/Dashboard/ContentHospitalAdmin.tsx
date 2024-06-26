@@ -27,7 +27,7 @@ const ContentHospitalAdmin = () => {
           }
         }
         getSuperAdminStats();
-    }, [])
+    }, [hospitalId])
 
     return (
         <div className="px-2  py-4">
