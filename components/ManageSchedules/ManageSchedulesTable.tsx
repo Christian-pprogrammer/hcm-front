@@ -59,7 +59,7 @@ const ManageSchedulesTable = () => {
       }
     }
     fetchData();
-  }, [authUser?.role, authUser.user.hospital.hospitalId]);
+  }, [authUser?.role]);
 
   const handleRowClick = (scheduleId: string) => {
     if (authUser?.role == "SCHEDULE_MANAGER") {
