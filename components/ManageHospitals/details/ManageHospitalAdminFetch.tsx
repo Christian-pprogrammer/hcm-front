@@ -9,7 +9,7 @@ const ManageHospitalAdminFetch = ({ user }: { user: IUser }) => {
                 <span>{user.fullName}</span>
             </td>
             <td className='py-2 px-10'>
-                {user.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
+                {user.status == "ACTIVE" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
             </td>
             <td className='py-2 whitespace-nowrap'>
                 <span>{user.email}</span>

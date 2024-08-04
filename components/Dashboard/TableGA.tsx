@@ -44,7 +44,7 @@ const TableGA = () => {
                             <span className='text-[#00000043]'>{hospital.email}</span>
                         </td>
                         <td className='px-10  whitespace-nowrap flex py-2 place-items-center align-middle justify-center'>
-                            {hospital.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] place-items-center font-bold'>Inactive</span>}
+                            {hospital.status == "ACTIVE" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] place-items-center font-bold'>Inactive</span>}
                         </td>
                         <td className='px-10 whitespace-nowrap text-center'>
                             <span className='text-[#00000043]'>{hospital.createdAt}</span>

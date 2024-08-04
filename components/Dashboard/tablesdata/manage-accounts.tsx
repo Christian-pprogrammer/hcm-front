@@ -15,7 +15,7 @@ const ManageAccountsFetchData = ({ acc }: { acc: IGroup }) => {
                 <h1 className='font-bold '>{acc.groupName}</h1>
             </td>
             <td className='px-10 whitespace-nowrap  py-2  place-items-center align-middle justify-center'>
-                {acc.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
+                {acc.status == "ACTIVE" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
             </td>
             <td className='flex  whitespace-nowrap py-4 justify-center px-10 place-items-center '>
                 <span className='text-white rounded-full text-[14px] font-bold w-12 h-12 flex place-items-center justify-center bg-backG border-2 border-white'>KG</span>

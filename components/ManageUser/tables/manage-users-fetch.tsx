@@ -15,7 +15,7 @@ const ManageUsersFetch = ({ user }: any) => {
                 <span>{user.username || user.fullName}</span>
             </td>
             <td className='px-10 whitespace-nowrap py-2'>
-                {!(user.status == "Active") ? <div className='text-backG bg-linear w-10 h-10 border-2 border-backG flex justify-center place-items-center rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
+                {!(user.status == "ACTIVE") ? <div className='text-backG bg-linear w-10 h-10 border-2 border-backG flex justify-center place-items-center rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold'>Inactive</span>}
             </td>
             <td className='px-10 whitespace-nowrap'>
                 <span>{user?.role?.role}</span>
