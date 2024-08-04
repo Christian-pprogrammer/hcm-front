@@ -16,9 +16,6 @@ const ManageHospitalsFetch = ({ hospital }: { hospital: IHospital }) => {
                 <h1 className='font-bold '>{hospital.hospitalName}</h1>
                 <span className='text-[#00000073]'>{hospital.location}</span>
             </td>
-            <td className='px-10 whitespace-nowrap py-2'>
-                {hospital.status == "Active" ? <div className='text-backG bg-linear w-14 h-14 border-2 border-backG flex justify-center place-items-center text-xl rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] font-bold text-center'>Inactive</span>}
-            </td>
             <td className='whitespace-nowrap'>
                 <span className='text-[#00000043]'>{hospital.email}</span>
             </td>

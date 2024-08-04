@@ -63,7 +63,6 @@ const ManageHospitalsGA = () => {
                         <thead>
                             <tr className='text-left'>
                                 <th className='py-5 text-[#000000c8] text-sm px-10'>Accounts</th>
-                                <th className='py-5 text-[#000000c8] text-sm px-10'>Status</th>
                                 <th className='py-5 text-[#000000c8] text-sm'>Email</th>
                                 <th className='py-5 text-[#000000c8] text-sm'>Issued On</th>
                                 <th className='py-5 text-[#000000c8] text-sm px-10'>Actions</th>
