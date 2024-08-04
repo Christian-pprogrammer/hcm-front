@@ -17,7 +17,7 @@ const ServicesFetchHA = ({ service, showModal }: { service: IService, showModal:
                 {service.service}
             </td>
             <td scope="row" className="py-4 px-6  font-medium text-gray-900 whitespace-nowrap ">
-                {(service.status === "Active") ? <div className='text-backG bg-linear w-10 h-10 border-2 border-backG flex justify-center place-items-center  rounded-full font-bold '><FaCheck /></div> : <span className='text-[#FF1744] py-2 font-bold'>Inactive</span>}
+                <div className='text-backG bg-linear w-10 h-10 border-2 border-backG flex justify-center place-items-center  rounded-full font-bold '><FaCheck /></div>
             </td>
             <td className='px-6 py-4'>
                 {service.createdAt}
