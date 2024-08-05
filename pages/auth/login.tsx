@@ -36,15 +36,32 @@ export default function Login() {
     }
 
     useEffect(()=>{
-        !FormData.email.toLowerCase().match(/^(?:[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,})|^[\d]{9}$/) ? setEmailValid(false): setEmailValid(true);
+        !FormData.email
+          .toLowerCase()
+          .match(
+            /^(?:[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,})|^[\d]{10}$/
+          )
+          ? setEmailValid(false)
+          : setEmailValid(true);
         !FormData.password.match(/^(?=.*[A-Za-z0-9])(?=.*[!@#$%^&*()\-+=.,?])^.{8,30}$/) ? setPassValid(false): setPassValid(true);
     },[FormData]);
 
     const login = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
+            let submitData = {
+                email: '',
+                password: ''
+            }
+            if (FormData.email.startsWith("0") && /^\d{10}$/.test(FormData.email)) {
+                submitData.email = FormData.email.slice(1)
+                submitData.password = FormData.password
+            }else{
+                submitData.email = FormData.email
+                submitData.password = FormData.password
+            }
             setLoading(true);
-            const res = await AuthService.login(FormData);
+            const res = await AuthService.login(submitData);
             AuthService.setToken(res.data.accessToken);
             const decodedToken: any = jwtDecode(res.data.accessToken);
             const roles = decodedToken.user.roles;
@@ -207,7 +224,7 @@ export default function Login() {
                                     <div className='flex rounded-l-md place-items-center justify-center bg-inputG p-2'>
                                         <EmailIcon />
                                     </div>
-                                    <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your email" />
+                                    <input value={FormData.email} onChange={(e)=>setFormData({...FormData,email:e.target.value})} className=' place-items-center align-middle w-full px-2 py-4 bg-inputG outline-none rounded-r-md  text-backG ' type="text" placeholder="Enter your email or phone" />
                                 </div>
                                 <small className={`text-[12px] ${!isEmailValid && 'text-red-500'}`}>{!isEmailValid ? "Please enter a valid email or phone" : ""}</small>
                             </div>
@@ -231,7 +248,7 @@ export default function Login() {
                             </div>
                         </div>
                         <div className='pt-6'>
-                            <button type='submit' className='py-5 bg-backG text-white w-full font-bold btn '>Login</button>
+                            <button type='submit' className='py-5 bg-backG text-white w-full font-bold btn ' disabled={!isEmailValid}>Login</button>
                         </div>
                     </form>
                     <div className='px-2 md:px-10 py-2 text-left text-[12px]'>
